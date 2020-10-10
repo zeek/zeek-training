@@ -1,0 +1,12 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	notice
+#open	2020-10-10-01-13-37
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	fuid	file_mime_type	file_desc	proto	note	msg	sub	src	dst	p	n	peer_descr	actions	suppress_for	remote_location.country_code	remote_location.region	remote_location.city	remote_location.latitude	remote_location.longitude
+#types	time	string	addr	port	addr	port	string	string	string	enum	enum	string	string	addr	addr	port	count	string	set[enum]	interval	string	string	string	double	double
+1601881609.964763	CJ146Xe0SzPmxiSI7	59.144.161.171	60917	128.3.140.172	445	-	-	-	tcp	trainings::Remote	connection on 445/tcp seen	-	59.144.161.171	128.3.140.172	445	-	-	Notice::ACTION_LOG	3600.000000	-	-	-	-	-
+1601890890.817940	C7lNtfOMwt6ZVMVL2	59.144.161.171	49849	131.243.82.122	445	-	-	-	tcp	trainings::Remote	connection on 445/tcp seen	-	59.144.161.171	131.243.82.122	445	-	-	Notice::ACTION_LOG	3600.000000	-	-	-	-	-
+1601961956.176996	C9pEmE3LPkBn5kQJo5	59.144.161.171	51992	131.243.45.186	445	-	-	-	tcp	trainings::Remote	connection on 445/tcp seen	-	59.144.161.171	131.243.45.186	445	-	-	Notice::ACTION_LOG	3600.000000	-	-	-	-	-
+#close	2020-10-10-01-13-37

@@ -1,0 +1,3 @@
+Problem 4) can we keep track of start and end times for ip pairs
+Problem 15) Extra-credit: You've got a list of blacklisted IP addresses. You need to find how many of those IPs attempted connection, when was first_seen, last_seen, how long they\xe2\x80\x99ve been active for, last_active, how many hosts they touched, how many total
+ connections ?   - extra + credit - the list is 10M IPs.

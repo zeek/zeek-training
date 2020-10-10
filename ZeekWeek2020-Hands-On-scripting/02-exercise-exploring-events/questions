@@ -1,0 +1,25 @@
+[for all the exercise use: 1-connection.pcap]
+
+0-0) Familiar with running zeek  	
+1-a) Familiar with connection record  	
+1-b) Familiar with events 		
+1-c) rudimentary data structures  - port  	
+1-d) rudimentary data structures - address  	
+1-e) rudimentary data structures - subnet  	
+
+Task 1: Calculate and print total bytes used by this connection ? 
+Hints:  (i) need to know difference between events and which fires when - see event new_connection vs event connection_state_remove  
+	(ii) Differece between orig_bytes, resp_bytes vs orig_ip_bytes, resp_ip_bytes 
+
+new_connection: # note: orig=[size=0, state=0, num_pkts=0, num_bytes_ip=0 ]
+new_connection: # note: resp=[size=0, state=0, num_pkts=0, num_bytes_ip=0 ]
+
+Task 2: try zeek with 2-conn.pcap - What else do you see ? 
+
+Task 3:  why do different traces show different connection events triggering : use ex2-f-conn-events.zeek
+	(i) zeek -r ../Traces/2-conn.pcap ex2-f-conn-events.zeek
+	(ii) zeek -r Traces/conn_attempt.pcap ex2-f-conn-events.zeek 
+
+Also compare history, conn_state fields for both 
+
+

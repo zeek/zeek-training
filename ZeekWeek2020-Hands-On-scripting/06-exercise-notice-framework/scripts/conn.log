@@ -1,0 +1,19 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	conn
+#open	2020-10-10-01-13-37
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	service	duration	orig_bytes	resp_bytes	conn_state	local_orig	local_resp	missed_bytes	history	orig_pkts	orig_ip_bytes	resp_pkts	resp_ip_bytes	tunnel_parents
+#types	time	string	addr	port	addr	port	enum	string	interval	count	count	string	bool	bool	count	string	count	count	count	count	set[string]
+1601881609.964763	CJ146Xe0SzPmxiSI7	59.144.161.171	60917	128.3.140.172	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883141.234466	CBz8ZiyoN7p7fFSB	59.144.161.171	62037	128.3.128.201	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883168.732909	Ccs4HH1NHRVMp8UpY7	59.144.161.171	51382	128.3.159.24	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883226.059303	Cj5qhA4MKMZWQPqqJh	59.144.161.171	63276	128.3.56.150	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883261.296262	CZq47u1CDoSDkYVf8e	59.144.161.171	53436	128.3.149.136	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883310.811071	CkO9at1nKoPZCL4KXd	59.144.161.171	62736	128.3.16.125	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883499.182156	C5Cpkz2RiTDobQg2U1	59.144.161.171	53006	128.3.37.159	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601883554.228905	CYHVy033Q3kMhlfgbl	59.144.161.171	64446	128.3.218.96	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601890890.817940	C7lNtfOMwt6ZVMVL2	59.144.161.171	49849	131.243.82.122	445	tcp	-	-	-	-	S0	F	F	0	S	1	48	0	0	-
+1601961956.176996	C9pEmE3LPkBn5kQJo5	59.144.161.171	51992	131.243.45.186	445	tcp	-	-	-	-	S0	F	F	0	S	1	52	0	0	-
+#close	2020-10-10-01-13-37
