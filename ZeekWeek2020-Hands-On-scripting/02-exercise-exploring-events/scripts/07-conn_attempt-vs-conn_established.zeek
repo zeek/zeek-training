@@ -44,3 +44,10 @@ event zeek_done()
 	print fmt ("zeek -r Traces/http.pcap scripts/07-conn_attempt-vs-conn_established.zeek"); 
 	print fmt ("why does the conn_attempt kicks on one trace while established on other ? )" ; 
 } 
+event zeek_init()
+{
+        print fmt ("") ;
+        print fmt ("================================================================================");
+        print fmt ("Run as: zeek -r Traces/07-conn_attempt-vs-conn_established.zeek scripts/07-conn_attempt-vs-conn_established.zeek"); 
+        print fmt ("================================================================================");
+}

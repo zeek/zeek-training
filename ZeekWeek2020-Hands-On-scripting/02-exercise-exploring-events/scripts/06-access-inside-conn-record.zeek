@@ -17,3 +17,11 @@ event connection_state_remove(c: connection)
 		print fmt("%s attempted a %s connection to %s on port %s", orig, service, resp, dst_port); 
 }
 
+
+event zeek_init()
+{
+        print fmt ("") ;
+        print fmt ("================================================================================");
+        print fmt ("Run as: zeek -r Traces/06-access-inside-conn-record.zeek scripts/06-access-inside-conn-record.zeek"); 
+        print fmt ("================================================================================");
+}

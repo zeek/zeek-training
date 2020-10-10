@@ -45,4 +45,12 @@ event zeek_done()
         print fmt ("Uniq remote IPs seen");
         for (ip in remote_hosts)
                 print fmt ("%s", ip) ;
+
+
+	print fmt ("membership counts"); 
+	print fmt ("uniq services seen: %s ", |services|) ;
+
+        print fmt ("Uniq remote IPs seen: %s", |remote_hosts|) ;
+
 }
+

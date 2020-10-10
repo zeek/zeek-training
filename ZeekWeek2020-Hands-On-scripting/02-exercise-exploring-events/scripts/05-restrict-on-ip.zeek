@@ -8,3 +8,11 @@ event connection_established(c: connection)
 	} 
 } 
 
+event zeek_init()
+{
+        print fmt ("") ;
+        print fmt ("================================================================================");
+        print fmt ("Run as: zeek -r Traces/05-restrict-on-ip.zeek scripts/05-restrict-on-ip.zeek") ; 
+        print fmt ("================================================================================");
+}
+

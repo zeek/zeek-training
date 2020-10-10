@@ -10,6 +10,8 @@ event zeek_init()
 	
 	print "" ;
 	print "" ;
+	print fmt ("Run as: zeek -r Traces/02-event-conn-state-remove.pcap scripts/02-event-conn-state-remove.zeek"); 
+	print "" ;
 	print "########################################################################" ;
 	print fmt ("If you compare connection record from 01-conn-record-preview.zeek");
 	print fmt ("you'll notice that this exercise's connection record is a lot more"); 

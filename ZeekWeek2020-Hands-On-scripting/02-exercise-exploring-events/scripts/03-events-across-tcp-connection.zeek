@@ -26,7 +26,7 @@ event zeek_init()
 {
 
 	print fmt (""); 
-	print fmt (""); 
+	print fmt ("Run as: zeek -r Traces/03-events-across-tcp-connection.pcap scripts/03-events-across-tcp-connection.zeek"); 
 	print fmt (""); 
 	print fmt ("##############################################################"); 
 	print fmt ("This exercise demonstrates different stages of zeek processing"); 

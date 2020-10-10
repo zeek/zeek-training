@@ -9,3 +9,11 @@ event connection_established(c: connection)
 		print fmt("Found a ssh connection: c$id => %s", c$id); 
 } 
 
+
+event zeek_init()
+{
+	print fmt ("") ; 
+	print fmt ("================================================================================"); 
+	print fmt ("Run as: zeek -r Traces/04-restrict-on-port.pcap scripts/04-restrict-on-port.zeek"); 
+	print fmt ("================================================================================"); 
+} 
