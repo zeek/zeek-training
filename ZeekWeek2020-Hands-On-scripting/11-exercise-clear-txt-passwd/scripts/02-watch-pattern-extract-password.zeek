@@ -6,7 +6,7 @@ export {
         };
 
         global keyword_blob: pattern = /.{0,90}password.{0,190}/ &redef ; 
-        global keywords: pattern = /password/ ; 
+        global keywords: pattern = /(?i:password)/ ; 
 
         global interesting_files: set[string] ;
 }
