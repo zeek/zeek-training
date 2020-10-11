@@ -6,12 +6,12 @@ export {
 } 
 
 event zeek_init()
-{
+    {
 	print fmt ("to see filtering in conn.log" ); 
 	print fmt ("try zeek -i eth0 01-conn.log-filtering-on-port-sample.zeek"); 
 	print fmt ("then look at conn.log"); 
 	print fmt (""); 
-} 
+    } 
 function ignore_logging (rec: Conn::Info) : bool
     {
     # Record only connections with successfully analyzed HTTP traffic
