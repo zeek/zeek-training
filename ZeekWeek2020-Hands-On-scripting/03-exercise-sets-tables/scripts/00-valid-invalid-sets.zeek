@@ -1,19 +1,17 @@
-
 module test; 
 
 export {
-	global anew: set[addr] = {1.1.1.1, 1.1.1.2}; 
+	global anew: set[addr] = {1.1.1.1, 1.1.1.2, 1.1.1.3, 1.1.1.4}; 
 	global bnew: set[addr] = {3.3.3.3} ; 
-
-	global aport = 22/unknown ; 
-
-
 } 
 
 event zeek_init()
 {
 	
-	print fmt ("1. unknown port is %s", aport); 
+	print fmt ("The following shows some set operations"); 
+	print fmt ("") ; 
+	print fmt ("") ; 
+	print fmt ("======================================================") ; 
 
 	if (anew != bnew)
 		print "1. anew != bnew" ; 
@@ -25,8 +23,19 @@ event zeek_init()
 	local a = www.google.com;
 
 	print fmt ("5. a is %s", a); 
+
+	if (1.1.1.1 in anew)
+		print fmt ("6. 1.1.1.1 is in %s", anew); 
 	
-	local ai: interval = -1 min ; 
+	if (2.1.1.1 !in anew)
+		print fmt ("7. 2.1.1.1 is !in %s", anew); 
+
+	local _list  = fmt ("8. Members of a new: ");
+	for (ips in anew)
+		_list += fmt ("%s ", ips); 
+
+	print fmt ("%s", _list); 
+
+	print fmt ("======================================================") ; 
 	
-	print  fmt ("6: ai is %s", |ai|); 
 } 
