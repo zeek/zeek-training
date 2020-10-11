@@ -24,16 +24,16 @@ export {
 
 
 event zeek_init() &priority=-5 
-{ 
+    { 
 	Log::create_stream(training::conn_summary_LOG, [$columns=conn_info]);
         local f = Log::get_filter(training::conn_summary_LOG, "default");
         f$path = "conn_summary" ;
         Log::add_filter(training::conn_summary_LOG,f);
-} 
+    } 
 
 
 function expire_summary ( t: table[addr] of conn_info, idx: addr): interval 
-{ 
+    { 
 	local info: conn_info ; 
 	info$ts=network_time(); 
 	info$ip = idx ; 
@@ -46,7 +46,7 @@ function expire_summary ( t: table[addr] of conn_info, idx: addr): interval
 	Log::write(training::conn_summary_LOG, info); 
 
 	return 0 secs ; 
-} 
+    } 
 
 event new_connection(c: connection)
 {
@@ -54,8 +54,7 @@ event new_connection(c: connection)
 	local resp=c$id$resp_h ; 
 
 	
-	if (orig !in summary)
-	{
+	if (orig !in summary) {
 		local rec: conn_info ; 
 		#local h: set[addr] ; 
 		#rec$hosts=h ; 
@@ -70,14 +69,14 @@ event new_connection(c: connection)
 
 	summary[orig]$conn_count += 1 ; 
 
-} 
+    } 
 
 event zeek_done()
-{
+    {
 
 	for (i in summary) 	
 		print fmt ("%s", summary[i]);
-} 
+    } 
 	
 	
 

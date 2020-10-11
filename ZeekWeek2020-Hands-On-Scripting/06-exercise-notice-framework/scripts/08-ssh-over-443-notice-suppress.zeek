@@ -9,17 +9,16 @@ module XmasTree ;
 
 
 zeek_init()
-{
-	print fmt ("in the script look for: "); 
-	print fmt ("ACTION: uncomment below this for notice suppression"); 
+    {
+    	print fmt ("in the script look for: "); 
+	    print fmt ("ACTION: uncomment below this for notice suppression"); 
         print fmt ("look into notice.log before and after uncommenting");
         print fmt ("");
         print fmt ("");
         print fmt ("=========================");
-}
+    }
 
 export {
-
 
 	redef enum Notice::Type += {
                 Lights, 
@@ -35,15 +34,14 @@ redef Notice::alarmed_types += { XmasTree::Lights};
 
 
 function expire_notice_escalation (t: table[addr] of set[Notice::Type], idx: addr): interval 
-{ 
+    { 
 	print fmt ("%s", t); 
 
 	return 0 secs; 
-} 
+    } 
 
 hook Notice::policy(n: Notice::Info)
-{
-
+    {
 	if (!n?$id) 
 		return ; 
 		
@@ -51,17 +49,14 @@ hook Notice::policy(n: Notice::Info)
 
 	#local ip=n$src ;  // determine why is that wrong :) 
 
-        if ( ip !in notice_escalation) 
-	{ 	
+    if ( ip !in notice_escalation) { 	
 		local aset: set[Notice::Type] ; 
 		notice_escalation[ip]=aset ; 
 	} 
                 
 	add notice_escalation[ip] [n$note] ; 
 
-
-	if (|notice_escalation[ip]| > 1) 
-	{ 
+	if (|notice_escalation[ip]| > 1) { 
 		local _msg = fmt ("Many notices from %s", ip); 
 
 		for (a in notice_escalation[ip]) 
