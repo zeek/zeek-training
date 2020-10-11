@@ -1,9 +1,10 @@
 module training;
+
 global services: set[port] ;
 global remote_hosts: set[addr];
 
 event zeek_init()
-{
+    {
 	print fmt (""); 
 	print fmt (""); 
 	print fmt ("In this exercise we have following two sets"); 
@@ -16,27 +17,24 @@ event zeek_init()
 	print fmt (""); 
 	print fmt (""); 
 	print fmt (""); 
-} 
+    } 
 
 event new_connection(c: connection)
-{
+    {
 
         local orig=c$id$orig_h ;
         local service=c$id$resp_p ;
 
-
         if (service !in services)
                 add services[service] ;
 
-
         if (orig !in remote_hosts)
                 add remote_hosts[orig] ;
-
-}
+    }
 
 
 event zeek_done()
-{
+    {
 
         print fmt ("uniq services seen");
         for (service in services)
@@ -47,10 +45,10 @@ event zeek_done()
                 print fmt ("%s", ip) ;
 
 
-	print fmt ("membership counts"); 
-	print fmt ("uniq services seen: %s ", |services|) ;
+	    print fmt ("membership counts"); 
+    	print fmt ("uniq services seen: %s ", |services|) ;
 
         print fmt ("Uniq remote IPs seen: %s", |remote_hosts|) ;
 
-}
+    }
 

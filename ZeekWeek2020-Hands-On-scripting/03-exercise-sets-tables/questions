@@ -1,7 +1,8 @@
-ToDo: 
-1) remote IP to how many uniq ports ? 
-2) remote IP to how many uniq IPs ? 
-3) remote IP to how many uniq ports on uniq IPs ? 
+If you are familar with tables & sets may be attempt these questions: 
+
+1) for each emote IP to how many uniq ports do you see ? 
+2) for each remote IP to how many uniq dst IPs do you see ? 
+3) for each remote IP to how many uniq ports do you see on each uniq destination ip ? 
 4) extend expire_function to get periodicity ? 
 5) tables-3-pair - experiment with read_expire and write_expire 
 

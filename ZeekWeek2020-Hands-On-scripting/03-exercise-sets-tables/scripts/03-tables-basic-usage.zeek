@@ -1,12 +1,10 @@
-module training; 
-
+module trainings; 
 
 global services: table[port] of count ; 
 global remote_hosts: table[addr] of count; 
 
-
 event new_connection(c: connection)
-{
+    {
 	
 	local orig=c$id$orig_h ;
 	local resp=c$id$resp_h ;
@@ -24,12 +22,11 @@ event new_connection(c: connection)
 
 	remote_hosts[orig]+= 1; 
 
-} 
+    } 
 
 
 event zeek_done()
-{
-
+    {
 	print fmt ("uniq services seen %s", |services|); 
 	print fmt ("Uniq remote IPs seen %s", |remote_hosts|); 
 
@@ -41,4 +38,4 @@ event zeek_done()
 	for (rh in remote_hosts) 
 		if (remote_hosts[rh] > 3) 
 			print fmt ("host %s seen %s times", rh, remote_hosts[rh]); 
-} 
+    } 

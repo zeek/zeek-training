@@ -1,13 +1,10 @@
 module training; 
 
-
 global services: table[addr, port] of count ; 
 global distinct_peers: table[addr] of set[addr] ; 
 
-
 event new_connection(c: connection)
-{
-	
+    {
 	local orig=c$id$orig_h ;
 	local resp=c$id$resp_h ;
 	local service=c$id$resp_p ; 
@@ -24,14 +21,12 @@ event new_connection(c: connection)
 	if (resp !in distinct_peers[orig])
 		add distinct_peers[orig][resp]; 
 
-#	n = |distinct_peers[orig]|; 
-
+    #	n = |distinct_peers[orig]|; 
 } 
 
 
 event zeek_done()
-{
-
+    {
 	print fmt ("uniq services seen %s", |services|); 
 	print fmt ("Uniq remote IPs seen %s", |distinct_peers|); 
 

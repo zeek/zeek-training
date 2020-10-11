@@ -1,8 +1,9 @@
 module test; 
 
 export {
-	global anew: set[addr] = {1.1.1.1, 1.1.1.2, 1.1.1.3, 1.1.1.4}; 
+	global anew: set[addr] = {1.1.1.1, 1.1.1.2, 1.1.1.3, 1.1.1.4, 3.3.3.3}; 
 	global bnew: set[addr] = {3.3.3.3} ; 
+	global cnew: set[addr] = {3.3.3.3} ; 
 } 
 
 event zeek_init()
@@ -36,6 +37,14 @@ event zeek_init()
 
 	print fmt ("%s", _list); 
 
+    if (bnew == cnew) 
+        print fmt ("9: both sets are equal"); 
+
+    if (anew >  cnew)
+        print fmt ("10: cnew is a subset of anew: %s", anew > cnew) ; 
+
 	print fmt ("======================================================") ; 
+
+
 	
 } 
