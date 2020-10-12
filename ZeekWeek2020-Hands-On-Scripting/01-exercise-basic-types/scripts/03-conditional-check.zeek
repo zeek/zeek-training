@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 export { 
 	global ip: set[addr] = {1.1.1.1, 1.1.1.2} &redef; 

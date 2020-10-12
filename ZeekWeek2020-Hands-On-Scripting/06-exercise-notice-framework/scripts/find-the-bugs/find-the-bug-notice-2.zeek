@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 export {
 	redef enum Notice::Type += {

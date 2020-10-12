@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 local ip = 1.1.1.1; 
 local sport = 22/tcp; 

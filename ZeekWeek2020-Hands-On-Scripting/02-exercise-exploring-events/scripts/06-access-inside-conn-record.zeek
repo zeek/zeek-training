@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 redef Site::local_nets+= { 192.168.86.0/24} ; 
 

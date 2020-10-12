@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 global nc = 0 ; 
 global ce = 0 ; 

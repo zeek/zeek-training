@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 export {
 	redef enum Notice::Type += {
@@ -31,6 +31,6 @@ event connection_established(c: connection)
 
 hook Notice::policy(n: Notice::Info)
     {
-        if ( n$note == trainings::PortSeen)
+        if ( n$note == training::PortSeen)
                 add n$actions[Notice::ACTION_EMAIL];
     }

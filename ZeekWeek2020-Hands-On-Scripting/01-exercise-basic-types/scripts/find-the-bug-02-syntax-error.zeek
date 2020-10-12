@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 export { 
 global sport: 22/tcp ; 

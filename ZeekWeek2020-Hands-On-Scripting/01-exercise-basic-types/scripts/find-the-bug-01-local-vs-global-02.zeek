@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 global ip = 1.1.1.1; 
 global sport = 22/tcp; 
@@ -18,7 +18,7 @@ module NewTraining;
 event zeek_done()
 {
 
-	print fmt("Answer that %s is in %s: %s", trainings::ip, trainings::ssub, trainings::answer); 
+	print fmt("Answer that %s is in %s: %s", training::ip, training::ssub, training::answer); 
 	print fmt (""); 
 	print fmt (""); 
 	print fmt ("==================================================="); 

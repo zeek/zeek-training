@@ -1,1 +1,1 @@
-trainings::filtered_ports 22/tcp, 53/tcp
+training::filtered_ports 22/tcp, 53/tcp

@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 global services: table[port] of count ; 
 global remote_hosts: table[addr] of count; 

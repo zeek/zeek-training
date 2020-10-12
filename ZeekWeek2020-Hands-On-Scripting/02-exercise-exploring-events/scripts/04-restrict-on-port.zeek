@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 event connection_established(c: connection)
 {
