@@ -9,6 +9,19 @@ global expire_distinct_peers: function( t: table[addr] of set[addr], idx: addr):
 global distinct_peers: table[addr] of set[addr] &create_expire=10 hrs &expire_func=expire_distinct_peers ; 
 
 
+event zeek_init()
+    {
+    print fmt ("===================================================="); 
+    print fmt ("No: your process is not frozen"); 
+    print fmt ("Note: in this we are using expiration function"); 
+    print fmt ("and since we are running on a trace and not live"); 
+    print fmt ("traffic, I've put in a "); 
+    print fmt ("'redef exit_only_after_terminate = T ;' "); 
+    print fmt ("so zeek will continue waiting until you ^C out"); 
+    print fmt ("of this run"); 
+    print fmt ("===================================================="); 
+    }
+
 event new_connection(c: connection)
 {
 	
@@ -39,14 +52,16 @@ function expire_distinct_peers(t: table[addr] of set[addr], idx: addr): interval
 	print fmt ("uniq services seen %s", |services|); 
 	print fmt ("Uniq remote IPs seen %s", |distinct_peers|); 
 
-	print fmt ("cleaner version") ; 
+    print fmt (""); 
+	print fmt ("Cleaner version: please ^C to exit out of zeek") ; 
+    print fmt (""); 
 	
 	local iplist = "" ; 
 
 	for (rh in distinct_peers) 
 		{ 
 			for (i in distinct_peers[rh])
-			iplist += fmt (", %s", i) ; 
+			iplist += fmt ("%s, ", i) ; 
  
 			print fmt ("%s connected to %s hosts - %s", rh, |distinct_peers[rh]|, iplist); 
 		} 
