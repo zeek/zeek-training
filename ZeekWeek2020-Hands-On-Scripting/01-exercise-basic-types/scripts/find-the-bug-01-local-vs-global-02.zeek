@@ -30,3 +30,7 @@ event zeek_done()
 } 
 
 
+## hint: notice module's changed 
+## Remember only exported identifiers are accessible across different modules 
+
+

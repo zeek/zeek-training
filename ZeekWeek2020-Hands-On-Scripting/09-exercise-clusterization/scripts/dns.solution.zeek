@@ -76,7 +76,7 @@ event DNS::aggregate_stats(request_ip: addr, query: string, qtype_name: string, 
 
 
 event DNS::log_dns(rec: DNS::Info)
-{
+	{
 	local request_ip: addr;
         local check_thresh: bool;
 
@@ -101,4 +101,4 @@ event DNS::log_dns(rec: DNS::Info)
                 event DNS::aggregate_stats(request_ip, rec$query, rec$qtype_name, rcode_name);
         @endif
 
-} 
+	} 
