@@ -22,7 +22,7 @@ event connection_established(c: connection)
 
 option my_scanners: set[subnet] = {};
 
-redef Config::config_files += { "my-scanners.txt" };
+#redef Config::config_files += { "my-scanners.txt" };
 
 hook Notice::policy(n: Notice::Info) &priority=20
     {
