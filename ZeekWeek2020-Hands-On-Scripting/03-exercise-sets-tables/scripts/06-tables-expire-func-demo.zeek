@@ -1,6 +1,6 @@
 module training; 
 
-redef exit_only_after_terminate = T ; 
+redef exit_only_after_terminate = T  ; 
 
 global services: table[addr, port] of count ; 
 

@@ -1,7 +1,7 @@
 module training; 
 
 global services: table[port] of count ; 
-global remote_hosts: table[addr] of count; 
+global remote_hosts: table[addr] of count &default=0 ; 
 
 event new_connection(c: connection)
     {
