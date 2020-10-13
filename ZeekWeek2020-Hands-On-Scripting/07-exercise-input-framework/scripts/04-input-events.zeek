@@ -21,7 +21,7 @@ export {
 
 
 event line(description: Input::TableDescription, tpe: Input::Event, left: Idx, right: Val) {
-        print fmt("%s, %s = %s", tpe, left, right);
+        print fmt("%s, %s = %s (New values in table: %s)", tpe, left, right, blacklist[left$ip]);
 }
 
 
