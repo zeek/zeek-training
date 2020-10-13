@@ -3,6 +3,9 @@ module training;
 
 export {
 
+
+# Hint: (i)     You need to create a record conn_info 
+
 	type conn_info: record {
 		start_time : time ; 
 		end_time: time ; 
@@ -10,6 +13,8 @@ export {
 		hosts: set[addr];
 	} ; 
 
+
+# Hint: (ii) need a table of conn_info with index remoteip 
 
 	global stats: table[addr] of conn_info ; 
 } 
@@ -33,12 +38,14 @@ event zeek_init()
 	print fmt ("======================================="); 
 } 
 
+# Hint: (iii)     Tap into event new_connection 
 event new_connection(c: connection)
 {
 	local orig=c$id$orig_h ; 
 	local resp=c$id$resp_h ; 
 
 	
+# Hint: (iv)     initialize the record, populate the table
 	if (orig !in stats)
 	{
 		local rec: conn_info ; 
@@ -56,6 +63,7 @@ event new_connection(c: connection)
 
 } 
 
+# Hint: (v)     use zeek_done to dump the info 
 event zeek_done()
 {
 

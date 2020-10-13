@@ -49,6 +49,6 @@ event zeek_done()
 
     print fmt ("Dumping the contents of blacklist table"); 
 	for (i in blacklist) 
-		print fmt ("%s", blacklist[i]); 
+		print fmt ("idx: %s value: %s", i,blacklist[i]); 
     } 
 

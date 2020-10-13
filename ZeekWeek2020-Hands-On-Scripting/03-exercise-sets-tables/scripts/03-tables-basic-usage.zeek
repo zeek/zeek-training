@@ -32,7 +32,7 @@ event zeek_done()
 
 	for (r in services) 
 		if (services[r] > 3) 
-			print fmt ("serive: %s seen %s times", r, services[r]); 
+			print fmt ("service: %s seen %s times", r, services[r]); 
 	
 
 	for (rh in remote_hosts) 

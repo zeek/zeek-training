@@ -13,7 +13,7 @@ event zeek_init()
 	print fmt ("In both sets we store incoming IPs and dst ports"); 
 	print fmt ("since sets only store uniq values, multiple additions"); 
 	print fmt ("are simply overwritten. One can infact otherwise do a"); 
-	print fmt ("memebership test before adding as seen in the script"); 
+	print fmt ("membership test before adding as seen in the script"); 
 	print fmt (""); 
 	print fmt (""); 
 	print fmt (""); 

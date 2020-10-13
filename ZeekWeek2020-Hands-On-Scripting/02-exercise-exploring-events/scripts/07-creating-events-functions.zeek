@@ -47,7 +47,7 @@ event zeek_done()
         print fmt ("") ;
         print fmt ("") ;
         print fmt ("================================================================================");
-        print fmt ("Run as: zeek -r Traces/05-creating-events-functions.zeek 05-creating-events-functions.zeek"); 
+        print fmt ("Run as: zeek -r Traces/07-creating-events-functions.pcap 07-creating-events-functions.zeek"); 
         print fmt ("================================================================================");
     }
 
