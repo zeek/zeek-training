@@ -35,7 +35,7 @@ function expire_talkers(t: table[addr, addr] of count, idx: any): interval
 			print fmt ("%s %s -> %s - %s times", network_time(), r, h, talkers[r,h]); 
 		} 
 
-	return 0 secs; 
+	return  2 hrs ; 
 
 	
 } 

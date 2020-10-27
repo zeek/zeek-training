@@ -28,10 +28,20 @@ event zeek_init() {
     Input::add_table([$source=blacklist_file, $name="blacklist", $idx=Idx, $val=Val, $destination=blacklist, $mode=Input::REREAD]);
 }
 
-event Input::end_of_data(name: string, source: string) {
-        # now all data is in the table
-        print blacklist;
-}
+
+event Input::end_of_data(name: string, source: string)
+    {
+
+    print fmt ("firing end_of_data event ");
+    print fmt ("now all data is in the table");
+    print fmt ("");
+    print fmt ("Try opening blacklist.file in a different window");
+    print fmt ("and add another records or two.");
+    print fmt ("make sure colums seperated with a tab"); 
+    print fmt ("");
+    print fmt ("Number of records read: %s", |blacklist|);
+    print blacklist;
+    }
 
 
 

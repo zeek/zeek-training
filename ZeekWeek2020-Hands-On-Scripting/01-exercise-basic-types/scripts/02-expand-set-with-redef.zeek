@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 export { 
 	global ip: set[addr] = {1.1.1.1, 1.1.1.2} &redef; 
@@ -22,7 +22,7 @@ event zeek_done()
 	print fmt ("previous values will be lost"); 
 	print fmt (""); 
 	print fmt ("Note 2: Since ip is exported, its meaningful"); 
-	print fmt ("and less error-prone to reference it as trainings::ip"); 
+	print fmt ("and less error-prone to reference it as training::ip"); 
 	print fmt ("esp when clusterization is involved and possible that"); 
 	print fmt ("variable is used inside other modules/namespaces"); 
 	print fmt ("======================================================="); 

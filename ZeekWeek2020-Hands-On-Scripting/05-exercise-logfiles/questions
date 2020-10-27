@@ -1,3 +1,3 @@
-1) extend policies/logging-stream.zeek to include timestamp of writing of log and src IP address 
+1) Extend policies/logging-stream.zeek to include timestamp and src IP address 
 2) extra-credit: extend the policy to be more memory efficient ie Hint: instead of hosts: set[addr] use opaque of cardinality
 	

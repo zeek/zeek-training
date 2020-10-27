@@ -30,7 +30,16 @@ event zeek_init() {
 }
 
 
-event Input::end_of_data(name: string, source: string) {
-        # now all data is in the table
+event Input::end_of_data(name: string, source: string) 
+    {
+
+        print fmt ("firing end_of_data event "); 
+        print fmt ("now all data is in the table"); 
+        print fmt (""); 
+        print fmt (""); 
+        print fmt (""); 
+
+        print fmt ("Number of records read: %s", |blacklist|); 
+
         print blacklist;
-}
+    }

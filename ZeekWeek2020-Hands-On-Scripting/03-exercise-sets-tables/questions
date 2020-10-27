@@ -1,21 +1,22 @@
-If you are familar with tables & sets may be attempt these questions: 
+If you are familiar with tables & sets may be you should attempt these questions:
 
-1) for each emote IP to how many uniq ports do you see ? 
-2) for each remote IP to how many uniq dst IPs do you see ? 
-3) for each remote IP to how many uniq ports do you see on each uniq destination ip ? 
-4) extend expire_function to get periodicity ? 
-5) tables-3-pair - experiment with read_expire and write_expire 
+1) for each remote IP, how many uniq ports do you see ?
+2) for each remote IP, how many uniq dst IPs do you see ?
+3) for each remote IP, how many uniq ports do you see on each uniq destination ip ?
+4) extend expire_function to get counts every hour ?
+5) experiment with create_expire, read_expire and write_expire
 
-Extra-credits: 
-5) can you calculate how many bytes each dst port has ? 
-6) how many bytes each source IP has sent/received ? 
+Extra-credits:
+5) can you calculate how many bytes each dst port has ?
+6) how many bytes each source IP has sent/received ?
 
-Extra-extra credits: 
-7) can do you some math foo to find avg bytes and then 3 sigma varience for each remote IP  - ex. possibly used is ssh bruteforcer successful login attempt determination
-8) You can probably do this with duration of connecitons too ? 
+Extra-extra credits:
+7) can do you some math foo to find avg bytes per host and then find anomalous events - ex. Possibly used is ssh brute forcer successful login attempt determination
+8) You can probably do this with duration of connections too ?
 
 
-=========================
-Problem 1) I would like to track how many connections does an IP address make ?
-Problem 2) How many times have two hosts talked with each other in last hour ?
-Problem 3) Can we build a list of all services on all hosts on the network ?
+To rephrase:
+
+Task 1) I would like to track how many connections does an IP address make ?
+Task 2) How many times have two hosts talked with each other in last hour ?
+Task 3) Can we build a list of all services on all hosts on the network ?

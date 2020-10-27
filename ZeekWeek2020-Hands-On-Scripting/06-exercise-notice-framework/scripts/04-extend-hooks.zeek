@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 export {
 	redef enum Notice::Type += {
@@ -29,7 +29,7 @@ event new_connection(c: connection)
 
 hook Notice::policy(n: Notice::Info)
     {
-        if ( n$note == trainings::Local && n$src in Site::local_nets)
+        if ( n$note == training::Local && n$src in Site::local_nets)
                 add n$actions[Notice::ACTION_EMAIL];
 	else 	
                 add n$actions[Notice::ACTION_LOG];

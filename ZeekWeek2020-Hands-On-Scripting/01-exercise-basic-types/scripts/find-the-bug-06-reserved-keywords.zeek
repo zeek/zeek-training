@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 global ip = 1.1.1.1; 
 global sub = 1.1.1.0/24 ; 

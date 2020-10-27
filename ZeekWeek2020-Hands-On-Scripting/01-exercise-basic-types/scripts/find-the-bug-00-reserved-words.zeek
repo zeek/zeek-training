@@ -1,12 +1,12 @@
-module trainings;
+module training;
 
 global ip = 1.1.1.1; 
 
 event zeek_init()
     {
-        local port = 22/tcp; 
+        local sport = 22/tcp; 
 
-        print fmt ("IP: %s connected on port: %s", ip, port); 
+        print fmt ("IP: %s connected on port: %s", ip, sport); 
     } 
 
 event zeek_done()

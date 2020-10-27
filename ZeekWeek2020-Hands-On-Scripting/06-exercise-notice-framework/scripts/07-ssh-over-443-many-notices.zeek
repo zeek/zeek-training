@@ -10,7 +10,7 @@ export {
 
 } 
 
-zeek_init()
+event zeek_init()
     {
         print fmt ("look into notice.log");
         print fmt ("");

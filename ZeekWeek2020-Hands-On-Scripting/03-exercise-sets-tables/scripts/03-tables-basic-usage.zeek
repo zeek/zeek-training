@@ -1,7 +1,7 @@
-module trainings; 
+module training; 
 
 global services: table[port] of count ; 
-global remote_hosts: table[addr] of count; 
+global remote_hosts: table[addr] of count &default=0 ; 
 
 event new_connection(c: connection)
     {
@@ -32,7 +32,7 @@ event zeek_done()
 
 	for (r in services) 
 		if (services[r] > 3) 
-			print fmt ("serive: %s seen %s times", r, services[r]); 
+			print fmt ("service: %s seen %s times", r, services[r]); 
 	
 
 	for (rh in remote_hosts) 

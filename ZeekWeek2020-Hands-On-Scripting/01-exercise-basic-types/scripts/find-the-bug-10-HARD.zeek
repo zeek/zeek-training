@@ -1,4 +1,4 @@
-module trainings;
+module training;
 
 event zeek_init()
 {

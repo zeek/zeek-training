@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 export {
     option filtered_ports: set[port] = {} ; 

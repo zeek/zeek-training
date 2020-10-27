@@ -8,7 +8,7 @@ module XmasTree ;
 #redef Notice::ignored_types += { ProtocolDetector::Protocol_Found, } ; 
 
 
-zeek_init()
+event zeek_init()
     {
     	print fmt ("in the script look for: "); 
 	    print fmt ("ACTION: uncomment below this for notice suppression"); 

@@ -1,25 +1,31 @@
-[for all the exercise use: 1-connection.pcap]
+[for all the exercise use: pcap which is named the same as zeek file]
 
-0-0) Familiar with running zeek  	
-1-a) Familiar with connection record  	
-1-b) Familiar with events 		
-1-c) rudimentary data structures  - port  	
-1-d) rudimentary data structures - address  	
-1-e) rudimentary data structures - subnet  	
+We want to get familiar with: 
+
+01-conn-record-preview.zeek
+02-event-conn-state-remove.zeek
+03-events-across-tcp-connection.zeek
+04-conditional-checks.zeek
+05-access-inside-conn-record.zeek
+06-conn_attempt-vs-conn_established.zeek
+07-creating-events-functions.zeek
+08-scheduling-an-event.zeek
+
+Exercises to do: 
 
 Task 1: Calculate and print total bytes used by this connection ? 
-Hints:  (i) need to know difference between events and which fires when - see event new_connection vs event connection_state_remove  
-	(ii) Differece between orig_bytes, resp_bytes vs orig_ip_bytes, resp_ip_bytes 
 
-new_connection: # note: orig=[size=0, state=0, num_pkts=0, num_bytes_ip=0 ]
-new_connection: # note: resp=[size=0, state=0, num_pkts=0, num_bytes_ip=0 ]
+    Hints:  (i) We will need to know the difference between events and what event fires when. 
+                - look for difference between event new_connection vs event connection_state_remove  
+	        (ii) What is the differece between orig_bytes & orig_ip_bytes and resp_bytes & resp_ip_bytes 
+                which one would you pick to calculate total bytes
+            (iii) Did you notice missed_bytes in conn.log ? 
 
 Task 2: try zeek with 2-conn.pcap - What else do you see ? 
 
-Task 3:  why do different traces show different connection events triggering : use ex2-f-conn-events.zeek
-	(i) zeek -r ../Traces/2-conn.pcap ex2-f-conn-events.zeek
-	(ii) zeek -r Traces/conn_attempt.pcap ex2-f-conn-events.zeek 
-
-Also compare history, conn_state fields for both 
+Task 3:  Why do different traces show different connection events triggering : 
+	(i) zeek -r Traces/06-conn_attempt-vs-conn_established.pcap scripts/06-conn_attempt-vs-conn_established.zeek 
+	(ii) zeek -r Traces/conn_attempt.pcap scripts/06-conn_attempt-vs-conn_established.zeek 
+    (iii) Also compare history & conn_state fields for both runs. 
 
 

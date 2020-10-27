@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 redef Site::local_nets+= { 192.168.86.0/24} ; 
 
@@ -35,7 +35,7 @@ event new_connection(c: connection)
 
 hook Notice::policy(n: Notice::Info)
 {
-        if ( n$note == trainings::Local && n$src in Site::local_netsi && n$src !in trainings::false_positives )
+        if ( n$note == training::Local && n$src in Site::local_netsi && n$src !in training::false_positives )
                 add n$actions[Notice::ACTION_EMAIL];
 	else 	
                 add n$actions[Notice::ACTION_LOG];

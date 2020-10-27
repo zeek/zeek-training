@@ -1,4 +1,4 @@
-module trainings; 
+module training; 
 
 redef exit_only_after_terminate=T ; 
 
@@ -35,7 +35,7 @@ event new_connection(c: connection)
 
 hook Notice::policy(n: Notice::Info)
     {
-        if ( n$note == trainings::Local && n$src in Site::local_nets && n$src !in trainings::false_positives )
+        if ( n$note == training::Local && n$src in Site::local_nets && n$src !in training::false_positives )
                 add n$actions[Notice::ACTION_EMAIL];
 	else 	
                 add n$actions[Notice::ACTION_LOG];
@@ -43,5 +43,5 @@ hook Notice::policy(n: Notice::Info)
 
 event zeek_done()
     {
-	print fmt ("%s", trainings::false_positives) ; 
+	print fmt ("%s", training::false_positives) ; 
     } 

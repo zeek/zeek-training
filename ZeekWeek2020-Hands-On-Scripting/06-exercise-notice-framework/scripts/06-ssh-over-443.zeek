@@ -2,7 +2,7 @@
 
 @load policy/frameworks/dpd/detect-protocols.zeek 
 
-zeek_init()
+event zeek_init()
     {
 	print fmt ("look into notice.log"); 
 	print fmt (""); 

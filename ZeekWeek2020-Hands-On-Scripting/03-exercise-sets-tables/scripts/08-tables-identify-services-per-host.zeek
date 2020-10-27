@@ -1,6 +1,6 @@
 module training; 
 
-#redef exit_only_after_terminate = T ; 
+redef exit_only_after_terminate = T ; 
 
 global host_profiles: table [addr] of set[port] ; 
 
