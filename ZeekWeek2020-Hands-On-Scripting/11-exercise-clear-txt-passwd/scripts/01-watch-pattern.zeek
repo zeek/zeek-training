@@ -13,7 +13,7 @@ export {
 
 
 event mime_all_data(c: connection, length: count, data: string) &priority=-5
-{
+		{
 	if (! c?$smtp)
 			return ;
         
@@ -45,4 +45,4 @@ event mime_all_data(c: connection, length: count, data: string) &priority=-5
 		NOTICE([$note=MsgBody, $msg=fmt("%s #  %s #  %s # %s # %s # %s",
 					c$smtp$ts, c$smtp$mailfrom, rcpt, c$smtp$subject, kh, hits ), $conn=c]);
 	}
-}
+	}

@@ -13,7 +13,7 @@ export {
 
 
 event mime_all_data(c: connection, length: count, data: string) &priority=-5
-{
+        {
         if (! c?$smtp)
                 return ;
 
@@ -24,8 +24,7 @@ event mime_all_data(c: connection, length: count, data: string) &priority=-5
 
 		print fmt ("%s", match); 
 
-                for (m in match)
-                {
+                for (m in match) {
                         hits += fmt ("match: %s ", m) ;
                 }
 
@@ -38,8 +37,7 @@ event mime_all_data(c: connection, length: count, data: string) &priority=-5
                 local keyword_hits : set[string] ;
                 local kh="" ;
 
-                for (k in keyword_match)
-                {
+                for (k in keyword_match) {
                         add keyword_hits[k];
                 }
 
@@ -48,5 +46,5 @@ event mime_all_data(c: connection, length: count, data: string) &priority=-5
 
                 NOTICE([$note=MsgBody, $msg=fmt("%s #  %s #  %s # %s # %s # %s",c$smtp$ts, c$smtp$mailfrom, rcpt, c$smtp$subject, kh, hits ), $conn=c]);
         }
-}
+        }
 
