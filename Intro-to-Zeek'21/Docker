@@ -6,3 +6,7 @@ apt-get install mlocate
 apt-get install python3
 apt-get install wget
 apt-get install ethtool
+apt-get install git
+apt-get install python3
+apt-get install python3-pip
+pip3 install GitPython semantic-version
