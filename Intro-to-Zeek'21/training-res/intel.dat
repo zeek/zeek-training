@@ -1,0 +1,4 @@
+#fields indicator indicator_type	meta.source	meta.desc	meta.url	meta.do_notice
+zeek.org	Intel::DOMAIN	source1	here	https://zeekweek2019.com	T
+money.cnn.com	Intel::DOMAIN	source2	there	https://zeekweek2019.com	T
+#2eee69a9b19098f255a12834e3920be688113e71	Intel::FILE_HASH	source3	nowhere	https://zeekweek2019.com	T
