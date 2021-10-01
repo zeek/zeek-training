@@ -1,1 +1,8 @@
 Placeholder for Docker instructions.
+Docker image needs following installed:
+apt-get install less
+apt-get install nano
+apt-get install mlocate
+apt-get install python3
+apt-get install wget
+apt-get install ethtool
