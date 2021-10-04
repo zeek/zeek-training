@@ -1,9 +1,0 @@
-Placeholder for Docker instructions.
-
-
-Docker image needs following installed:
-
-apt-get update
-apt-get install less nano mlocate wget ethtool
-apt-get install python3 python3-pip git
-pip3 install GitPython semantic-version
