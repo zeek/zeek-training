@@ -1,0 +1,17 @@
+1) extend input-ex4-new-change-remove.zeek to handle unavailabily of file:
+
+
+# handle this failure
+# Reporter::WARNING  /feeds/Zeek-feeds/WIRED.blocknet/Input::READER_ASCII:
+#       Init: cannot open /feeds/ZEEK-feeds/WIRED.blocknet    (empty)
+
+event reporter_warning(t: time , msg: string , location: string )
+{
+
+        if (/WIRED.blocknet.*\/Input::READER_ASCII: Init: cannot open/ in msg)
+        {
+                NOTICE([$note=BlocknetsFileReadFail, $msg=fmt("%s", msg)]);
+        }
+}
+
+Note: You'd have to create a notice "BlocknetsFileReadFail" and put a notice policy hook in place to generate an EMAIL 

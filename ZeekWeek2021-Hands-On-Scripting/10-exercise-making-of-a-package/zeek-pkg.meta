@@ -1,0 +1,6 @@
+[package]
+description=
+script_dir = scripts
+version = 0.1 
+tags = 
+test_command = ( cd tests && btest -d )
