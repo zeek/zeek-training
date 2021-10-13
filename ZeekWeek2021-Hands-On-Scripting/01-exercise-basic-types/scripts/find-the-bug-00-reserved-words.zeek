@@ -4,7 +4,7 @@ global ip = 1.1.1.1;
 
 event zeek_init()
     {
-        local sport = 22/tcp; 
+        local port = 22/tcp; 
 
         print fmt ("IP: %s connected on port: %s", ip, sport); 
     } 

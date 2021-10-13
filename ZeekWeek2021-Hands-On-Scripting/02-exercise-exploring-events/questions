@@ -29,3 +29,9 @@ Task 3:  Why do different traces show different connection events triggering :
     (iii) Also compare history & conn_state fields for both runs. 
 
 
+Hints::
+
+orig_ip_bytes: Number of IP level bytes that the originator sent (as seen on the wire, taken from the IP total_length header field). Only set if use_conn_size_analyzer = T.
+resp_ip_bytes: Number of IP level bytes that the responder  sent (as seen on the wire, taken from the IP total_length header field). Only set if use_conn_size_analyzer = T.
+
+Reference: https://docs.zeek.org/en/master/scripts/base/protocols/conn/main.zeek.html 
