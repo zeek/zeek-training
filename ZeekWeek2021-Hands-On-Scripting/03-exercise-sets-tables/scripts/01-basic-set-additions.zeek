@@ -5,19 +5,19 @@ global remote_hosts: set[addr];
 
 event zeek_init()
     {
-	print fmt (""); 
-	print fmt (""); 
-	print fmt ("In this exercise we have following two sets"); 
+	print fmt ("");
+	print fmt ("");
+	print fmt ("In this exercise we have following two sets");
 	print fmt ("1. services: set of ports");
-	print fmt ("2. remote_hosts: set of ipaddresses"); 
-	print fmt ("In both sets we store incoming IPs and dst ports"); 
-	print fmt ("since sets only store uniq values, multiple additions"); 
-	print fmt ("are simply overwritten. One can infact otherwise do a"); 
-	print fmt ("membership test before adding as seen in the script"); 
-	print fmt (""); 
-	print fmt (""); 
-	print fmt (""); 
-    } 
+	print fmt ("2. remote_hosts: set of ipaddresses");
+	print fmt ("In both sets we store incoming IPs and dst ports");
+	print fmt ("since sets only store uniq values, multiple additions");
+	print fmt ("are simply overwritten. One can infact otherwise do a");
+	print fmt ("membership test before adding as seen in the script");
+	print fmt ("");
+	print fmt ("");
+	print fmt ("");
+    }
 
 event new_connection(c: connection)
     {
@@ -39,13 +39,13 @@ event zeek_done()
         for (service in services)
                 print fmt ("%s ", service) ;
 
-        print fmt ("================== hosts ============"); 
+        print fmt ("================== hosts ============");
 
         print fmt ("Uniq remote IPs seen");
         for (ip in remote_hosts)
                 print fmt ("%s", ip) ;
 
-	    print fmt ("membership counts"); 
+	    print fmt ("membership counts");
     	print fmt ("uniq services seen: %s ", |services|) ;
 
         print fmt ("Uniq remote IPs seen: %s", |remote_hosts|) ;
