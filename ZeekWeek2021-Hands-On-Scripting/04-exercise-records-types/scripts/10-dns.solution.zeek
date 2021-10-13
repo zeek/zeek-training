@@ -4,7 +4,7 @@ module DNS;
 # for PTR thresholds this we only care about external IPs
 # hitting our dns_servers with all sorts of queries
 
-redef Site::local_nets += { 138.183.230.0/24, } ; 
+redef Site::local_nets += { 138.183.230.0/24, } ;
 
 export {
 
@@ -16,11 +16,11 @@ export {
                 servfail: count &default=0 ;
                 unknown: count &default=0;
         } ;
-	
+
 	global ptr_queries: table[addr] of ptr_stats &create_expire = 1 day ;
 
-	global DNS::aggregate_stats: event(request_ip: addr, query: string, qtype_name: string, rcode_name: string); 
-} 
+	global DNS::aggregate_stats: event(request_ip: addr, query: string, qtype_name: string, rcode_name: string);
+}
 
 event DNS::aggregate_stats(request_ip: addr, query: string, qtype_name: string, rcode_name: string)&priority=-10
 {
@@ -60,8 +60,8 @@ event DNS::aggregate_stats(request_ip: addr, query: string, qtype_name: string, 
         }
 
 
-	print fmt ("GOAL: %s", ptr_queries[request_ip]); 
-} 
+	print fmt ("GOAL: %s", ptr_queries[request_ip]);
+}
 
 
 event DNS::log_dns(rec: DNS::Info)
@@ -85,4 +85,4 @@ event DNS::log_dns(rec: DNS::Info)
         local rcode_name =  (!rec?$rcode_name) ? "UNKNOWN" :  rec$rcode_name ;
 
 	event DNS::aggregate_stats(request_ip, rec$query, rec$qtype_name, rcode_name);
-} 
+}
