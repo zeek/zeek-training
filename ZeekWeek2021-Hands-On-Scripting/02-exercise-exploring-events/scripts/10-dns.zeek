@@ -7,5 +7,5 @@ module DNS;
 event DNS::log_dns(rec: DNS::Info)
 {
 
-	print fmt ("%s", rec); 
-} 
+	print fmt ("%s", rec);
+}

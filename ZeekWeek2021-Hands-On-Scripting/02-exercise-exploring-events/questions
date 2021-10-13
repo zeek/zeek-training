@@ -1,6 +1,6 @@
 [for all the exercise use: pcap which is named the same as zeek file]
 
-We want to get familiar with: 
+We want to get familiar with:
 
 01-conn-record-preview.zeek
 02-event-conn-state-remove.zeek
@@ -11,22 +11,22 @@ We want to get familiar with:
 07-creating-events-functions.zeek
 08-scheduling-an-event.zeek
 
-Exercises to do: 
+Exercises to do:
 
-Task 1: Calculate and print total bytes used by this connection ? 
+Task 1: Calculate and print total bytes used by this connection ?
 
-    Hints:  (i) We will need to know the difference between events and what event fires when. 
-                - look for difference between event new_connection vs event connection_state_remove  
-	        (ii) What is the differece between orig_bytes & orig_ip_bytes and resp_bytes & resp_ip_bytes 
+    Hints:  (i) We will need to know the difference between events and what event fires when.
+                - look for difference between event new_connection vs event connection_state_remove
+	        (ii) What is the differece between orig_bytes & orig_ip_bytes and resp_bytes & resp_ip_bytes
                 which one would you pick to calculate total bytes
-            (iii) Did you notice missed_bytes in conn.log ? 
+            (iii) Did you notice missed_bytes in conn.log ?
 
-Task 2: try zeek with 2-conn.pcap - What else do you see ? 
+Task 2: try zeek with 2-conn.pcap - What else do you see ?
 
-Task 3:  Why do different traces show different connection events triggering : 
-	(i) zeek -r Traces/06-conn_attempt-vs-conn_established.pcap scripts/06-conn_attempt-vs-conn_established.zeek 
-	(ii) zeek -r Traces/conn_attempt.pcap scripts/06-conn_attempt-vs-conn_established.zeek 
-    (iii) Also compare history & conn_state fields for both runs. 
+Task 3:  Why do different traces show different connection events triggering :
+	(i) zeek -r Traces/06-conn_attempt-vs-conn_established.pcap scripts/06-conn_attempt-vs-conn_established.zeek
+	(ii) zeek -r Traces/conn_attempt.pcap scripts/06-conn_attempt-vs-conn_established.zeek
+    (iii) Also compare history & conn_state fields for both runs.
 
 
 Hints::
@@ -34,4 +34,4 @@ Hints::
 orig_ip_bytes: Number of IP level bytes that the originator sent (as seen on the wire, taken from the IP total_length header field). Only set if use_conn_size_analyzer = T.
 resp_ip_bytes: Number of IP level bytes that the responder  sent (as seen on the wire, taken from the IP total_length header field). Only set if use_conn_size_analyzer = T.
 
-Reference: https://docs.zeek.org/en/master/scripts/base/protocols/conn/main.zeek.html 
+Reference: https://docs.zeek.org/en/master/scripts/base/protocols/conn/main.zeek.html
