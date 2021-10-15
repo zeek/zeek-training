@@ -1,0 +1,4 @@
+RDP Authentication
+==================
+Only one of these RDP connections sucessfully authenticated to the server.
+The answer to this challenge is the source port the client used in the connection which successfully logged in.

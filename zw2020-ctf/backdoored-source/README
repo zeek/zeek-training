@@ -1,0 +1,5 @@
+Backdoored Source
+=================
+
+Someone introduced a bug in one of the source files from release/2.0. The flag for this challenge is the path to the file that changed.
+For example, "testing/btest/Baseline/BiFs.count_to_addr/out".

@@ -1,0 +1,3 @@
+Solution
+========
+The participant is excepted to recognize the connection as being SCTP, carve the transfered tarball of the user's home directory, locate the zip password in the .bashrc file and retrieve the flag.

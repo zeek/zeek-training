@@ -1,0 +1,5 @@
+Difficulty:	VP-complete
+Value:	750
+Hint Pentalties:	-150, -225, -300
+Author:	Anthony K
+Evaluator:	Fatema BW

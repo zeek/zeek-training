@@ -1,0 +1,5 @@
+1. The dots and dashes aren't really morse code.
+
+2. Use the compress_path() bif
+
+3. Print the return value of each string passed to the compress_path() bif in the same order as they are indexed in the vector and the flag appears in ASCII art.

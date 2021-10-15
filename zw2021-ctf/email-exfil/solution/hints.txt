@@ -1,0 +1,6 @@
+1. You shouldn't have to bruteforce the password.
+
+2. Consider how the exfiltration took place, a script. 
+
+3. The email contains the key.
+

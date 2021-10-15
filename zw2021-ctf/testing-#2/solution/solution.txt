@@ -1,0 +1,6 @@
+Solution
+========
+The first email sent to the Bro mailing list is available here:
+http://mailman.icsi.berkeley.edu/pipermail/zeek/1998-September/000000.html
+
+Participants should be able to locate it via Internet search engines.

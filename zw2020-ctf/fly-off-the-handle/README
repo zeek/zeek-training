@@ -1,0 +1,5 @@
+Fly Off The Handle
+==================
+I ran `zeek fly.zeek` to generate all the files in tmp/.
+
+However, I then deleted the flag.zeek file. See if you can recover the flag string.

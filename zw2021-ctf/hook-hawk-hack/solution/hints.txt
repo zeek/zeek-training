@@ -1,0 +1,5 @@
+1. Hooks are multibodied functions. Perhaps you could add additional bodies to all these hooks.
+
+2. It seems like an endless chain of hooks but it's not.
+
+3. One of the hooks' bodies is different than the rest. That hook is the last hook to be executed. Print the value of the flag from that hook's body.

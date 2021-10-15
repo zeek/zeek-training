@@ -1,0 +1,5 @@
+1. The Server is having identity issues
+
+2. An early communication protocol
+
+3. Someone in distress may code "this-this-this  that-that-that  this-this-this"

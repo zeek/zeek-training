@@ -1,0 +1,3 @@
+1. By default, Zeek won't output what you need.
+2. DNS responses contain more than just the Answer to the query.
+3. See what's hiding in Additional.

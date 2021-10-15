@@ -1,0 +1,6 @@
+1. This is a twist on last year's "sudo su" challenge.
+
+2. Does the pcap contain anything besides SSH traffic?
+
+3. Look for a run of 7 characters "sudo su" before the timestamp of the Syslog message. Then count the keystrokes between it and the Syslog message.
+

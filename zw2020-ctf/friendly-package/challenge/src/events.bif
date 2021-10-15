@@ -1,0 +1,9 @@
+# This is where you _would_ place built-in functions.
+
+# here's more info on bifs
+#  https://github.com/zeek/bifcl
+#  https://docs.zeek.org/en/current/scripts/base/bif/option.bif.zeek.html
+#  https://docs.zeek.org/en/current/scripts/base/bif/zeek.bif.zeek.html
+#  https://docs.zeek.org/en/current/scripts/base/bif/strings.bif.zeek.html
+
+# this file doesn't really do anything related to the challenge.

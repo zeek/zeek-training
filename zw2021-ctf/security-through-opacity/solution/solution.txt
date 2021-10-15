@@ -1,0 +1,5 @@
+Solution
+========
+The premise of this challenge is bruteforce guessing. Typically, a guessing game liek this makes for a bad puzzle. However, in this case it helps to explain a scriptland bloomfilter and Zeek's way of doing object serialization through `Broker::data()`.
+
+The way I envision solving this challenge is to generate all flag possibilites. There are less than half a million. Then, simply call `bloomfilter_lookup` for each of those strings. The original bloomfilter was configured in such a way that there should be no false positives. If there are, CTF facilitators may award points manually.

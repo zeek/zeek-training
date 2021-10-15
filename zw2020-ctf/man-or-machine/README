@@ -1,0 +1,9 @@
+Man or Machine?
+===============
+This one is simple. There's a pcap which contains 100 SSH connections. 
+Only 1 of the connections was human driven. The rest weren't.
+All we want to know is the source port number for that 1 connection.
+You ONLY have 2 attempts, so don't bruteforce guess!
+
+All the connections used the same client, server, and configurations.
+If everything is the same and the payload contents are encrypted, what else could you compare?

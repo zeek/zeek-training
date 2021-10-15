@@ -1,0 +1,5 @@
+1. The pcap contains a single stream but the stream isn't TCP nor UDP. 
+
+2. The stream seems to be a file transfer, see if you can carve the file and open it.
+
+3. Trolls alias trolls

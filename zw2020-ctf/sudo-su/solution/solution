@@ -1,0 +1,6 @@
+As "sudo su" is 7 characters long, participants are expected to find patterns in the SSH connection which indicate keystrokes.
+They are then to count the number of keysroke "runs".
+The first run is the user typing "sudo su".
+The second run is the length of the user's password.
+In this case, it was 6 characters.
+

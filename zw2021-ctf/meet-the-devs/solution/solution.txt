@@ -1,0 +1,3 @@
+check out the latest version of zeek and
+
+`grep ')$' CHANGES | awk -F"[\(\)]" '{print $2}' | sort | uniq -c | sort -nr | less`
