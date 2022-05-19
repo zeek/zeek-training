@@ -1,6 +1,0 @@
-1. Perhaps there's a public Zeek package which can help in fingerprinting the SSH software running on the endpoints.
-
-2. This fingerprinting technique has similiar functionality and limitations as JA3, but it's for SSH. 
-
-3. Try running the pcap through Zeek with the following package loaded: https://packages.zeek.org/packages/view/ceb688b8-9348-11eb-81e7-0a598146b5c6
-

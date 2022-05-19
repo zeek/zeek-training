@@ -1,5 +1,0 @@
-1. The original Bro mailing lists could be found here: http://mailman.icsi.berkeley.edu/mailman/listinfo/bro
-
-2. Try searching Google for "zeek mailing lists"
-
-3. The first email was sent on "Fri Sep 11 23:51:11 PDT 1998"

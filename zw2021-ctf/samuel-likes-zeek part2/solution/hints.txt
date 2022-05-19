@@ -1,6 +1,0 @@
-1. The SSH protocol uses a Host Key for authenticating the server to the client.
-
-2. https://docs.zeek.org/en/v4.0.0/logs/ssh.html
-
-3. Try running the pcap through Zeek and observing the "host_key" field.
-

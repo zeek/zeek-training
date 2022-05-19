@@ -1,5 +1,0 @@
-Difficulty:	Hard
-Value:	500
-Hint Pentalties:	-95, -150, -180
-Author:	Anthony K
-Evaluator:	Fatema BW

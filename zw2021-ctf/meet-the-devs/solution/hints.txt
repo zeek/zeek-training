@@ -1,5 +1,0 @@
-1. If you follow the Zeek Github repo, this person has touched almost all corners of the Zeek project.
-
-2. The CHANGEME file seems to have a consistent format. Perhaps that could be of use.
-
-3. Grep the CHANGEME file for parentheses and use CLI utilities like awk or cut to munge the lines. Then count by attributed developer.

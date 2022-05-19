@@ -1,1 +1,0 @@
-A Scapy client and server is used to exfiltrate data within ICMP data field.

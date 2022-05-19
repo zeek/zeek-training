@@ -1,3 +1,0 @@
-The challenge is in understanding how hooks behave and in tracing the execution flow between hooks.
-A straight foward way of solving this challenge is to print the value of the $hiik record member once all hooks have completed. 
-The challenge is made slightly annoying by the odd names used.

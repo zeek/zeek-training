@@ -1,6 +1,0 @@
-1. I highly recommend not changing any existing code. Instead, only add some lines to the body of the Lock::pick event.
-
-2. Focus on tumbler0. Since it only has 1 pin you'll never be able to pick the lock without tumbler0's pin's 5 degree "arc". Tumblers can be thought of as spinning concentric circle and your task is to identify when their arcs align for the first time.
-
-3. Once you are tracking tumbler0's only pin, see if it aligns with either of tumbler1's pins. Since tumbler0's pin is smaller than tumbler1's pins there are 3 types of possible overlaps. First, tumbler0's pin could be contained completely within one of tumbler1's pins. Second, tumbler0's pin could be overlap slightly with starting points of one of tumbler1's pins. Lastly, tumbler0's pin could be overlap slightly with stopping points of one of tumbler1's pins. These possibilities are complicated by the fact that a pin could straddle the 0/360 angle. The solution I came up with was to check if any of the pins did this straddle and then add 180 degrees to all pins if so.
-

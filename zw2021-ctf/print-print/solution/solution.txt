@@ -1,1 +1,0 @@
-An ODP presentation containing extraneous slides is printed over IPP. Participants are expected to carve the original ODP file from the provided pcap, open the file, and view the slides. One of which contains the flag. The sha256 of the original printed file is e0fa70cd5d4b87735f4683a266398d72f6022d8880a8f56e619cf67d953b4c25.

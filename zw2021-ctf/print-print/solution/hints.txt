@@ -1,5 +1,0 @@
-1. Zeek's analyzers don't seem to support this protocol. Perhaps you need a different tool.
-
-2. Once you've carved the file from the network connection, open it.
-
-3. The flag should be the contents of one of the slides.

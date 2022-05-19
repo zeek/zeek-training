@@ -1,5 +1,0 @@
-1. It seems all the bytes of the TCP connection are going in one direction.
-
-2. If Zeek isn't able to extract the transfered file, perhaps another tool will.
-
-3. A tgz file was transfered using netcat. Extract the file from the TCP connection, decompress it, and search the zeek-docs repo for the file's contents.

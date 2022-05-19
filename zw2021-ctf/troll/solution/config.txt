@@ -1,5 +1,0 @@
-Difficulty:	Medium
-Value:	300
-Hint Pentalties:	-50, -75, -100
-Author:	Anthony K
-Evaluator:	Chandan C

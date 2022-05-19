@@ -1,5 +1,0 @@
-1. Why not just bruteforce all possible flag combinations? There aren't tooo many.
-
-2. Broker::data() is a great way to visually inspect opaque types. Try printing an empty `Broker::data(bf)` to screen. Then try to get that output back into a scriptland variable.
-
-3. `Broker::data(["BloomFilterVal", [[F, 7], [0, [1  ...`

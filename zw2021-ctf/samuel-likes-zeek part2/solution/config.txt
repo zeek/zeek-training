@@ -1,5 +1,0 @@
-Difficulty:	Beginner
-Value:	50
-Hint Pentalties:	-5, -10, -20
-Author:	Ben R
-Evaluator:	Anthony K

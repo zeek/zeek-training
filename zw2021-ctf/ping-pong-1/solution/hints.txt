@@ -1,6 +1,0 @@
-1. RFC-792
-
-2. How does ICMP protocol makes sure that the message sent is the exact message received by the other host?
-
-3. Look at the ICMP `data`.
-

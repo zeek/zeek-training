@@ -1,1 +1,0 @@
-Printing the contents of the strings with passed to the compress_path() bif reveals the flag as ASCII art

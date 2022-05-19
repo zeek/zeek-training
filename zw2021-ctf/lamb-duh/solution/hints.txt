@@ -1,5 +1,0 @@
-1. All functions, regardless if they are named or anonymous, are known at runtime to the global_ids() bif.
-
-2. A function's body (the actual Zeek script source code) can be represented as a string type.
-
-3. Search the global_ids() bif for functions with names that begin with "lambda". Then convert each of the bodies of each lambda function to a string. Use the string split provided in the challenge description along with the sha256 hash to identify the correct lambda function.

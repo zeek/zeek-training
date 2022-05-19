@@ -1,3 +1,0 @@
-1. try.zeek.org
-2. When you run a query, it is given a number and saved. try and you'll see.
-2. https://try.zeek.org/#/tryzeek/saved/524248
