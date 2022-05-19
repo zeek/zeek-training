@@ -1,3 +1,0 @@
-1) Extend policies/logging-stream.zeek to include timestamp and src IP address 
-2) extra-credit: extend the policy to be more memory efficient ie Hint: instead of hosts: set[addr] use opaque of cardinality
-	
