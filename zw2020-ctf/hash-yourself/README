@@ -1,4 +1,0 @@
-Hash Yourself
-=============
-This Zeek script calculates a levenshtein distance between two strings but doesn't print it :(
-See if you can figure out what line 42 evaluates to. But be careful, you might not want to edit the script.
