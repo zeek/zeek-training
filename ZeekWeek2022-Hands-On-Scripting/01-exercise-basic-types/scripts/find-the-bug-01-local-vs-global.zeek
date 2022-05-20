@@ -26,9 +26,9 @@ event zeek_done()
 #local - scope of a local variable starts at the location where it is declared and persists to the end of the function, hook, or event handler in which it is declared. All variables in functions need to be declared with local keyword (except using “const” or in a for loop)
 
 
-#If a global identifier is declared after a “module” declaration, then its scope ends at the end of the current Zeek script or at the next “module” declaration, whichever comes first.
+# If a global identifier is declared after a “module” declaration, then its scope ends at the end of the current Zeek script or at the next “module” declaration, whichever comes first.
 
 
-#If a global identifier is declared after a “module” declaration, but inside an export block, then its scope ends at the end of the last loaded Zeek script, but it must be referenced using the namespace operator (::) in other modules.
+# If a global identifier is declared after a “module” declaration, but inside an export block, then its scope ends at the end of the last loaded Zeek script, but it must be referenced using the namespace operator (::) in other modules.
 
 
