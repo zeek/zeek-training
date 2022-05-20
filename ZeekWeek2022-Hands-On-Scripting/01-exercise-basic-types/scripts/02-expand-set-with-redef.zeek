@@ -8,7 +8,7 @@ export {
 redef ip += {2.3.4.5} ;
 
 event zeek_done()
-    {
+	{
 
 	for (i in ip)
 		print fmt("ips in ip: %s", i);
@@ -26,6 +26,6 @@ event zeek_done()
 	print fmt ("esp when clusterization is involved and possible that");
 	print fmt ("variable is used inside other modules/namespaces");
 	print fmt ("=======================================================");
-    }
+	}
 
 

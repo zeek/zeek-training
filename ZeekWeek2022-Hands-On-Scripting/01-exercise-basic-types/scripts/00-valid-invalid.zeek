@@ -33,6 +33,6 @@ event zeek_init()
 
 event zeek_done()
 {
-	print fmt ("Ports support the comparison operators (==, !=, <, <=, >, >=). When comparing order across transport-level protocols, unknown < tcp < udp < icmp, for example 65535/tcp is smaller than 0/udp. I haven’t found a need for comparing a tcp port with udp for example if 22/tcp < 22/udp.  That’s mostly absurd.  But do keep in mind that if you merely do something like if (p < 40000/udp) ignore you are ignoring all the tcp ports too. Since those are less than 0/udp");
+	print fmt ("Ports support the comparison operators (==, !=, <, <=, >, >=). When comparing order across transport-level protocols, unknown < tcp < udp < icmp, for example 65535/tcp is smaller than 0/udp. I have not found a need for comparing a tcp port with udp for example if 22/tcp < 22/udp.  That is mostly absurd.  But do keep in mind that if you merely do something like if (p < 40000/udp) ignore you are ignoring all the tcp ports too. Since those are less than 0/udp");
 
 }
