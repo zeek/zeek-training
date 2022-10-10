@@ -1,0 +1,15 @@
+1) Try using ACTION_DROP
+2) Find all the possible ACTION_EVENTS
+3) can you Extend to ACTION_PAGE ?
+
+
+Exercises:
+
+1) Create a false positve suppression and live-notice-action changes
+
+2) Identify ssh over 443 and generate notice (i) ACTION_EMAIL if server is local (ii) ACTION_LOG if server is remote
+
+3) Can you alert of a IP generated 2 notices - irrespective of the kind ?
+
+
+

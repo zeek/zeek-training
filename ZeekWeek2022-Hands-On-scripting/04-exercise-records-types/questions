@@ -1,0 +1,11 @@
+task 1) can we keep track of start and end times for each ip pairs
+
+Extra-credit: You've got a list of blacklisted IP addresses. You need to find
+    (i)   how many of those IPs attempted connection,
+    (ii)  when was each remote IP first_seen and last_seen,
+    (iii) how long had the remote IP been active for
+    (iv)  when were they last_active
+    (v)   how many local hosts did each remote host connected to
+    (vi)  how many total connections ?
+
+    Extra credit++ : do this at scale: the blacklist has 10M IPs.

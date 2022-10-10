@@ -1,0 +1,5 @@
+What is the difference between the following - which one can cause problems:
+
+redef Site::local_nets+= { 192.168.86.0/24} ;
+vs
+redef Site::local_nets= { 192.168.86.0/24} ;

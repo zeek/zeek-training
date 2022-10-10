@@ -1,0 +1,3 @@
+1) Extend this script so that if the password matches a given password complexity then send NOTICE email. 
+2) Extend this script so that you can capture passwords in HTTP POST requests as well. 
+
