@@ -1,1 +1,0 @@
-# zeek-hands-on-scripting
