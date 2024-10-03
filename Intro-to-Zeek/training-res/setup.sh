@@ -13,6 +13,7 @@ apt-get install -y --no-install-recommends \
         nano \
         net-tools \
         procps \
+        psmisc \
         python3 \
         python3-pip \
         sudo \
