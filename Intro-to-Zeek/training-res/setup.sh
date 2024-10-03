@@ -20,3 +20,13 @@ apt-get -y install \
         vim \
         wget
 
+# Convenience symlink for the resources in this directory:
+if [ ! -d /training ]; then
+    thisdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    ln -s "$thisdir" /training
+fi
+
+# Same for the Zeek installation itself:
+if [ -d /usr/local/zeek ] && [ ! -d /zeek ]; then
+    ln -s /usr/local/zeek /zeek
+fi
