@@ -4,7 +4,7 @@ export DEBIAN_FRONTEND="noninteractive" TZ="America/Los_Angeles"
 
 apt-get update
 
-apt-get -y install \
+apt-get install -y --no-install-recommends \
         curl \
         ethtool \
         gpg \
