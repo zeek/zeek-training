@@ -1,4 +1,3 @@
-
 event zeek_init()
     {
 	print fmt ("zeek_init: hello world!");
