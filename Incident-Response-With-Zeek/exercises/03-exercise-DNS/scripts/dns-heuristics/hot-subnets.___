@@ -1,0 +1,60 @@
+module DNS ;
+
+#redef exit_only_after_terminate = T ;
+
+export {
+
+	redef enum Notice::Type += {
+		HotSubnet,      # Too many scanners originating from this subnet
+	};
+
+	global hot_subnets: table[subnet] of set[addr] &create_expire=7 days;
+        global hot_subnets_idx: table[subnet] of count &create_expire=7 days;
+        global hot_subnets_threshold: vector of count = { 3, 10, 25, 100, 200, 255 } ;
+
+        global hot_subnet_check:function(ip: addr);
+        global check_subnet_threshold: function (v: vector of count, idx: table[subnet] of count, orig: subnet, n: count):bool ;
+}
+
+function check_subnet_threshold(v: vector of count, idx: table[subnet] of count, orig: subnet, n: count):bool
+{
+        if (orig !in idx)
+                idx[orig]=  0 ;
+
+         if ( idx[orig] < |v| && n >= v[idx[orig]] )
+                {
+                ++idx[orig];
+
+                return (T);
+                }
+        else
+                return (F);
+}
+
+function hot_subnet_check(ip: addr)
+{
+
+         # check for subnet scanners
+         local scanner_subnet = mask_addr(ip, 24) ;
+
+        if (scanner_subnet !in hot_subnets)
+        {
+                local a: set[addr]  ;
+                hot_subnets[scanner_subnet] = a ;
+        }
+
+        if (ip !in hot_subnets[scanner_subnet] );
+                add hot_subnets[scanner_subnet][ip];
+
+        local n = |hot_subnets[scanner_subnet]|  ;
+
+        local result = F ;
+        result = check_subnet_threshold(hot_subnets_threshold, hot_subnets_idx , scanner_subnet, n);
+
+        if (result)
+        {
+                local _msg = fmt ("%s has %s scanners originating from it", scanner_subnet, n);
+                NOTICE([$note=HotSubnet,  $src=ip, $msg=fmt("%s", _msg)]);
+        }
+}
+
