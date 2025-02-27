@@ -1,0 +1,11 @@
+indicator	description
+postmaster@return--path.com	bad-mailfrom
+Ingrid Peters <ipeters@lbl.gov>	bad-sender
+Andrew Danis <andrew.danis@outlook.com>	bad-sender
+ipeters@lbl.gov	bad-sender-email
+Ingrid Peters	bad-sender-name
+FY17 Performance Review Problem	bad-subject
+http://vvsqlxqbum.generalqyq.com/apply.php 	bad_url
+http://www.fb-support-us.com/app-secoure.htm 	bad_url
+http://217.61.22.103/securpass-BP/497f8ce2a107450b38ecf99860bcd652NWJiNjUyOGQyZGI5MTVjZTA2Zjg0MzczYTU4ZDFkNWI= 	bad_url
+http://www.cherilovell.com/-/billinfo/v3/bankofamerica-confirm-your-email.php 	bad_url
