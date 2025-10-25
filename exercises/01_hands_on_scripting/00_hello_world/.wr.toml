@@ -1,0 +1,3 @@
+[[verification]]
+command = "btest"
+args = ["-d", "-v"]
