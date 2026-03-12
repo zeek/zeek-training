@@ -48,7 +48,7 @@ ALL_TARGETS=("tutorial" "intro-to-zeek", "print")
 setup_tutorial() {
   echo "Cloning Zeek source code"
   # TODO: This should change to the first release with the changes.
-  git clone -b topic/etyp/doc-tutorial https://github.com/zeek/zeek.git
+  git clone https://github.com/zeek/zeek.git
   echo
   echo
   echo "Cloning example CVE detection source code"
