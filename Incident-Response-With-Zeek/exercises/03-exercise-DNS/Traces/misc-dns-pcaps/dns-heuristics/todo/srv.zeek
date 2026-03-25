@@ -1,6 +1,6 @@
 module DNS;
 
-export { 
+export {
 
 
-} 
+}

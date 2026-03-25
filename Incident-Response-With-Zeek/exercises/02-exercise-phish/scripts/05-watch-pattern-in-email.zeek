@@ -5,8 +5,8 @@ export {
                 MsgBody,
         };
 
-        global keyword_blob: pattern = /.{0,90}password.{0,190}/ &redef ; 
-        global keywords: pattern = /(?i:password)/ ; 
+        global keyword_blob: pattern = /.{0,90}password.{0,190}/ &redef ;
+        global keywords: pattern = /(?i:password)/ ;
 
         global interesting_files: set[string] ;
 }
@@ -22,7 +22,7 @@ event mime_all_data(c: connection, length: count, data: string) &priority=-5
                 local match = find_all (data, keyword_blob);
                 local hits = ""  ;
 
-		print fmt ("%s", match); 
+		print fmt ("%s", match);
 
                 for (m in match) {
                         hits += fmt ("match: %s ", m) ;

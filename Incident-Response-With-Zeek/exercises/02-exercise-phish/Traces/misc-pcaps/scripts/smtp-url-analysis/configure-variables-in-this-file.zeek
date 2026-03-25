@@ -21,8 +21,7 @@ redef ignore_fp_links += /\.r87\.com\/|GALAKA\.com|support\.proofpoint\.com/;
 redef ignore_mailfroms += /zeek@/;
 redef ignore_notification_emails += { "zeek-alerts@site.org",  };
 
-redef ignore_site_links += /example\.net\/|example\.net$|blah\.org\/|blah\.org$/
-    &redef;
+redef ignore_site_links += /example\.net\/|example\.net$|blah\.org\/|blah\.org$/ &redef;
 
 redef suspicious_text_in_url += /auth\.site\.org\.[a-zA-Z0-9]+(\/)?|login\.site\.orig\.[a-zA-Z0-9]+(\/)?|googledoc|googledocs|wrait\.ru/;
 redef suspicious_text_in_url += /www\.foxterciaimobiliaria\.com\.br/;
@@ -32,7 +31,8 @@ redef suspicious_text_in_body += /[Pp][Ee][Rr][Ss][Oo][Nn][Aa][Ll] [Ee][Mm][Aa][
 ##### for example example.com etc goes here
 #### since regex cannot be compiled at runtime (yet) we need to define both variables
 #####
-redef site_domain: pattern = /aa\.test|testing\,com|example\.com/ &redef;
+redef site_domain: pattern = /aa\.test|testing\.com|example\.com|lbl\.gov/
+    &redef;
 redef site_sub_domains: pattern =
     /.*\.(aa\.test|lbl\.gov|lbnl\.us|es\.net\.)(:[0-9]+|$)/ &redef;
 
@@ -63,8 +63,7 @@ redef SMTPurl::suspicious_text_in_url += /auth\.login\.php|authberkeleyedu/;
 ### you can continue populate above file or redef one below as needed
 #########################################################################
 
-redef SMTPurl::smtp_indicator_feed = fmt(
-    "%s/feeds/smtp_malicious_indicators.out", @DIR);
+redef SMTPurl::smtp_indicator_feed = fmt( "%s/feeds/smtp_malicious_indicators.out", @DIR);
 
 #redef SMTPurl::smtp_indicator_feed = "smtp_malicious_indicators.out";
 

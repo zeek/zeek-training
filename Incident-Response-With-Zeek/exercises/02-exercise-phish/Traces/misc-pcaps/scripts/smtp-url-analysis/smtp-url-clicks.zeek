@@ -1,58 +1,59 @@
 module SMTPurl;
 
 export {
-	redef enum Notice::Type += { URLClick, RareURLClick, HistoricallyNewAttacker,
-	    AddressSpoofer, NameSpoofer, HTTPSensitivePOST, };
+	redef enum Notice::Type += {
+		URLClick,
+		RareURLClick,
+		HistoricallyNewAttacker,
+		AddressSpoofer,
+		NameSpoofer,
+		HTTPSensitivePOST,
+	};
 
 	global check_smtpurl_in_http: function(rec: HTTP::Info);
 
 	global SMTPurl::w_m_url_click: event(link: string, mail_info: mi,
 	    c: connection);
-	global track_post_requests: table[addr] of string &create_expire=2days &redef;
+	global track_post_requests: table[addr] of string &create_expire=2 days &redef; # todo synchronized
 
 	global process_link_in_bloom: function(link: string, c: connection);
 }
 
-@if ( Cluster::is_enabled() )
 
-@if ( Cluster::local_node_type() != Cluster::MANAGER )
-event zeek_init()
-	{
-	Broker::auto_publish(Cluster::manager_topic, SMTPurl::w_m_url_click);
-	}
-@endif
-@endif
 
 @if ( ( Cluster::is_enabled() && Cluster::local_node_type() == Cluster::MANAGER ) || ! Cluster::is_enabled() )
 
 event SMTPurl::w_m_url_click(link: string, mail_info: mi, c: connection)
-	{
+{
 	log_reporter(fmt(
-	    "EVENT: SMTPurl::w_m_url_click: VARS: link: %s, mail_info: %s",
-	    link, mail_info), 10);
+	    "EVENT: SMTPurl::w_m_url_click: VARS: link: %s, mail_info: %s", link,
+	    mail_info), 10);
 
-	# lets populate an expired record from the database
+	## lets populate an expired record from the database
 
-	if ( link in mail_links )
-		{
+	if ( link in mail_links ) {
 		log_reporter(fmt("EVENT:  w_m_url_click : %s, mail_info: %s", link,
 		    mail_links[link]), 10);
 		log_clicked_urls(link, mail_info, c);
-		}
+	###run_heuristics(link, mail_links[link], c);
 	}
+}
 @endif
 
 event http_message_done(c: connection, is_orig: bool, stat: http_message_stat)
     &priority=-3
-	{
-	if ( is_orig )
-		{
+#event HTTP::log_http(rec: HTTP::Info) &priority=-6
+{
+	if ( is_orig ) {
+		#log_reporter(fmt("EVENT: http_message_done: VARS: c: %s", c$http),10);
 		check_smtpurl_in_http(c$http);
-		}
 	}
+}
 
 function check_smtpurl_in_http(rec: HTTP::Info)
-	{
+{
+	#log_reporter(fmt("EVENT: function check_smtpurl_in_http: VARS: rec: %s", rec),10);
+
 	local is_link_clicked = F;
 	local link_in_bloom = F;
 	local link = SMTPurl::build_url_http(rec);
@@ -67,15 +68,15 @@ function check_smtpurl_in_http(rec: HTTP::Info)
 	if ( seen > 0 )
 		link_in_bloom = T;
 
-	# see if this HTTP URL is a 'smtp url' and of interest
+	### see if this HTTP URL is a 'smtp url' and of interest
 	if ( ! link_in_bloom && link !in mail_links )
 		return;
 
-	# if HTTP connection info exists
-	if ( ! connection_exists(rec$id) )
-		{
+	### if HTTP connection info exists
+	if ( ! connection_exists(rec$id) ) {
 		log_reporter(fmt("POTENTIAL PROBLEM: No connection_exists for %s", rec), 0);
-		}
+	#return;
+	}
 
 	local c = lookup_connection(rec$id);
 
@@ -85,38 +86,36 @@ function check_smtpurl_in_http(rec: HTTP::Info)
 	# if URL is in mail_links ie active  usual process route
 	# else see if we can pull mail_info for this URL from the mail_links_db
 
-	if ( link_in_bloom )
-		{
+	if ( link_in_bloom ) {
 		process_link_in_bloom(link, c);
 		log_reporter(fmt("check_smtpurl_in_http BLOOM LINK: %s", link), 0);
 		is_link_clicked = T;
-		}
-	else if ( link in mail_links )
-		{
-		# send to manager for processing
+	} else if ( link in mail_links ) {
+		## send to manager for processing
 		log_reporter(fmt("check_smtpurl_in_http ACTIVE LINK: %s", link), 0);
+		@if ( Cluster::is_enabled() && Cluster::local_node_type() != Cluster::MANAGER )
+		Broker::publish(Cluster::manager_topic, SMTPurl::w_m_url_click, link, SMTPurl::mail_links[link], c);
+		@else
 		event SMTPurl::w_m_url_click(link, SMTPurl::mail_links[link], c);
+		@endif
 		is_link_clicked = T;
-		}
-	else
-		# just a failsafe
+	} else
+		### just a failsafe
 		return;
 
-	if ( is_link_clicked && ( dst !in track_post_requests ) )
-		{
+	if ( is_link_clicked && ( dst !in track_post_requests ) ) {
 		track_post_requests[dst] = fmt("%s clicked %s to %s", src, link, dst);
-		}
+	#print fmt ("POST request track: %s", track_post_requests[dst]);
+	}
 
 	if ( c$http?$referrer
 	    && ( link !in mail_links )
-	    && ( c$http$referrer in mail_links || link_in_bloom ) )
-		{
+	    && ( c$http$referrer in mail_links || link_in_bloom ) ) {
 		local track_referrer_chains = F;
 
-		if ( track_referrer_chains )
-			{
-			log_reporter(fmt("New link of referrer chain: link: %s, referrer: %s for %s",
-			    link, c$http$referrer, mail_links[c$http$referrer]), 2);
+		if ( track_referrer_chains ) {
+			log_reporter(fmt("New link of referrer chain: link: %s, referrer: %s for %s", link,
+			    c$http$referrer, mail_links[c$http$referrer]), 2);
 			SMTPurl::mail_links[link] = SMTPurl::mail_links[c$http$referrer];
 
 			local new_link = T;
@@ -134,14 +133,21 @@ function check_smtpurl_in_http(rec: HTTP::Info)
 			# since referrer is now added to the mail_links table
 			# we need to sync mail_links across the cluster
 
-@if ( ( Cluster::is_enabled() && Cluster::local_node_type() != Cluster::MANAGER ) || ( ! Cluster::is_enabled() ) )
+@if ( Cluster::is_enabled() && Cluster::local_node_type() != Cluster::MANAGER )
+			Broker::publish(Cluster::manager_topic, SMTPurl::w_m_smtpurls_new, link, mail_links[c$http$referrer]);
+@else
 			event SMTPurl::w_m_smtpurls_new(link, mail_links[c$http$referrer]);
 @endif
-			}
 		}
 	}
+}
 
 function process_link_in_bloom(link: string, c: connection)
-	{
+{
+	### log_reporter(fmt("BLOOOOOOOMED LINK CLICKED: %s", link),0);
+	@if ( Cluster::is_enabled() && Cluster::local_node_type() != Cluster::MANAGER )
+	Broker::publish(Cluster::manager_topic, SMTPurl::w_m_url_click_in_bloom, link, c);
+	@else
 	event SMTPurl::w_m_url_click_in_bloom(link, c);
-	}
+	@endif
+}

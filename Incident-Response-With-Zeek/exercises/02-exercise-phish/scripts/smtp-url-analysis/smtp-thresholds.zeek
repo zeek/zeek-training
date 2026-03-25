@@ -65,7 +65,7 @@ export {
 
 	global ok_bulk_sender: table[string] of BulkSenderVal = table() &redef; # zeek porting synchronized
 
-	global ok_bulk_sender_ip_feed = fmt("%s/feeds/ok_bulk_senders.out", @DIR) &redef;
+	global ok_bulk_sender_ip_feed = fmt("%s/../feeds/ok_bulk_senders.out", @DIR) &redef;
 
 	global ignore_smtp_subjects: pattern = /phenixbb/ &redef;
 

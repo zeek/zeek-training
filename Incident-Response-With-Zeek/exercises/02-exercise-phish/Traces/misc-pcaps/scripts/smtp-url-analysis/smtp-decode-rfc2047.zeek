@@ -41,7 +41,7 @@ event mime_one_header(c: connection, h: mime_header_rec) &priority=3
 	if ( c?$smtp && h$name == "SUBJECT" && ( /\?[bBqQ]\?/ in h$value ) )
 		{
 		c$smtp$decoded_subject = decode_encoded_word(h$value);
-		#print fmt ("subject: %s", h$value);
-		#print fmt ("decoded: %s", c$smtp$decoded_subject);
+		print fmt ("subject: %s", h$value);
+		print fmt ("decoded: %s", c$smtp$decoded_subject);
 		}
 	}

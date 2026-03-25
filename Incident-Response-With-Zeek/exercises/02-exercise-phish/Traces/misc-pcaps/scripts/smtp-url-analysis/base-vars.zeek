@@ -1,7 +1,7 @@
 module SMTPurl;
 
 export {
-	#local SMTPurl_file =  fmt( "%s/feeds/SMTPurl", @DIR);
+
 	redef Config::config_files += { fmt("%s/feeds/SMTPurl", @DIR),  };
 
 	global log_stats: event();
@@ -14,6 +14,11 @@ export {
 	global log_reporter: function(msg: string, debug: count);
 	global SMTPurl::check_db_read_status: event();
 
+	redef Site::local_nets += {
+		128.3.0.0 / 16,
+		131.243.0.0 / 16,
+	};
+
 	global START_PROCESSING = F;
 	global FINISHED_READING_SMTP_FROM = F;
 	global FINISHED_READING_SMTP_FROM_NAME = F;
@@ -24,7 +29,7 @@ export {
 }
 
 function build_url_http(rec: HTTP::Info): string
-	{
+{
 	local uri = rec?$uri ? rec$uri : "/<missed_request>";
 
 	uri = ( uri != "/" ) ? uri : "";
@@ -33,22 +38,21 @@ function build_url_http(rec: HTTP::Info): string
 	if ( rec$id$resp_p != 80/tcp )
 		host = fmt("%s:%s", host, rec$id$resp_p);
 	return fmt("http://%s%s", host, uri);
-	}
+}
 
 function log_reporter(msg: string, debug: count)
-	{
+{
 	#if (debug > 0 ) {
 	#event reporter_info(network_time(), msg, peer_description);
 	#}
 
-	if ( debug > 20 )
-		{
+	if ( debug > 20 ) {
 @if ( ! Cluster::is_enabled() )
 		print fmt("%s", msg);
 @endif
 		event reporter_info(network_time(), msg, peer_description);
-		}
 	}
+}
 
 ### we need a mechanism to read data from postgres tables
 ### before we start processing traffic otherwise
@@ -58,13 +62,14 @@ function log_reporter(msg: string, debug: count)
 ### we rather not process traffic than have incorrect entires in the table
 
 event zeek_init() &priority=1
-	{ #suspend_processing();
-	#log_reporter(fmt("SUSPENDED PROCESSING .............."),0);
-	#schedule 1 sec { SMTPurl::check_db_read_status()}  ;
-	}
+{ #suspend_processing();
+#log_reporter(fmt("SUSPENDED PROCESSING .............."),0);
+#schedule 1 sec { SMTPurl::check_db_read_status()}  ;
+}
 
 event SMTPurl::check_db_read_status()
-	{
+{
+
 	# since we are not using postgress right now
 	# 2023-04-06 aashish
 	return;
@@ -80,15 +85,14 @@ event SMTPurl::check_db_read_status()
 	if ( FINISHED_READING_SMTP_FROM
 	    && FINISHED_READING_SMTP_FROM_NAME
 	    && FINISHED_READING_SMTP_FROM_EMAIL
-	    && FINISHED_READING_HTTP_FQDN )
-		{
+	    && FINISHED_READING_HTTP_FQDN ) {
 		continue_processing();
 		log_reporter(fmt("CONTINUE PROCESSING .............."), 0);
 		START_PROCESSING = T;
-		}
-	#else
-	#	schedule 10 sec { SMTPurl::check_db_read_status()}  ;
 	}
+#else
+#	schedule 10 sec { SMTPurl::check_db_read_status()}  ;
+}
 
 export {
 	global uninteresting_fqdns: opaque of bloomfilter;
@@ -110,7 +114,7 @@ export {
 		trustworthy: bool &default=F;
 	} &log;
 
-	global http_fqdn: table[string] of fqdn_rec &write_expire=10days;
+	global http_fqdn: table[string] of fqdn_rec &write_expire=10 days;
 
 	#########
 
@@ -235,12 +239,12 @@ export {
 	    : interval;
 
 	#global mail_links: table [string] of mi &create_expire=EXPIRE_INTERVAL &expire_func=mail_links_expire_func  ;
-	global mail_links: table[string] of mi &read_expire=12hrs
+	global mail_links: table[string] of mi &read_expire=12 hrs
 	    &expire_func=mail_links_expire_func;
 
 	global tmp_link_cache_expire: function(t: table[string] of connection,
 	    link: string): interval;
-	global tmp_link_cache: table[string] of connection &create_expire=7days
+	global tmp_link_cache: table[string] of connection &create_expire=7 days
 	    &expire_func=tmp_link_cache_expire;
 
 	############### AddressBook ###########
@@ -269,24 +273,24 @@ export {
 
 function tmp_link_cache_expire(t: table[string] of connection, link: string)
     : interval
-	{
+{
 	log_reporter(fmt(
-	    "EVENT: function tmp_link_cache_expire: link: %s, t[link]: %s",
-	    link, t[link]), 10);
-	return 0secs;
-	}
+	    "EVENT: function tmp_link_cache_expire: link: %s, t[link]: %s", link,
+	    t[link]), 10);
+	return 0 secs;
+}
 
 event zeek_init()
-	{
+{
 	mail_links_bloom = bloomfilter_basic_init(0.001, 10000000);
 	bloomfilter_add(mail_links_bloom, "http://testurl.com");
 	uninteresting_fqdns = bloomfilter_basic_init(0.001, 10000000);
 	bloomfilter_add(uninteresting_fqdns, "testurl.com");
-	}
+}
 
 # function takes a URL as input and returns the fqdn
 function extract_host(url: string): string
-	{
+{
 	log_reporter(fmt("EVENT: function extract_host: %s", url), 10);
 
 	#local parts = split_string(url, /\/|\?/);
@@ -297,39 +301,63 @@ function extract_host(url: string): string
 	    /\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}\/?/;
 	local domain = find_all(url, domain_regex);
 
-	for ( d in domain )
-		{
+	for ( d in domain ) {
 		host = gsub(d, /\/|\.$/, "");
 		#log_reporter(fmt ("DOMAIN IS : %s", host),0);
 		break;
-		}
+	}
 
 	return host;
-	}
+}
 
 # Extracts URLs discovered in arbitrary text.
+# Uses chunked processing to work around Zeek's find_all
+# failing on large binary blobs (e.g. ZIP attachments in MIME data).
 function find_all_urls(s: string): string_set
-	{
-	return find_all(s, url_regex);
+{
+	local len = |s|;
+	# For small strings, use find_all directly
+	if ( len <= 8192 )
+		return find_all(s, url_regex);
+
+	# For large strings, process in overlapping chunks
+	local chunk_size = 8192;
+	local overlap = 512;
+	local result: set[string] = set();
+	local offset = 0;
+
+	while ( offset < len ) {
+		local end = offset + chunk_size;
+		if ( end > len )
+			end = len;
+		local chunk = sub_bytes(s, offset + 1, end - offset);
+		local urls = find_all(chunk, url_regex);
+		for ( u in urls )
+			add result[u];
+		offset = end - overlap;
+		if ( end >= len )
+			break;
 	}
+
+	return result;
+}
 
 # Extracts URLs discovered in arbitrary text without
 # the URL scheme included.
 function find_all_urls_without_scheme(s: string): string_set
-	{
+{
 	local urls = find_all_urls(s);
 	local return_urls: set[string] = set();
-	for ( url in urls )
-		{
+	for ( url in urls ) {
 		local no_scheme = sub(url, /^([a-zA-Z\-]{3,5})(:\/\/)/, "");
 		add return_urls[no_scheme];
-		}
-
-	return return_urls;
 	}
 
+	return return_urls;
+}
+
 function get_email_address(sender: string): string
-	{
+{
 	#log_reporter(fmt("EVENT: function get_email_address: VARS: sender: %s", sender),10);
 
 	#email regexp: [A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}
@@ -338,22 +366,19 @@ function get_email_address(sender: string): string
 
 	local to_name: string;
 
-	if ( |to_n| == 1 )
-		{
+	if ( |to_n| == 1 ) {
 		to_name = strip(gsub(to_n[0], pat, ""));
-		}
-	else
-		{
+	} else {
 		to_name = strip(gsub(to_n[1], pat, ""));
-		}
+	}
 
 	to_name = to_lower(to_name);
 
 	return escape_string(to_name);
-	}
+}
 
 function get_email_name(sender: string): string
-	{
+{
 	#log_reporter(fmt("EVENT: function get_email_name: VARS: sender: %s", sender),10);
 
 	if ( /</ !in sender )
@@ -371,4 +396,4 @@ function get_email_name(sender: string): string
 		return get_email_address(sender);
 
 	return escape_string(result);
-	}
+}

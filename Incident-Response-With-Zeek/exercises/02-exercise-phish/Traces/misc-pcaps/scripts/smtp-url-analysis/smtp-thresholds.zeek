@@ -7,10 +7,13 @@ module SMTPurl;
 # same sender: too many subjects
 
 export {
+
 	redef enum Notice::Type += { TargetedSubject, bcc_HighVolumeSubject,
-	    SubjectMassMail, InternalBCCSender, InternalMassMail,
-	    ExternalBCCSender, ExternalMassMail, SMTP_Invalid_rcptto,
-	    ManyMsgOrigins, };
+	    SubjectMassMail,
+		InternalBCCSender, InternalMassMail,
+		ExternalBCCSender, ExternalMassMail,
+		SMTP_Invalid_rcptto,
+		ManyMsgOrigins, };
 
 	type smtp_thresholds: record {
 		start_time: time;
@@ -57,13 +60,12 @@ export {
 
 	type BulkSenderVal: record {
 		mailfrom: string;
-	#comment: string &optional &default="null";
+		#comment: string &optional &default="null";
 	};
 
 	global ok_bulk_sender: table[string] of BulkSenderVal = table() &redef; # zeek porting synchronized
 
-	global ok_bulk_sender_ip_feed = fmt("%s/feeds/ok_bulk_senders.out", @DIR)
-	    &redef;
+	global ok_bulk_sender_ip_feed = fmt("%s/feeds/ok_bulk_senders.out", @DIR) &redef;
 
 	global ignore_smtp_subjects: pattern = /phenixbb/ &redef;
 
@@ -252,6 +254,7 @@ function process_reply_to(mailfrom: string, subject: string, rec: string)
 
 	reply_to = to_lower(strip(gsub(reply_to, email_domain, "")));
 
+
 	if ( reply_to !in smtp_activity[mailfrom]$reply_to )
 		add smtp_activity[mailfrom]$reply_to[reply_to];
 	}
@@ -274,6 +277,7 @@ function check_smtp_thresholds(rec: SMTP::Info)
 
 	if ( /\+caf_=/ in mailfrom )
 		mailfrom = clean_sender(from);
+
 
 	local clean_mf = clean_sender(mailfrom);
 
@@ -425,3 +429,4 @@ event zeek_init()
 
 	#schedule 60 min { force_update_input_logs() };
 	}
+
