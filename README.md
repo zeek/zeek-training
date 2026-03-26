@@ -12,3 +12,5 @@ In each subdirectory, READMEs provide additional information regarding where to
 find additional training resources. The repositories contains additional
 branches for older events, to avoid duplicating the same material into mostly
 redundant folders over time.
+
+Aashish Sharma
