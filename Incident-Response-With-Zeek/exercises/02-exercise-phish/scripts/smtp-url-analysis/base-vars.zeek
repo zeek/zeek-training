@@ -1,9 +1,7 @@
 module SMTPurl;
 
 export {
-	redef Config::config_files += {
-		"/YURT/feeds/zeek-config/SMTPurl"
-	};
+	redef Config::config_files +=  { fmt ("%s/feeds/SMTPurl", @DIR), };
 
 	global log_stats: event();
 	global site_domain: pattern = /lbl\.gov/ &redef;
@@ -14,11 +12,6 @@ export {
 
 	global log_reporter: function(msg: string, debug: count);
 	global SMTPurl::check_db_read_status: event();
-
-	redef Site::local_nets += {
-		128.3.0.0 / 16,
-		131.243.0.0 / 16,
-	};
 
 	global START_PROCESSING = F;
 	global FINISHED_READING_SMTP_FROM = F;

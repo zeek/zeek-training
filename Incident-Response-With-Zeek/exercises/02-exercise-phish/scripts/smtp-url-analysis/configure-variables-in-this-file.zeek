@@ -63,7 +63,7 @@ redef SMTPurl::suspicious_text_in_url += /auth\.login\.php|authberkeleyedu/;
 ### you can continue populate above file or redef one below as needed
 #########################################################################
 
-redef SMTPurl::smtp_indicator_feed = fmt( "%s/../feeds/smtp_malicious_indicators.out", @DIR);
+redef SMTPurl::smtp_indicator_feed = fmt( "%s/feeds/smtp_malicious_indicators.out", @DIR);
 
 #redef SMTPurl::smtp_indicator_feed = "smtp_malicious_indicators.out";
 
