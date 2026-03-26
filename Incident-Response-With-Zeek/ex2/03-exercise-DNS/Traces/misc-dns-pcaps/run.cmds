@@ -1,0 +1,19 @@
+example run command :
+
+
+zeek -C -r 01-HostThreshold.pcap ./dns-heuristics
+
+zeek -C -r 02-PTRThreshold.pcap ./dns-heuristics
+
+zeek -C -r 03-QueryThreshold.pcap ./dns-heuristics
+
+zeek -C -r 04-TxtThreshold.pcap ./dns-heuristics
+
+zeek -C -r 05-VersionBind.pcap ./dns-heuristics
+
+zeek -C -r 06-netbios.dns.pcap ./dns-heuristics
+
+zeek -C -r 07-failed-axfr-zone-transfer.pcap ./dns-heuristics
+
+zeek -C -r 08-dig-hm.edu.pcap ./dns-heuristics
+

@@ -1,0 +1,12 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	files
+#open	2026-03-26-10-18-51
+#fields	ts	fuid	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	source	depth	analyzers	mime_type	filename	duration	local_orig	is_orig	seen_bytes	total_bytes	missing_bytes	overflow_bytes	timedout	parent_fuid	md5	sha1	sha256	extracted	extracted_cutoff	extracted_size
+#types	time	string	string	addr	port	addr	port	string	count	set[string]	string	string	interval	bool	bool	count	count	count	count	bool	string	string	string	string	string	bool	count
+1740213143.085778	FO0oXh3WdbZPp7Iu3i	CR4ovyjwNOSr3NuEi	10.10.0.1	59721	10.0.0.1	25	SMTP	3	(empty)	text/plain	-	0.000000	T	T	184	-	0	0	F	-	-	-	-	-	-	-
+1740213143.085778	FPa9sen76udwAypdk	CR4ovyjwNOSr3NuEi	10.10.0.1	59721	10.0.0.1	25	SMTP	4	(empty)	text/html	-	0.000032	T	T	365	-	0	0	F	-	-	-	-	-	-	-
+1740213143.085810	F8ibwr6oJV4vhCTek	CR4ovyjwNOSr3NuEi	10.10.0.1	59721	10.0.0.1	25	SMTP	5	(empty)	image/png	Greetings-from-a-national-lab.png	0.129728	T	T	626450	-	0	0	F	-	-	-	-	-	-	-
+#close	2026-03-26-10-18-51

@@ -1,0 +1,18 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	dns
+#open	2026-03-26-10-29-22
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	trans_id	rtt	query	qclass	qclass_name	qtype	qtype_name	rcode	rcode_name	AA	TC	RD	RA	Z	answers	TTLs	rejected	opcode	opcode_name
+#types	time	string	addr	port	addr	port	enum	count	interval	string	count	string	count	string	count	string	bool	bool	bool	bool	count	vector[string]	vector[interval]	bool	count	string
+1210953058.350065	CBaOnr3rGJYWUD0K78	192.168.2.16	1920	192.168.2.1	53	udp	16995	0.087131	ipv6.google.com	1	C_INTERNET	28	AAAA	0	NOERROR	F	F	T	T	0	ipv6.l.google.com,2001:4860:0:2001::68	8655.000000,300.000000	F	0	query
+1210953058.437564	CBaOnr3rGJYWUD0K78	192.168.2.16	1920	192.168.2.1	53	udp	19995	0.135556	ipv6.google.com	1	C_INTERNET	1	A	0	NOERROR	F	F	T	T	0	ipv6.l.google.com	8655.000000	F	0	query
+1210953058.577231	CQ8c2M2yASWNPeAFg1	192.168.2.16	137	192.168.2.255	137	udp	34404	-	IPV6.GOOGLE.COM	1	C_INTERNET	32	NIMLOC	-	-	F	F	T	F	1	-	-	F	0	netbios-query
+1210953059.326477	CQ8c2M2yASWNPeAFg1	192.168.2.16	137	192.168.2.255	137	udp	34404	-	IPV6.GOOGLE.COM	1	C_INTERNET	32	NIMLOC	-	-	F	F	T	F	1	-	-	F	0	netbios-query
+1210953060.076492	CQ8c2M2yASWNPeAFg1	192.168.2.16	137	192.168.2.255	137	udp	34404	-	IPV6.GOOGLE.COM	1	C_INTERNET	32	NIMLOC	-	-	F	F	T	F	1	-	-	F	0	netbios-query
+1210953074.264819	CqPwJF1O1XjRbKSmid	192.168.2.16	1920	192.168.2.1	53	udp	38477	-	www.wireshark.org	1	C_INTERNET	28	AAAA	0	NOERROR	F	F	T	F	0	-	-	T	0	query
+1210953074.426810	CqPwJF1O1XjRbKSmid	192.168.2.16	1920	192.168.2.1	53	udp	26746	-	www.wireshark.org.gateway.2wire.net	1	C_INTERNET	28	AAAA	5	REFUSED	F	F	T	F	0	-	-	T	0	query
+1210953074.452585	CqPwJF1O1XjRbKSmid	192.168.2.16	1920	192.168.2.1	53	udp	34278	0.109957	www.wireshark.org	1	C_INTERNET	1	A	0	NOERROR	T	F	T	T	0	67.228.110.120	14400.000000	F	0	query
+1596647004.860368	Cu4FDL2nXPYG09YkQj	25.229.246.205	32476	138.183.230.21	53	udp	60186	0.000711	170.105.186.128.in-addr.arpa	1	C_INTERNET	12	PTR	0	NOERROR	T	F	F	F	0	illegally-used-at.fsu	86400.000000	F	0	query
+#close	2026-03-26-10-29-22

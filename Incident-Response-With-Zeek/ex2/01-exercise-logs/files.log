@@ -1,0 +1,19 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	files
+#open	2026-03-26-10-29-22
+#fields	ts	fuid	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	source	depth	analyzers	mime_type	filename	duration	local_orig	is_orig	seen_bytes	total_bytes	missing_bytes	overflow_bytes	timedout	parent_fuid	md5	sha1	sha256	extracted	extracted_cutoff	extracted_size
+#types	time	string	string	addr	port	addr	port	string	count	set[string]	string	string	interval	bool	bool	count	count	count	count	bool	string	string	string	string	string	bool	count
+1210953057.917318	FS64me2T5SbKZ5Cp53	CVRvLW253Au6gsZX5j	192.168.2.16	1578	75.126.203.78	80	HTTP	0	(empty)	text/plain	-	0.000000	T	T	589	589	0	0	F	-	-	-	-	-	-	-
+1210953061.874764	F6Q5fr1axmaI8Oxy77	Cho3K21GfwGIdsq1Sj	2001:0:4137:9e50:8000:f12a:b9c8:2815	1286	2001:4860:0:2001::68	80	HTTP	0	(empty)	text/html	-	0.002011	F	F	6640	-	0	0	F	-	-	-	-	-	-	-
+1210953073.689330	FGaesFZVSRZcEseFi	Cho3K21GfwGIdsq1Sj	2001:0:4137:9e50:8000:f12a:b9c8:2815	1286	2001:4860:0:2001::68	80	HTTP	0	(empty)	text/html	-	0.425418	F	F	25119	-	0	0	F	-	-	-	-	-	-	-
+1210953074.788854	FxVarSo2RcFkvGFxd	Cl4Sw13ibkHGriUFhk	192.168.2.16	1580	67.228.110.120	80	HTTP	0	(empty)	text/html	-	0.106482	F	F	11845	-	0	0	F	-	-	-	-	-	-	-
+1601334042.300697	FwQCzwK0oAW1DOr2e	CjyELY1WlSNF16xhWj	10.20.0.1	13910	10.10.0.1	25	SMTP	1	(empty)	text/plain	-	0.000000	T	T	301	-	0	0	F	-	-	-	-	-	-	-
+1601460076.108903	Fnkgbp3FCKSEpon878	Ch1NA3q2ue9U0Tjc3	206.210.229.35	48684	128.11.134.107	8080	HTTP	0	(empty)	text/html	-	0.000000	F	F	178	178	0	0	F	-	-	-	-	-	-	-
+1631629821.318863	FoOfwAc28wuOAc4Rf	C3iZoB3Mn1blReOO5k	10.0.0.147	49712	172.245.26.145	80	HTTP	0	(empty)	text/html	-	0.000000	F	F	301	301	0	0	F	-	-	-	-	-	-	-
+1631629826.629872	Fi2XDW29PwRIWFuqK7	C3iZoB3Mn1blReOO5k	10.0.0.147	49712	172.245.26.145	80	HTTP	0	(empty)	text/html	-	0.000000	F	F	979	979	0	0	F	-	-	-	-	-	-	-
+1631629828.696942	FUM7MD49Q5Hy8WVyUc	C3iZoB3Mn1blReOO5k	10.0.0.147	49712	172.245.26.145	80	HTTP	0	PE	application/x-dosexec	-	0.579973	F	F	582144	582144	0	0	F	-	-	-	-	-	-	-
+1740172548.602452	FX1jvqROSfPK18N	CBUsvyoPvTLwBqKMe	10.0.2.15	37220	192.168.86.36	8000	HTTP	0	(empty)	application/pdf	-	0.007525	T	F	723736	723736	0	0	F	-	-	-	-	-	-	-
+#close	2026-03-26-10-29-22

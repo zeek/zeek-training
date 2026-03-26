@@ -1,0 +1,10 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	smtp
+#open	2026-03-26-10-18-51
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	trans_depth	helo	mailfrom	rcptto	date	from	to	cc	reply_to	msg_id	in_reply_to	subject	x_originating_ip	first_received	second_received	last_reply	path	user_agent	tls	fuids
+#types	time	string	addr	port	addr	port	count	string	string	set[string]	string	string	set[string]	set[string]	string	string	string	string	addr	string	string	string	vector[addr]	string	bool	vector[string]
+1740213143.033737	CR4ovyjwNOSr3NuEi	10.10.0.1	59721	10.0.0.1	25	1	smtpsink.aa.test	init.conf@gmail.com	ash@aa.test	Sat, 22 Feb 2025 00:32:12 -0800	"init.conf" <init.conf@gmail.com>	Aashish Sharma <ash@aa.test>	-	-	<739c8e74-7f04-45b8-b5b1-c0a86205d81a@Spark>	-	It's OK to open this file	-	from [2601:201:8e01:e95b:a014:d446:f87f:0] ([2601:201:8e01:e95b:110a:9d26:927b:ea2e])        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2fceb09f6e0sm2700590a91.44.2025.02.22.00.32.18        for <ash@aa.test>        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);        Sat, 22 Feb 2025 00:32:19 -0800 (PST)	from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])        by mx.google.com with SMTPS id d9443c01a7336-220d535e491sor186879055ad.8.2025.02.22.00.32.20        for <ash@aa.test>        (Google Transport Security);        Sat, 22 Feb 2025 00:32:20 -0800 (PST)	250 2.0.0 Ok	10.0.0.1,10.10.0.1,209.85.220.41,2601:201:8e01:e95b:110a:9d26:927b:ea2e	-	F	FO0oXh3WdbZPp7Iu3i,FPa9sen76udwAypdk,F8ibwr6oJV4vhCTek
+#close	2026-03-26-10-18-51

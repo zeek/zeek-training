@@ -1,0 +1,11 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	ssh
+#open	2026-03-26-10-29-22
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	version	auth_success	auth_attempts	direction	client	server	cipher_alg	mac_alg	compression_alg	kex_alg	host_key_alg	host_key_fingerprint
+#types	time	string	addr	port	addr	port	count	bool	count	enum	string	string	string	string	string	string	string	string
+1601870244.923779	CpjOBB4lwznktKBque	147.161.166.157	65301	162.241.219.40	443	2	T	1	-	SSH-2.0-OpenSSH_8.1	SSH-2.0-OpenSSH_7.2	chacha20-poly1305@openssh.com	umac-64-etm@openssh.com	none	curve25519-sha256@libssh.org	rsa-sha2-512	SHA256:1zvRSP5cgsm5ghwFIjKV0peEj+IA0Lv5
+1740168213.472716	CwU3Q4kGnja4Kf1H4	10.0.2.15	44040	192.168.86.36	22	2	T	1	-	SSH-2.0-OpenSSH_9.9p1 Debian-2	SSH-2.0-OpenSSH_9.8	chacha20-poly1305@openssh.com	umac-64-etm@openssh.com	none	sntrup761x25519-sha512@openssh.com	ssh-ed25519	SHA256:IydEd4wK+pEnwNAdaf02QJLcKRIqw2Im
+#close	2026-03-26-10-29-22
