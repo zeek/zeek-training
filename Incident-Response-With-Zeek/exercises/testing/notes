@@ -1,0 +1,31 @@
+All 26 tests passing. 
+exercises/testing/
+├── btest.cfg              # Config with $EXERCISES env var pointing to ../
+└── tests/
+    ├── 00-hello-world.zeek                    # standalone script
+    ├── 01-logs-trace-only-conn.zeek           # trace only
+    ├── 01-logs-trace-only-spamming.zeek       # trace only
+    ├── 01-logs-trace-only-ssh-bruteforce.zeek # trace only
+    ├── 01-logs-http-file-transfer.zeek        # trace + script
+    ├── 02-phish-01-extract-files.zeek         # trace + script
+    ├── 02-phish-02-embedded-links.zeek        # ...
+    ├── 02-phish-03-credentials-http-post.zeek
+    ├── 02-phish-04-smtp-rfc2047.zeek
+    ├── 02-phish-05-watch-pattern.zeek
+    ├── 02-phish-06-bogus-site-url.zeek
+    ├── 02-phish-07-http-sensitive-post.zeek
+    ├── 02-phish-08-extortion.zeek
+    ├── 02-phish-09-smtp-sensitive-url.zeek
+    ├── 02-phish-10-smtp-all.zeek
+    ├─ 03-dns-main.zeek                       # trace + dns-heuristics package
+    ├── 03-dns-misc-01-host-threshold.zeek     # ...
+    ├── 03-dns-misc-02-ptr-threshold.zeek
+    ├── 03-dns-misc-03-query-threshold.zeek
+    ├── 03-dns-misc-04-txt-threshold.zeek
+    ├── 03-dns-misc-05-version-bind.zeek
+    ├── 03-dns-misc-06-netbios.zeek
+    ├── 03-dns-misc-07-zone-transfer.zeek
+    ├── 03-dns-misc-08-dig-hm-edu.zeek
+    ├── 04-infected-host.zeek                  # trace only
+    └── 05-sunnystation.zeek                   # trace only
+To run: cd exercises/testing && btest (or btest -A for verbose, btest -j for parallel).
