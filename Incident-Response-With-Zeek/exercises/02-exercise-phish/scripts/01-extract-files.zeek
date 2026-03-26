@@ -1,1 +1,0 @@
-@load ./extract-all.zeek 
