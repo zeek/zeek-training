@@ -31,7 +31,7 @@ redef suspicious_text_in_body += /[Pp][Ee][Rr][Ss][Oo][Nn][Aa][Ll] [Ee][Mm][Aa][
 ##### for example example.com etc goes here
 #### since regex cannot be compiled at runtime (yet) we need to define both variables
 #####
-redef site_domain: pattern = /aa\.test|testing\,com|example\.com/
+redef site_domain: pattern = /aa\.test|testing\.com|example\.com|lbl\.gov/
     &redef;
 redef site_sub_domains: pattern =
     /.*\.(aa\.test|lbl\.gov|lbnl\.us|es\.net\.)(:[0-9]+|$)/ &redef;
