@@ -51,8 +51,8 @@ setup_tutorial() {
   git clone https://github.com/zeek/zeek.git
   echo
   echo
-  echo "Cloning example CVE detection source code"
-  git clone https://github.com/corelight/cve-2022-26809
+  echo "Cloning example RCE detection source code"
+  git clone https://github.com/zeek/redis-rce
   ln -sfn $(pwd)/zeek/testing/btest/Traces/ $(pwd)/traces/zeek-testing
   ln -sfn $(pwd)/zeek/doc/traces/ $(pwd)/traces/zeek-doc
   ln -sfn $(pwd)/zeek/doc/tutorial/scripting/scripts/ $(pwd)/scripts/basics
