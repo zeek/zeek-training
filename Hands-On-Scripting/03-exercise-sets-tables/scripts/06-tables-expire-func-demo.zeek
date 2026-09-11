@@ -6,7 +6,7 @@ global services: table[addr, port] of count ;
 
 global expire_distinct_peers: function( t: table[addr] of set[addr], idx: addr): interval ;
 
-global distinct_peers: table[addr] of set[addr] &create_expire=10 hrs &expire_func=expire_distinct_peers ;
+global distinct_peers: table[addr] of set[addr] &create_expire=5 hrs &expire_func=expire_distinct_peers ;
 
 
 event zeek_init()

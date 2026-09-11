@@ -23,7 +23,7 @@ event zeek_init()
 
 
 
-	local a = www.google.com;
+	local a = blocking_lookup_hostname("www.google.com");
 	print fmt ("5. a is %s", a);
 
 	local ai: interval = -1 min ;

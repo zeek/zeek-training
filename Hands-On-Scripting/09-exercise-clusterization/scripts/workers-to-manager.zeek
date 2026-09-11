@@ -5,7 +5,7 @@ event worker_to_manager(worker_name: string)
 
 event some_event_handled_on_worker()
     {
-    Broker::publish(Cluster::manager_topic, worker_to_manager,
+    Cluster::publish(Cluster::manager_topic, worker_to_manager,
                     Cluster::node);
     }
 
