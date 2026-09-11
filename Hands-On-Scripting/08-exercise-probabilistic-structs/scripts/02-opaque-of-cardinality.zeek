@@ -1,6 +1,8 @@
 module training; 
 
 redef exit_only_after_terminate=T ; 
+# the trace is shorter than the default 10 sec table-expiry sweep, so check expiring entries every second
+redef table_expire_interval = 1 sec ;
 
 event zeek_init()
 {

@@ -1,4 +1,4 @@
-# run_cmd: zeek -C -r pcaps/ssh-over-443.pcap  policy/frameworks/dpd/detect-protocols.zeek 
+# run_cmd: zeek -C -r pcaps/ssh-over-443.pcap  policy/frameworks/analyzer/detect-protocols.zeek 
 
 
 export {

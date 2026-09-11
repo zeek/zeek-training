@@ -21,7 +21,7 @@ event zeek_init()
 	print fmt ("3. intersection of sets: %s", anew&bnew); 
 	print fmt ("4. difference of sets: %s", anew - bnew); 
 	
-	local a = www.google.com;
+	local a = blocking_lookup_hostname("www.google.com");
 
 	print fmt ("5. a is %s", a); 
 
