@@ -6,92 +6,95 @@
 @import "gaia";
 
 /* Fonts we use in our theme: */
-@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap"');
 
 :root {
-    font-family: 'Carlito', sans-serif;
-    letter-spacing: -0.001em; /* A tiny bit tighter */
-    color: #505050;
-    background: white;
-    font-size: 42px;
+	font-family: "Carlito", sans-serif;
+	letter-spacing: -0.001em; /* A tiny bit tighter */
+	color: #505050;
+	background: white;
+	font-size: 42px;
 }
 
 p,
 pre,
 blockquote {
-  margin: 0.4em 0;
+	margin: 0.4em 0;
 }
 
 strong {
-    color: #007EA5;
+	color: #007ea5;
 }
 
 h1 {
-    color: #08A9E2;
-    font-size: 1.7em;
+	color: #08a9e2;
+	font-size: 1.7em;
 }
 
 h2 {
-    color: #3485A1;
-    font-size: 1.4em;
+	color: #3485a1;
+	font-size: 1.4em;
 }
 
 h3 {
-    color: #4A7381;
-    font-size: 1.2em;
+	color: #4a7381;
+	font-size: 1.2em;
 }
 
 h4 {
-    color: #606060; 
-    font-size: 1em;
+	color: #606060;
+	font-size: 1em;
 }
 
 h5 {
-    color: #505050; 
-    font-size: 0.9em;
+	color: #505050;
+	font-size: 0.9em;
 }
 
-pre, code {
-    font-family: 'Inconsolata', monospace;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 10px;
-    color: #505080;
-    font-size: 115%;
-    line-height: 1.2;
+pre,
+code {
+	font-family: "Inconsolata", monospace;
+	background-color: #f0f0f0;
+	border: none;
+	border-radius: 10px;
+	color: #505080;
+	font-size: 115%;
+	line-height: 1.2;
 }
 
 code {
-    font-size: 95%;
+	font-size: 95%;
 }
 
 /* "shell" and "console" seem to do the same highlighting. Use "shell" for a
  * different background color, for example to highlight inside vs outside of
  * container.
 */
-pre:has(code.language-shell) { background-color: #ffeaba; }
+pre:has(code.language-shell) {
+	background-color: #ffeaba;
+}
 
 /* Tables. */
 table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  margin: 1em 0 0;
-  width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 1em 0 0;
+	width: 100%;
 
-  thead th {
-    padding: 0.2em 0.4em;
-    border-width: 2px;
-    border-style: hidden;
-    background: #08A9E2;
-    color: #ffffff;
-  }
+	thead th {
+		padding: 0.2em 0.4em;
+		border-width: 2px;
+		border-style: hidden;
+		background: #08a9e2;
+		color: #ffffff;
+	}
 
-  td {
-    padding: 0.2em 0.4em;
-    border-width: 2px;
-    border-style: hidden;
-  }
+	td {
+		padding: 0.2em 0.4em;
+		border-width: 2px;
+		border-style: hidden;
+	}
 }
 
 /* Allow two text columns on one slide. To use:
@@ -111,19 +114,18 @@ table {
  * </div>
  */
 .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
 }
 
 /* A way to center an image, based on its alternative text. In the Marp
  * markdown, that's "![center](...)" -- "center" becomes the alt text.
  */
 img[alt~="center"] {
-    display: block;
-    margin: 0 auto;
+	display: block;
+	margin: 0 auto;
 }
-
 
 /* A custom slide style for new chapters in the presentation.
  * To use, say something like:
@@ -133,31 +135,31 @@ img[alt~="center"] {
  *
  */
 section.chapter {
-    background-color: #08A9E2;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
+	background-color: #08a9e2;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
 }
 
 section.chapter h1 {
-    font-size: 3em;
-    color: #fff;
+	font-size: 3em;
+	color: #fff;
 }
 
 section.chapter p {
-    color: #505050;
+	color: #505050;
 }
 
 section.chapter a {
-    color: #ffffff;
-    font-weight: bold;
+	color: #ffffff;
+	font-weight: bold;
 }
 
 section.chapter a:visited {
-    color: #ffffff;
-    font-weight: bold;
+	color: #ffffff;
+	font-weight: bold;
 }
 
 /* Tune the title ("lead") page
@@ -166,53 +168,53 @@ section.chapter a:visited {
  *
  */
 section.lead {
-    font-size: 2.5em;
+	font-size: 2.5em;
 }
 
 /* A slide style with most text being smaller:
  */
 section.smaller p {
-    font-size: 75%;
+	font-size: 75%;
 }
 
 section.smaller li {
-    font-size: 75%;
+	font-size: 75%;
 }
 
 section.smaller pre {
-    font-size: 90%;
+	font-size: 90%;
 }
 
 /* Custom styling for exercises.
  */
 
 .exercise p {
-    color: #8e5d28;
-    font-weight: bold;
+	color: #8e5d28;
+	font-weight: bold;
 }
 
 .exercise h1 {
-    color: #CC6900;
-    font-size: 1.7em;
+	color: #cc6900;
+	font-size: 1.7em;
 }
 
 .exercise h2 {
-    color: #8e5d28;
-    font-size: 1.4em;
+	color: #8e5d28;
+	font-size: 1.4em;
 }
 
 .exercise h3 {
-    color: #6f573c;
-    font-size: 1.2em;
+	color: #6f573c;
+	font-size: 1.2em;
 }
 
 .exercise h4 {
-    color: #6f573c;
-    font-size: 1em;
+	color: #6f573c;
+	font-size: 1em;
 }
 .exercise h5 {
-    color: #6f573c;
-    font-size: 0.9em;
+	color: #6f573c;
+	font-size: 0.9em;
 }
 
 /*!
@@ -230,8 +232,8 @@ section.smaller pre {
 */
 
 .hljs {
-  color: #24292e;
-  background: #ffffff;
+	color: #24292e;
+	background: #ffffff;
 }
 
 .hljs-doctag,
@@ -241,16 +243,16 @@ section.smaller pre {
 .hljs-template-variable,
 .hljs-type,
 .hljs-variable.language_ {
-  /* prettylights-syntax-keyword */
-  color: #DF8B20;
+	/* prettylights-syntax-keyword */
+	color: #df8b20;
 }
 
 .hljs-title,
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
 .hljs-title.function_ {
-  /* prettylights-syntax-entity */
-  color: #6f42c1;
+	/* prettylights-syntax-entity */
+	color: #6f42c1;
 }
 
 .hljs-literal,
@@ -260,89 +262,89 @@ section.smaller pre {
 .hljs-selector-attr,
 .hljs-selector-class,
 .hljs-selector-id {
-  /* prettylights-syntax-constant */
-  color: #005cc5;
+	/* prettylights-syntax-constant */
+	color: #005cc5;
 }
 
 .hljs-number,
 .hljs-variable {
-  color: #a73a49;
+	color: #a73a49;
 }
 
 .hljs-string {
-  color: #005cc5;
+	color: #005cc5;
 }
 
 .hljs-attr,
 .hljs-attribute,
 .hljs-regexp,
 .hljs-meta .hljs-string {
-  /* prettylights-syntax-string */
-  color: #032f62;
+	/* prettylights-syntax-string */
+	color: #032f62;
 }
 
 .hljs-built_in,
 .hljs-symbol {
-  /* prettylights-syntax-variable */
-  color: #e36209;
+	/* prettylights-syntax-variable */
+	color: #e36209;
 }
 
 .hljs-code,
 .hljs-formula {
-  /* prettylights-syntax-comment */
-  color: #6a737d;
+	/* prettylights-syntax-comment */
+	color: #6a737d;
 }
 
 .hljs-comment {
-  color: #ff6209;
+	color: #ff6209;
 }
 
 .hljs-name,
 .hljs-quote,
 .hljs-selector-tag,
 .hljs-selector-pseudo {
-  /* prettylights-syntax-entity-tag */
-  color: #22863a;
+	/* prettylights-syntax-entity-tag */
+	color: #22863a;
 }
 
 .hljs-subst {
-  /* prettylights-syntax-storage-modifier-import */
-  color: #24292e;
+	/* prettylights-syntax-storage-modifier-import */
+	color: #24292e;
 }
 
 .hljs-section {
-  /* prettylights-syntax-markup-heading */
-  color: #005cc5;
-  font-weight: bold;
+	/* prettylights-syntax-markup-heading */
+	color: #005cc5;
+	font-weight: bold;
 }
 
 .hljs-bullet {
-  /* prettylights-syntax-markup-list */
-  color: #735c0f;
+	/* prettylights-syntax-markup-list */
+	color: #735c0f;
 }
 
 .hljs-emphasis {
-  /* prettylights-syntax-markup-italic */
-  color: #24292e;
-  font-style: italic;
+	/* prettylights-syntax-markup-italic */
+	color: #24292e;
+	font-style: italic;
 }
 
 .hljs-strong {
-  /* prettylights-syntax-markup-bold */
-  color: #24292e;
-  font-weight: bold;
+	/* prettylights-syntax-markup-bold */
+	color: #24292e;
+	font-weight: bold;
 }
 
 .hljs-addition {
-  /* prettylights-syntax-markup-inserted */
-  color: #22863a;
-  background-color: #f0fff4;
+	/* prettylights-syntax-markup-inserted */
+	color: #22863a;
+	background-color: #f0fff4;
 }
 
 .hljs-deletion {
-  /* prettylights-syntax-markup-deleted */
-  color: #b31d28;
-  background-color: #ffeef0;
+	/* prettylights-syntax-markup-deleted */
+	color: #b31d28;
+	background-color: #ffeef0;
 }
 
 .hljs-char.escape_,
@@ -351,5 +353,5 @@ section.smaller pre {
 .hljs-property,
 .hljs-punctuation,
 .hljs-tag {
-  color: #303070;
+	color: #303070;
 }

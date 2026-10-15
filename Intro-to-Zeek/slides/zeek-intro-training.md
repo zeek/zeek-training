@@ -7,9 +7,12 @@ theme: zeek
 ![bg](https://marp.app/assets/hero-background.svg)
 
 ![width:250px](images/zeek-logo.svg)
+
 # Introduction to Zeek
-### A Zeek training
-*Nullcon Berlin, 2026*
+
+## A Zeek training
+
+*Nullcon Berlin, 2026* <!-- rumdl-disable-line MD036 -->
 
 ---
 
@@ -58,7 +61,7 @@ audits, and policy compliance checks all require one thing:
 
 <center>
 
-## Good network data.
+## Good network data
 
 </center>
 
@@ -105,11 +108,12 @@ sweet-spot between full packet capture, Netflow, and alert logs.
 
 # Zeek is **three things**
 
-* **A DPI engine:** in-depth parsing of every packet. The parsing creates *events*.
+- **A DPI engine:** in-depth parsing of every packet. The parsing creates *events*.
 
-* **A distributed event-based system:** topic-based publish/subscribe *communication* of these events across Zeek.
+- **A distributed event-based system:** topic-based publish/subscribe
+  *communication* of these events across Zeek.
 
-* **A scripting language:** a domain-specific language that *handles* these events.
+- **A scripting language:** a domain-specific language that *handles* these events.
 
 ---
 
@@ -161,7 +165,7 @@ later!
 Grab the latest Zeek Docker image and run it:
 
 ```shell
-$ docker run -it --name zeek-training 'zeek/zeek'
+docker run -it --name zeek-training 'zeek/zeek'
 ```
 
 In the container, clone our training repository and cd into it.
@@ -200,21 +204,21 @@ Do a quick check in the container that Zeek works:
 
 ---
 
-# Let's get started (continued)
+# Let's get started (continued) <!-- rumdl-disable-line MD024 -->
 
 <style scoped>p { font-size: 80%; }</style>
 
 To keep a Docker image of your container, run this outside of it:
 
 ```shell
-$ docker commit zeek-training zeek-training
+docker commit zeek-training zeek-training
 ```
 
 For multiple shells in the container, either use `tmux` or launch additional
 shells in the container:
 
 ```shell
-$ docker exec -it zeek-training bash
+docker exec -it zeek-training bash
 ```
 
 ---
@@ -277,7 +281,7 @@ in local traffic capture because the kernel offloads the computation to the NIC.
 
 ---
 
-# Processing live traffic
+# Processing live traffic (continued)
 
 Now, in another shell, create some network traffic:
 
@@ -376,7 +380,7 @@ each transaction's flow tuple and URI.
 # JSON logs and jq
 
 You can switch Zeek to logging in JSON. The result is JSONL files: per-line JSON
-objects. Zeek does _not_ (by default) dump a single all-in-one JSON log.
+objects. Zeek does *not* (by default) dump a single all-in-one JSON log.
 
 ```console
 # zeek -r ../traces/quickstart.pcap tuning/json-logs
@@ -390,7 +394,6 @@ objects. Zeek does _not_ (by default) dump a single all-in-one JSON log.
   "id.resp_p": 80,
   ...
 ```
-
 
 <div class="exercise">
 
@@ -418,13 +421,12 @@ table {
 }
 </style>
 
-
 <div class="columns">
 <div>
 
 ```console
-$ zeek -r ../traces/quickstart.pcap tuning/json-logs
-$ cat conn.log | jq
+zeek -r ../traces/quickstart.pcap tuning/json-logs
+cat conn.log | jq
 ```
 
 </div>
@@ -467,13 +469,12 @@ table { font-size: 40%; }
 p { font-size: 80% }
 </style>
 
-
 <div class="columns">
 <div>
 
 ```console
-$ zeek -r ../traces/quickstart.pcap tuning/json-logs
-$ cat conn.log | jq
+zeek -r ../traces/quickstart.pcap tuning/json-logs
+cat conn.log | jq
 ```
 
 | History Letter | Meaning |
@@ -571,7 +572,7 @@ The UID is your key for pivoting from log to log.
 </div>
 </div>
 
-The UID is a hashed counter. It's _not_ based on the flow tuple.
+The UID is a hashed counter. It's *not* based on the flow tuple.
 
 <div class="exercise">
 
@@ -580,7 +581,7 @@ entry. In which logs do you see this connection come up?
 
 <!-- uid=$(cat conn.log | zeek-cut uid | head -1)
      grep $uid *.log
-     
+
      -> Three: conn.log, http.log, files.log.
 -->
 
@@ -632,13 +633,13 @@ installations to **scale as needed**.
 
 # Cluster node types
 
-* **Manager:** one per cluster, central state-keeper and coordination point.
+- **Manager:** one per cluster, central state-keeper and coordination point.
 
-* **Workers:** run the DPI stack, distribute state, and trigger log writes.
+- **Workers:** run the DPI stack, distribute state, and trigger log writes.
 
-* **Proxies:** distributed state-keepers &mdash; a bit like DB shards.
+- **Proxies:** distributed state-keepers &mdash; a bit like DB shards.
 
-* **Loggers:** one or more per cluster, handle log message output.
+- **Loggers:** one or more per cluster, handle log message output.
 
 ---
 
@@ -805,6 +806,7 @@ a [package browser](https://github.com/zeek/packages), and
 [docs](https://docs.zeek.org/projects/package-manager/en/stable/index.html).
 
 Packages add functionality to Zeek at all levels:
+
 - **Scripts** add enrichments & detections. They modify or add logs.
 - **Plugins** contain native code and build at install-time. They
   add packet sources, protocol parsers, log writers, and more.
@@ -816,7 +818,7 @@ Almost everything in Zeek is pluggable or extensible.
 # Working with a package: **logschema**
 
 This package provides Zeek scripts that generate log schemas for your specific
-Zeek installation. 
+Zeek installation.
 
 <div class="exercise">
 
@@ -825,7 +827,7 @@ Exercise: install the logschema package by saying `zkg install logschema`.
 Then, run the following in the scratch space:
 
 ```console
-$ zeek logschema/export/jsonschema
+zeek logschema/export/jsonschema
 ```
 
 Take a look at your local directory now. What do you find?
@@ -870,18 +872,18 @@ it. It's easier than you think!
 ---
 
 <!-- _class: chapter -->
-# Thanks!
+# Thanks! <!-- rumdl-disable-line MD026 -->
 
 <style scoped>p { font-size: 80%; }</style>
 
 Official documentation<br>
-https://docs.zeek.org
+<https://docs.zeek.org>
 
 Github project<br>
-https://github.com/zeek
+<https://github.com/zeek>
 
 Main repository<br>
-https://github.com/zeek/zeek
+<https://github.com/zeek/zeek>
 
 Project wiki<br>
-https://github.com/zeek/zeek/wiki
+<https://github.com/zeek/zeek/wiki>
