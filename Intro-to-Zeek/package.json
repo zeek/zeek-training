@@ -1,0 +1,21 @@
+{
+	"scripts": {
+		"build": "marp --allow-local-files -I ./slides",
+		"watch": "marp --allow-local-files --watch --server --preview -I ./slides",
+		"all-in-one": "npm run build && monolith slides/zeek-intro-training.html -o slides/zeek-intro-training-aio.html"
+	},
+	"marp": {
+		"engine": "./marp-zeek/engine.js",
+		"themeSet": "./marp-zeek/zeek.css",
+		"html": true,
+		"theme": "zeek",
+		"options": {
+			"markdown": {
+				"breaks": false
+			}
+		}
+	},
+	"dependencies": {
+		"@marp-team/marp-cli": "^4.5.1"
+	}
+}
