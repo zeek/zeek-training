@@ -1,11 +1,12 @@
 ---
 theme: zeek
-_class: lead
 ---
+
+<!-- _class: lead -->
 
 ![bg](https://marp.app/assets/hero-background.svg)
 
-![width:250px](./zeek-logo.png)
+![width:250px](images/zeek-logo.png)
 # Introduction to Zeek
 ### A Zeek training
 *Nullcon Berlin, 2026*
@@ -24,7 +25,7 @@ Christian Kreibich
 
 # Agenda
 
-- Zeek's role in your network
+- Zeek's purpose
 - Using Zeek at the command line
 - Extending Zeek via its package manager
 - Running Zeek clusters
@@ -34,26 +35,63 @@ Christian Kreibich
 
 # Why Zeek?
 
-Zeek is the equivalent of system logs for your network: transactional data that
-collect evidence for later analysis -- a network flight recorder.
+Incident response, threat hunting, performance monitoring, traffic analysis,
+audits, and policy compliance checks all require one thing:
+
+<center>
+
+## Good network data.
+
+</center>
+
+Zeek gives you "system logs for your network": rich, transactional data that
+collect evidence for later analysis. A network flight recorder!
 
 ---
 
-# Logs as evidence
-
-Zeek logs capture the activity on your network, across the protocol stack. They
-are extremely adaptable to your site's needs an policy -- your ideal sweetspot
-between full packet capture, Netflow, and alert logs.
+![bg w:90%](images/log-vol-vs-fidelity-1.png)
 
 ---
 
-# Zeek is three things
+![bg w:90%](images/log-vol-vs-fidelity-2.png)
 
-A DPI engine: in-depth parsing of every packet on the wire.
+---
 
-A distributed event-based system: topic-based pub/sub.
+![bg w:90%](images/log-vol-vs-fidelity-3.png)
 
-A scripting language: a DSL for network traffic analysis.
+---
+
+![bg w:90%](images/log-vol-vs-fidelity-4.png)
+
+---
+
+![bg w:90%](images/log-vol-vs-fidelity-5.png)
+
+---
+
+![bg w:90%](images/log-vol-vs-fidelity-6.png)
+
+---
+
+# Zeek logs are **network evidence**
+
+Zeek's primary output is **logs**. They capture the activity on your network,
+across the protocol stack.
+
+Zeek logs **don't judge**.
+
+Zeek logs are **extremely adaptable** to your site's needs &mdash; the
+sweet-spot between full packet capture, Netflow, and alert logs.
+
+---
+
+# Zeek is **three things**
+
+* **A DPI engine:** in-depth parsing of every packet. The parsing creates *events*.
+
+* **A distributed event-based system:** topic-based publish/subscribe *communication* of these events across Zeek.
+
+* **A scripting language:** a domain-specific language for network traffic analysis that *handles* these events.
 
 ---
 
