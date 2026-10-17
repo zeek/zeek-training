@@ -91,13 +91,48 @@ sweet-spot between full packet capture, Netflow, and alert logs.
 
 * **A distributed event-based system:** topic-based publish/subscribe *communication* of these events across Zeek.
 
-* **A scripting language:** a domain-specific language for network traffic analysis that *handles* these events.
+* **A scripting language:** a domain-specific language that *handles* these events.
 
 ---
 
-# Zeek's basic architecture
+![bg h:90%](images/zeek-arch-detailed.png)
 
-A walk-through of the DPI -> event queue -> script layer stack.
+---
+
+# Examples of Zeek events
+
+<style scoped>pre { font-size: 80%; }</style>
+
+```zeek
+event connection_established(c: connection) {
+    print fmt("Established connection %s", c$uid);
+}
+
+event connection_state_remove(c: connection) {
+    print fmt("Connection %s is done", c$uid);
+}
+
+event ssl_server_hello(c: connection, version: count,
+                       record_version: count, possible_ts: time,
+                       server_random: string, session_id: string,
+                       cipher: count, comp_method: count) {
+    print fmt("Server hello on TLS connection %s", c$uid);
+}
+```
+
+---
+
+# Zeek ships with a lot of features
+
+- Around 600 types of events
+- Some 130 [packet](https://docs.zeek.org/en/current/reference/zeekscript/packet-analyzers.html),
+  [protocol](https://docs.zeek.org/en/current/reference/zeekscript/proto-analyzers.html), and
+  [file](https://docs.zeek.org/en/current/reference/zeekscript/file-analyzers.html) analyzers
+- [75 types of logs](https://docs.zeek.org/en/current/reference/zeekscript/log-files.html)
+  for protocols, detections, and behaviors
+
+It's also extremely extensible via scripts, plugins, and packages. More on this
+later!
 
 ---
 
@@ -239,6 +274,49 @@ A quick intro to basic textual log wrangling.
 
 The "anchor" for many Zeek logs. Introduce notion of an entry for (nearly) every
 flow, and UID as an identifier.
+
+---
+
+<div class="columns">
+<div>
+
+```console
+$ zeek -r ssl.pcap tuning/json-logs
+$ cat conn.log | jq
+```
+
+</div>
+<div>
+
+```json
+{
+  "ts": 1737691432.129397,
+  "uid": "CHSQTt28ehluo38Y8h",
+  "id.orig_h": "192.168.0.10",
+  "id.orig_p": 55364,
+  "id.resp_h": "142.250.189.164",
+  "id.resp_p": 443,
+  "proto": "tcp",
+  "service": "ssl",
+  "duration": 0.07700109481811523,
+  "orig_bytes": 555,
+  "resp_bytes": 25370,
+  "conn_state": "SF",
+  "local_orig": true,
+  "local_resp": false,
+  "missed_bytes": 0,
+  "history": "ShADadFf",
+  "orig_pkts": 27,
+  "orig_ip_bytes": 1967,
+  "resp_pkts": 28,
+  "resp_ip_bytes": 26834,
+  "ip_proto": 6
+}
+...
+```
+
+</div>
+</div>
 
 ---
 
