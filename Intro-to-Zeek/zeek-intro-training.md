@@ -223,16 +223,38 @@ Take a look at your local directory now. What do you find?
 
 # Basic concepts of a Zeek cluster
 
-In production, Zeek runs as a cluster of processes. Each process (a "node") has
-a dedicated responsibility. Nodes in the cluster communicate via pub/sub on Zeek
-events. Running additional nodes, on the same or a different system, allows Zeek
-installations to scale as needed.
+In production, Zeek runs as a **cluster of processes**.
+
+Each process (a "node") has a **dedicated responsibility**.
+
+Nodes in the cluster **communicate via pub/sub** on Zeek events.
+
+Running additional nodes, on the same or a different system, allows Zeek
+installations to **scale as needed**.
 
 ---
 
 # Cluster node types
 
-Introduce the four basic types of nodes.
+* **Manager:** one per cluster, central state-keeper and coordination point.
+
+* **Workers:** run the DPI stack, distribute state, and trigger log writes.
+
+* **Proxies:** distributed state-keepers &mdash; a bit like DB shards.
+
+* **Loggers:** one or more per cluster, handle log message output.
+
+---
+
+![bg 20%](images/zeek-cluster-1.png)
+
+---
+
+![bg w:80%](images/zeek-cluster-2.png)
+
+---
+
+![bg w:80%](images/zeek-cluster-3.png)
 
 ---
 
@@ -252,10 +274,18 @@ Define a few nodes, deploy it, create some network I/O and see logs establish.
 
 # Managing a cluster via systemd
 
-systemd generators and zeek.conf.
+Zeek 9 added mature support for systemd generators and a `zeek.conf` config file,
+so you get things like:
 
-Likely no exercise for this, since we're not immediately set up to use systemd
-in the container. More as an FYI.
+```console
+# systemctl start zeek.target
+```
+
+```console
+# systemctl restart zeek-worker@1
+```
+
+For details, refer to [our docs](https://docs.zeek.org/en/master/advanced/deployment/systemd.html).
 
 ---
 
