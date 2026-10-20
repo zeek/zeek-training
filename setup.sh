@@ -10,16 +10,13 @@ setup_tutorial() {
   echo
   echo "Cloning example RCE detection source code"
   git clone https://github.com/zeek/redis-rce
+
+  mkdir -p traces scripts misc
+
   ln -sfn $(pwd)/zeek/testing/btest/Traces/ $(pwd)/traces/zeek-testing
   ln -sfn $(pwd)/zeek/doc/traces/ $(pwd)/traces/zeek-doc
   ln -sfn $(pwd)/zeek/doc/tutorial/scripting/scripts/ $(pwd)/scripts/basics
   ln -sfn $(pwd)/zeek/doc/tutorial/scripting/tutorial/ $(pwd)/scripts/tutorial
-}
-
-setup_intro_to_zeek() {
-  ln -sfn $(pwd)/Intro-to-Zeek/training-res/traces $(pwd)/traces/Intro-to-Zeek
-  ln -sfn $(pwd)/Intro-to-Zeek/training-res/scripts $(pwd)/scripts/Intro-to-Zeek
-  ln -sfn $(pwd)/Intro-to-Zeek/training-res/misc $(pwd)/misc/Intro-to-Zeek
 }
 
 usage() {
@@ -78,27 +75,6 @@ apt-get update -qq && apt-get install -qq -y --no-install-recommends \
     vim \
     wget
 
-echo
-echo
-mkdir traces/
-mkdir scripts/
-mkdir misc/
-
-for item in "${SELECTED[@]}"; do
-  case "$item" in
-    tutorial)
-      setup_tutorial
-      ;;
-    intro-to-zeek)
-      setup_intro_to_zeek
-      ;;
-    *)
-      echo "Unknown setup target: $item"
-      usage
-      ;;
-  esac
-done
-
 # Debian: uncomment the completion-enabling block that should be in /etc/bash.bashrc:
 grep -q '^# enable bash completion' /etc/bash.bashrc
 sed -i '/^# enable bash completion/,/^#fi/ { /^# enable bash completion/! s/^#// }' /etc/bash.bashrc
@@ -106,6 +82,21 @@ sed -i '/^# enable bash completion/,/^#fi/ { /^# enable bash completion/! s/^#//
 # A more useful prompt
 echo 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >> /etc/bash.bashrc
 echo 'export PREFIX=/usr/local/zeek' >> /etc/bash.bashrc
+
+for item in "${SELECTED[@]}"; do
+  case "$item" in
+    tutorial)
+      setup_tutorial
+      ;;
+    intro-to-zeek)
+      # Nothing for now
+      ;;
+    *)
+      echo "Unknown setup target: $item"
+      usage
+      ;;
+  esac
+done
 
 echo
 echo "Welcome to the Zeek training/tutorial!"
