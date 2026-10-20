@@ -1,53 +1,71 @@
+@load base/frameworks/cluster
+
 module DNS;
 
 export {
-	global ptr_queries: table[addr] of opaque of cardinality &default=function(
-	    n: any): opaque of cardinality
-		{
-		return hll_cardinality_init(0.001, 0.999);
-		} &create_expire=1day;
+
+	redef enum Notice::Type += {
+		VersionBind,
+	};
+
+	global version_bind_queries: table[addr] of count &create_expire = 1 day;
+
+	const version_bind_threshold: vector of count = {
+		1, 10, 100, 250, 500, 1000, 10000, 50000, 100000, 1000000,
+	} &redef;
+
+	global version_bind_threshold_idx: table[addr] of count
+		&default=0 &write_expire = 1 day &redef;
+
+	# CHAOS-class TXT query that reveals the DNS server software/version
+	global version_bind_queries_pattern: pattern = /version\.bind/ &redef;
+
 }
 
-event DNS::log_dns(rec: DNS::Info)
-	{
-	local request_ip: addr;
-	local check_thresh: bool;
+event DNS::aggregate_stats(request_ip: addr, query: string, qtype_name: string, rcode_name: string)&priority=-10
+{
 
-	request_ip = rec$id$orig_h;
-
-	if ( ! rec?$qtype_name )
-		print fmt("%s", rec);
-
-	if ( rec$qtype_name != "PTR" )
+	if (qtype_name != "VERSION_BIND")
 		return;
 
-	#if (! rec?$rcode)
-	#print fmt ("%s %s %s %s",  rec$qtype, rec$qtype_name, rec$rcode, rec$rcode_name);
-	#print fmt ("%s", rec) ;
+	if (request_ip !in version_bind_queries)
+		version_bind_queries[request_ip] = 0;
 
-	# for this we only care about external IPs
-	# hitting our dns_servers with all sorts of queries
-	#if (rec?$query && request_ip in dns_servers) {
-	# return ;
-	#}
+	version_bind_queries[request_ip] += 1;
 
-	local lookup = rec$query;
+	local n = version_bind_queries[request_ip];
+	local check_thresh = check_threshold(version_bind_threshold, version_bind_threshold_idx, request_ip, n);
 
-	if ( request_ip !in ptr_queries )
-		{
-		local cp: opaque of cardinality = hll_cardinality_init(0.001, 0.999);
-		ptr_queries[request_ip] = cp;
-		}
-	hll_cardinality_add(ptr_queries[request_ip], lookup);
-	}
-
-# [ts=1596366431.199041, uid=CY9yrx4jcEeEo2RTnk, id=[orig_h=137.74.213.136, orig_p=13938/udp, resp_h=131.243.64.3, resp_p=53/udp], proto=udp, trans_id=56404, rtt=<uninitialized>, query=181.139.146.in-addr.arpa, qclass=1, qclass_name=C_INTERNET, qtype=1, qtype_name=A, rcode=3, rcode_name=NXDOMAIN, AA=F, TC=F, RD=F, RA=F, Z=1, answers=<uninitialized>, TTLs=<uninitialized>, rejected=F, total_answers=0, total_replies=2, saw_query=T, saw_reply=T]
-
-event zeek_done()
+	if (check_thresh)
 	{
-	for ( request_ip in ptr_queries )
-		{
-		print fmt("ptr_queries: %s, %s", request_ip, double_to_count(
-		    hll_cardinality_estimate(ptr_queries[request_ip])));
-		}
+		local msg = fmt("IP[%s] has done %s version.bind look ups", request_ip, n);
+		NOTICE([$note=DNS::VersionBind, $src=request_ip, $n=n, $msg=msg, $identifier=cat(request_ip), $suppress_for=1 min]);
 	}
+
+}
+
+# we only care about external IPs asking our dns_servers for their version
+event DNS::log_dns(rec: DNS::Info)
+{
+	local request_ip = rec$id$orig_h;
+
+	# not interested in local_nets
+	if (Site::is_local_addr(request_ip))
+		return;
+
+	# only interested in TXT queries for version.bind
+	if (!rec?$qtype_name || rec$qtype_name != "TXT" || !rec?$query)
+		return;
+
+	if (version_bind_queries_pattern !in to_lower(rec$query))
+		return;
+
+	local rcode_name = (!rec?$rcode_name) ? "UNKNOWN" : rec$rcode_name;
+
+	@if ( Cluster::is_enabled())
+		Cluster::publish_hrw(Cluster::proxy_pool, request_ip, DNS::aggregate_stats, request_ip, rec$query, "VERSION_BIND", rcode_name);
+	@else
+		event DNS::aggregate_stats(request_ip, rec$query, "VERSION_BIND", rcode_name);
+	@endif
+
+}

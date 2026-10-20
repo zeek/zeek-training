@@ -1,83 +1,67 @@
+@load base/frameworks/cluster
+
 module DNS;
 
-# RCODE Response code - this 4 bit field is set as part of
-#       responses.  The values have the following
-#       interpretation:
-#
-#       0       No error condition
-#
-#       1       Format error - The name server was
-#               unable to interpret the query.
-#
-#       2       Server failure - The name server was
-#               unable to process this query due to a
-#               problem with the name server.
-#
-#       3       Name Error - Meaningful only for
-#               responses from an authoritative name
-#               server, this code signifies that the
-#               domain name referenced in the query does
-#               not exist.
-#
-#       4       Not Implemented - The name server does
-#               not support the requested kind of query.
-#
-#       5       Refused - The name server refuses to
-#               perform the specified operation for
-#               policy reasons.  For example, a name
-#               server may not wish to provide the
-#               information to the particular requester,
-#               or a name server may not wish to perform
-#               a particular operation (e.g., zone
-
 export {
-	global ptr_queries: table[addr] of opaque of cardinality &default=function(
-	    n: any): opaque of cardinality
-		{
-		return hll_cardinality_init(0.001, 0.999);
-		} &create_expire=1day;
+
+	redef enum Notice::Type += {
+		NetBIOS,
+	};
+
+	global netbios_queries: table[addr] of count &create_expire = 1 day;
+
+	const netbios_threshold: vector of count = {
+		1, 5, 10, 25, 100, 1000, 10000, 100000,
+	} &redef;
+
+	global netbios_threshold_idx: table[addr] of count
+		&default=0 &write_expire = 1 day &redef;
+
 }
 
-event DNS::log_dns(rec: DNS::Info)
-	{
-	local request_ip: addr;
-	local check_thresh: bool;
+event DNS::aggregate_stats(request_ip: addr, query: string, qtype_name: string, rcode_name: string)&priority=-10
+{
 
-	request_ip = rec$id$orig_h;
-
-	if ( ! rec?$qtype_name )
-		print fmt("%s", rec);
-
-	if ( rec$qtype_name != "PTR" )
+	if (qtype_name != "NETBIOS")
 		return;
 
-	#if (! rec?$rcode)
-	#print fmt ("%s %s %s %s",  rec$qtype, rec$qtype_name, rec$rcode, rec$rcode_name);
-	#print fmt ("%s", rec) ;
+	if (request_ip !in netbios_queries)
+		netbios_queries[request_ip] = 0;
 
-	# for this we only care about external IPs
-	# hitting our dns_servers with all sorts of queries
-	#if (rec?$query && request_ip in dns_servers) {
-	# return ;
-	#}
+	netbios_queries[request_ip] += 1;
 
-	local lookup = rec$query;
+	local n = netbios_queries[request_ip];
+	local check_thresh = check_threshold(netbios_threshold, netbios_threshold_idx, request_ip, n);
 
-	if ( request_ip !in ptr_queries )
-		{
-		local cp: opaque of cardinality = hll_cardinality_init(0.001, 0.999);
-		ptr_queries[request_ip] = cp;
-		}
-	hll_cardinality_add(ptr_queries[request_ip], lookup);
-	}
-
-# [ts=1596366431.199041, uid=CY9yrx4jcEeEo2RTnk, id=[orig_h=137.74.213.136, orig_p=13938/udp, resp_h=131.243.64.3, resp_p=53/udp], proto=udp, trans_id=56404, rtt=<uninitialized>, query=181.139.146.in-addr.arpa, qclass=1, qclass_name=C_INTERNET, qtype=1, qtype_name=A, rcode=3, rcode_name=NXDOMAIN, AA=F, TC=F, RD=F, RA=F, Z=1, answers=<uninitialized>, TTLs=<uninitialized>, rejected=F, total_answers=0, total_replies=2, saw_query=T, saw_reply=T]
-
-event zeek_done()
+	if (check_thresh)
 	{
-	for ( request_ip in ptr_queries )
-		{
-		print fmt("ptr_queries: %s, %s", request_ip, double_to_count(
-		    hll_cardinality_estimate(ptr_queries[request_ip])));
-		}
+		local msg = fmt("IP[%s] has done %s NetBIOS name queries (udp/137)", request_ip, n);
+		NOTICE([$note=DNS::NetBIOS, $src=request_ip, $n=n, $msg=msg, $identifier=cat(request_ip), $suppress_for=1 min]);
 	}
+
+}
+
+# NetBIOS name service (udp/137) is parsed by Zeek's DNS analyzer, which
+# logs it in dns.log with opcode_name "netbios-query" and no qtype_name.
+# We only care about external IPs probing our hosts.
+event DNS::log_dns(rec: DNS::Info)
+{
+	local request_ip = rec$id$orig_h;
+
+	# not interested in local_nets
+	if (Site::is_local_addr(request_ip))
+		return;
+
+	if (rec$id$resp_p != 137/udp)
+		return;
+
+	local query = rec?$query ? rec$query : "-";
+	local rcode_name = (!rec?$rcode_name) ? "UNKNOWN" : rec$rcode_name;
+
+	@if ( Cluster::is_enabled())
+		Cluster::publish_hrw(Cluster::proxy_pool, request_ip, DNS::aggregate_stats, request_ip, query, "NETBIOS", rcode_name);
+	@else
+		event DNS::aggregate_stats(request_ip, query, "NETBIOS", rcode_name);
+	@endif
+
+}
