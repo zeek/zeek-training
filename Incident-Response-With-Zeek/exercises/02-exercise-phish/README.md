@@ -33,8 +33,11 @@ The `smtp-url-analysis` package ([github.com/initconf/smtp-url-analysis](https:/
 **Scenario**: An email arrives with attachments. What files were sent?
 
 ```bash
-zeek -C -r Traces/01-extract-files.pcap scripts/extract-all.zeek
+zeek -C -r Traces/01-extract-files.pcap local scripts/extract-all.zeek
 ```
+
+> `local` is needed here: it loads the file-hashing analyzers, so `files.log` gets MD5/SHA1 values.
+> `extract-all.zeek` on its own only extracts files and leaves the hash columns empty (`-`).
 
 ### Investigate
 
@@ -52,7 +55,7 @@ zeek -C -r Traces/01-extract-files.pcap scripts/extract-all.zeek
 ### What You Should Find
 
 - A PNG image, a text file, and an HTML document
-- The `files.log` shows MIME types, sizes, and hashes for each
+- The `files.log` shows MIME types, sizes, and hashes for each (the `filename` column is `-` for the two files that carry no filename in the email; only the PNG has one)
 - The `smtp.log` connects the files back to the email metadata (sender, recipient, subject)
 
 ---
@@ -98,13 +101,28 @@ zeek -C -r Traces/03-credentials-via-HTTP-post.pcap scripts/smtp-url-analysis sc
 ### Investigate
 
 1. Check `http.log` — find the POST request to `/login.php`
-2. Check `notice.log` — look for `SMTP::SensitivePOST` and `SMTP::SensitivePasswd`
+2. Check `notice.log` — you should see one notice, `SMTP::SensitivePOST`
 3. **What credentials were stolen?** (visible in the notice message)
 
 ### What You Should Find
 
 - A POST to `foo.webdamdb.com/login.php` with cleartext username and password
-- Zeek's `smtp-url-analysis` package detects credential submission and generates notices
+- `notice.log`: `SMTP::SensitivePOST` — `Request: /login.php - Data: username=testing9c&password=testing&method=Login`
+
+### Second Notice: `SMTP::SensitivePasswd`
+
+`SMTP::SensitivePasswd` is **not** raised by the command above. Besides a password in the POST body, it requires that the body contains one of **your site's domains** (`SMTPurl::site_domain`). It flags *your* credentials being sent to an outside site.
+
+- `site_domain` is set in `scripts/smtp-url-analysis/configure-variables-in-this-file.zeek` (`aa.test`, `testing.com`, `example.com`, `lbl.gov`).
+- The POST body here, `username=testing9c&password=testing`, contains none of those, so the notice is suppressed.
+
+Declare `testing` as your domain on the command line and re-run:
+
+```bash
+zeek -C -r Traces/03-credentials-via-HTTP-post.pcap scripts/smtp-url-analysis 'SMTPurl::site_domain=/testing/'
+```
+
+`notice.log` now has both `SMTP::SensitivePOST` and `SMTP::SensitivePasswd`. The command-line value overrides the one in the config file.
 
 ---
 

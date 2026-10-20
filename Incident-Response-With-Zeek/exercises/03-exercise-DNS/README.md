@@ -130,15 +130,15 @@ cat notice.log
 
 ### What the Heuristics Detect
 
-| Script | Detection |
-|--------|-----------|
-| `dns-threshold.zeek` | Excessive DNS lookups (threshold + spike detection) |
-| `dns-hitters.zeek` | Top DNS queriers |
-| `version.bind.zeek` | `version.bind` CHAOS queries |
-| `zonetransfer.zeek` | AXFR zone transfer attempts |
-| `ptr.zeek` | Mass reverse PTR lookups |
-| `netbios.zeek` | NetBIOS-related DNS queries |
-| `txt.zeek` | Excessive TXT queries (potential tunneling) |
+| Script | Detection | Notice(s) in `notice.log` |
+|--------|-----------|---------------------------|
+| `dns-threshold.zeek` | Excessive DNS lookups (threshold + spike detection) | `DNS::Threshold`, `DNS::Spike` |
+| `dns-hitters.zeek` | Top DNS queriers (many hosts / many queries from one source) | `DNS::HostThreshold`, `DNS::QueryThreshold` |
+| `version.bind.zeek` | `version.bind` CHAOS queries | `DNS::VersionBind` |
+| `zonetransfer.zeek` | AXFR zone transfer attempts | `DNS::ZoneTransfer` |
+| `ptr.zeek` | Mass reverse PTR lookups | `DNS::PTRThreshold`, `DNS::PTRSpike`, `DNS::PTRdone` |
+| `netbios.zeek` | NetBIOS name queries (udp/137) from external hosts | `DNS::NetBIOS` |
+| `txt.zeek` | Excessive TXT queries (potential tunneling) | `DNS::TxtThreshold`, `DNS::TxtSpike` |
 
 ### Understanding `dns-threshold.zeek`
 
@@ -161,8 +161,8 @@ The `Traces/misc-dns-pcaps/` directory has targeted scenarios:
 | `02-PTRThreshold.pcap` | Mass PTR lookups |
 | `03-QueryThreshold.pcap` | Query flood |
 | `04-TxtThreshold.pcap` | Excessive TXT queries |
-| `05-VersionBind.pcap` | `version.bind` recon |
-| `06-netbios.dns.pcap` | NetBIOS DNS traffic |
+| `05-VersionBind.pcap` | `version.bind` recon (`DNS::VersionBind`) |
+| `06-netbios.dns.pcap` | NetBIOS DNS traffic (`DNS::NetBIOS`; also `DNS::VersionBind`, same source) |
 | `07-failed-axfr-zone-transfer.pcap` | Failed zone transfer |
 | `08-dig-hm.edu.pcap` | `dig` reconnaissance |
 

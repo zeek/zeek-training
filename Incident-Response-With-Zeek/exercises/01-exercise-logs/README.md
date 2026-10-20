@@ -101,6 +101,7 @@ Using the same pcap (`01-conn.log.pcap`), examine `http.log`:
    zeek -r Traces/01-conn.log.pcap local policy/frameworks/files/detect-MHR.zeek
    ```
    Then check `notice.log` for any `TeamCymruMalwareHashRegistry::Match` entries.
+   This lookup needs internet access. You will also see `CaptureLoss::Too_Little_Traffic` / `Too_Much_Loss` notices; they are noise from this small pcap, so ignore them.
 
 ---
 

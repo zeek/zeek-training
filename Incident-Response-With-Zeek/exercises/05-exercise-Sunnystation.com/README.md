@@ -16,8 +16,10 @@ Your goal is to reconstruct what happened: who was affected, what the attacker d
 ## Getting Started
 
 ```bash
-zeek -C -r Traces/2022-02-23-traffic-analysis-exercise.pcap local
+zeek -C -r Traces/2022-02-23-traffic-analysis-exercise.pcap local policy/protocols/conn/mac-logging
 ```
+
+`policy/protocols/conn/mac-logging` is commented out in the default `local.zeek`; without it the `orig_l2_addr`/`resp_l2_addr` (MAC) columns in `conn.log` are empty.
 
 This generates all standard Zeek logs from the capture.
 
