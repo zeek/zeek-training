@@ -15,17 +15,34 @@ theme: zeek
 
 # About us
 
-Benjamin Bannier
+<div class="columns">
+<div>
+
+## Benjamin Bannier
+
 - ...
 
-Christian Kreibich
-- ...
+</div>
+<div>
+
+## Christian Kreibich
+
+Zeek project tech lead
+
+25+ years of Zeek experience
+
+An engineer at Corelight
+
+Recovering academic, Cambridge PhD
+
+</div>
+</div>
 
 ---
 
 # Agenda
 
-- Zeek's purpose
+- Zeek's role on your network
 - Using Zeek at the command line
 - Extending Zeek via its package manager
 - Running Zeek clusters
