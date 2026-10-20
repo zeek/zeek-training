@@ -138,7 +138,53 @@ later!
 
 # Let's get started
 
-Details on grabbing the Docker image and how to prep it for the training.
+<style scoped>p { font-size: 80%; }</style>
+
+Grab the latest Zeek Docker image and run it:
+
+```shell
+$ docker run -it --name zeek-training zeek/zeek
+```
+
+In the container, clone our training repository and cd into it.
+
+```console
+# git clone --depth 1 https://github.com/zeek/zeek-training.git /opt/zeek-training
+# cd /opt/zeek-training/
+```
+
+Run the local setup script to pull down additional resources:
+
+```console
+# ./setup.sh tutorial
+```
+
+---
+
+# Let's get started (continued)
+
+<style scoped>p { font-size: 75%; }</style>
+
+Create a scratch space to do the exercises in:
+
+```console
+root@zeek-tutorial:/opt/zeek-training # mkdir -p scratch && cd scratch
+```
+
+**NOTE:** In the rest of the slides we'll show `#` for the container prompt for
+brevity, assuming you're working in `/opt/zeek-training/scratch`.
+
+To keep a Docker image of this container, run this outside of it:
+
+```shell
+$ docker commit zeek-training zeek-training
+```
+
+Do a quick check in the container that Zeek works:
+
+```console
+# zeek --version
+```
 
 ---
 
