@@ -1,6 +1,7 @@
 Zeek Training Source Material
 =============================
 
+
 This repository contains resources for trainings held by the Zeek project. There
 are currently two types of training, in respective subdirectories:
 
