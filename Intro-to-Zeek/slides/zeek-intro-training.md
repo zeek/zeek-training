@@ -571,6 +571,8 @@ so you get things like:
 
 For details, refer to [our docs](https://docs.zeek.org/en/master/advanced/deployment/systemd.html).
 
+---
+
 <!-- _class: chapter -->
 # Wrapping up
 
