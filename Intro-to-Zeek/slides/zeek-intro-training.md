@@ -287,6 +287,8 @@ Stop Zeek via ctrl-c.
 Exercise: what logs did the above create? Take a look at conn.log &mdash; what
 do you see?
 
+<!-- Mainly dns.log and conn.log, which mentions ICMP for the ping transaction. -->
+
 </div>
 
 ---
@@ -306,6 +308,8 @@ values at the command line.
 Exercise: run the above with and without the redef. What do you notice in
 http.log?
 
+<!-- With the redef, the password column is populated. -->
+
 </div>
 
 ---
@@ -324,16 +328,135 @@ it. Zeek ships with a lot of optional functionality, called **policy scripts**.
 Exercise: run the above with and without the added script. What do you notice in
 the logs?
 
+<!-- Zeek generates an additional log, software.log, that mentions the browser. -->
+
 </div>
 
 ---
 
-<!-- _class: exercise -->
-# Exercise: JSON logs
+<!-- _class: chapter -->
+# Working with Zeek logs
 
-Load a pcap with the addition `tuning/json-logs.zeek`, and take a look at the
-logs in your local directory. What do you notice? What do the logs have in
-common?
+---
+
+<!-- _class: smaller -->
+
+# TSV logs and zeek-cut
+
+By default, Zeek writes logs in tab-separated format with header info. It ships
+with `zeek-cut`, a tool to filter output from those logs.
+
+```console
+# zeek -r ../traces/quickstart.pcap
+# cat http.log | zeek-cut -D %s ts id.orig_h id.orig_p id.resp_h
+1381844035      192.168.0.4     54317   192.254.189.169
+1381844044      192.168.0.4     54318   192.254.189.169
+1381844050      192.168.0.4     54337   192.254.189.169
+...
+```
+
+<div class="exercise">
+
+Exercise: look at http.log to understand its columns. Use `zeek-cut` to print
+each transaction's flow tuple and URI.
+
+<!-- cat http.log | zeek-cut -D %s ts id.orig_h id.orig_p id.resp_h id.resp_p uri -->
+
+</div>
+
+---
+
+<!-- _class: smaller -->
+
+# JSON logs and jq
+
+You can switch Zeek to logging in JSON. The result is JSONL: per-line JSON objects that you can process via `jq`.
+
+```console
+# zeek -r ../traces/quickstart.pcap tuning/json-logs
+# cat http.log | jq
+{
+  "ts": 1381844035.271831,
+  "uid": "CjfPvV2M1TMv6ilrd2",
+  "id.orig_h": "192.168.0.4",
+  "id.orig_p": 54317,
+  "id.resp_h": "192.254.189.169",
+  "id.resp_p": 80,
+  ...
+```
+
+<div class="exercise">
+
+Exercise: use `jq` to print each transaction's flow tuple.
+
+<!-- cat http.log | jq 'with_entries(select(.key | startswith("id.")))'  -->
+
+</div>
+
+---
+
+# Meet conn.log
+
+The "anchor" for many Zeek logs. Introduce notion of an entry for (nearly) every
+flow, and UID as an identifier.
+
+---
+
+<div class="columns">
+<div>
+
+```console
+$ zeek -r ssl.pcap tuning/json-logs
+$ cat conn.log | jq
+```
+
+</div>
+<div>
+
+```json
+{
+  "ts": 1737691432.129397,
+  "uid": "CHSQTt28ehluo38Y8h",
+  "id.orig_h": "192.168.0.10",
+  "id.orig_p": 55364,
+  "id.resp_h": "142.250.189.164",
+  "id.resp_p": 443,
+  "proto": "tcp",
+  "service": "ssl",
+  "duration": 0.07700109481811523,
+  "orig_bytes": 555,
+  "resp_bytes": 25370,
+  "conn_state": "SF",
+  "local_orig": true,
+  "local_resp": false,
+  "missed_bytes": 0,
+  "history": "ShADadFf",
+  "orig_pkts": 27,
+  "orig_ip_bytes": 1967,
+  "resp_pkts": 28,
+  "resp_ip_bytes": 26834,
+  "ip_proto": 6
+}
+...
+```
+
+</div>
+</div>
+
+---
+
+# Pivoting: dns.log to conn.log
+
+Explore a DNS lookup, and how its DNS transaction leads to the corresponding
+conn.log entry.
+
+---
+
+<!-- _class: exercise -->
+# Exercise: TBD
+
+TODO: we should check our available pcaps and come up with a good example. Or go
+back to the Redis one, since we now have better understanding.
 
 ---
 
@@ -447,84 +570,6 @@ so you get things like:
 ```
 
 For details, refer to [our docs](https://docs.zeek.org/en/master/advanced/deployment/systemd.html).
-
----
-
-<!-- _class: chapter -->
-# Working with Zeek logs
-
----
-
-# TSV logs, JSON logs, zeek-cut, and jq
-
-A quick intro to basic textual log wrangling.
-
----
-
-# Meet conn.log
-
-The "anchor" for many Zeek logs. Introduce notion of an entry for (nearly) every
-flow, and UID as an identifier.
-
----
-
-<div class="columns">
-<div>
-
-```console
-$ zeek -r ssl.pcap tuning/json-logs
-$ cat conn.log | jq
-```
-
-</div>
-<div>
-
-```json
-{
-  "ts": 1737691432.129397,
-  "uid": "CHSQTt28ehluo38Y8h",
-  "id.orig_h": "192.168.0.10",
-  "id.orig_p": 55364,
-  "id.resp_h": "142.250.189.164",
-  "id.resp_p": 443,
-  "proto": "tcp",
-  "service": "ssl",
-  "duration": 0.07700109481811523,
-  "orig_bytes": 555,
-  "resp_bytes": 25370,
-  "conn_state": "SF",
-  "local_orig": true,
-  "local_resp": false,
-  "missed_bytes": 0,
-  "history": "ShADadFf",
-  "orig_pkts": 27,
-  "orig_ip_bytes": 1967,
-  "resp_pkts": 28,
-  "resp_ip_bytes": 26834,
-  "ip_proto": 6
-}
-...
-```
-
-</div>
-</div>
-
----
-
-# Pivoting: dns.log to conn.log
-
-Explore a DNS lookup, and how its DNS transaction leads to the corresponding
-conn.log entry.
-
----
-
-<!-- _class: exercise -->
-# Exercise: TBD
-
-TODO: we should check our available pcaps and come up with a good example. Or go
-back to the Redis one, since we now have better understanding.
-
----
 
 <!-- _class: chapter -->
 # Wrapping up
