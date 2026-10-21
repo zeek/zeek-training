@@ -170,32 +170,26 @@ In the container, clone our training repository and cd into it.
 # cd /opt/zeek-training/
 ```
 
-Run the local setup script to pull down additional resources:
+Run the local setup script to set up additional resources:
 
 ```console
-# ./setup.sh tutorial
+# ./setup.sh intro-to-zeek
 ```
 
 ---
 
 # Let's get started (continued)
 
-<style scoped>p { font-size: 75%; }</style>
+<style scoped>p { font-size: 80%; }</style>
 
-Create a scratch space to do the exercises in:
+There's a scratch space for you to work in. Go there:
 
 ```console
-root@zeek-tutorial:/opt/zeek-training # mkdir -p scratch && cd scratch
+root@zeek-tutorial:/opt/zeek-training # cd Intro-to-Zeek/scratch
 ```
 
-**NOTE:** In the rest of the slides we'll show `#` for the container prompt for
-brevity, assuming you're working in `/opt/zeek-training/scratch`.
-
-To keep a Docker image of this container, run this outside of it:
-
-```shell
-$ docker commit zeek-training zeek-training
-```
+**NOTE:** From now on we'll just show `#` for the container prompt, assuming
+you're working in `scratch`. You can always wipe and recreate that directory.
 
 Do a quick check in the container that Zeek works:
 
@@ -205,28 +199,132 @@ Do a quick check in the container that Zeek works:
 
 ---
 
+# Let's get started (continued)
+
+<style scoped>p { font-size: 80%; }</style>
+
+To keep a Docker image of your container, run this outside of it:
+
+```shell
+$ docker commit zeek-training zeek-training
+```
+
+For multiple shells in the container, either use tmux or launch additional
+shells in the container:
+
+```shell
+$ docker exec -it zeek-training bash
+```
+
+---
+
 <!-- _class: chapter -->
 # Command-line Zeek
 
 ---
 
-# Invoking Zeek
-
----
+<!-- _class: smaller -->
 
 # Processing pcaps
+
+Let's run a pcap file (pre-recorded network packets) through Zeek:
+
+```console
+# zeek -r ../traces/quickstart.pcap
+```
+
+This produced a few logs:
+
+```console
+# ls -l
+total 20
+-rw-r--r--. 1 root root  763 Oct 21 00:05 conn.log
+-rw-r--r--. 1 root root  888 Oct 21 00:05 files.log
+-rw-r--r--. 1 root root 1081 Oct 21 00:05 http.log
+-rw-r--r--. 1 root root  278 Oct 21 00:05 packet_filter.log
+-rw-r--r--. 1 root root  396 Oct 21 00:05 weird.log
+```
+
+<div class="exercise">
+
+Exercise: take a look at conn.log. What do you see? What about http.log?
+
+</div>
 
 ---
 
 # Processing live traffic
 
+Zeek does not wipe logs at startup, so remove them:
+
+```console
+# rm -f *.log
+```
+
+To process live traffic, specify a network interface via `-i`:
+
+```console
+# zeek -C -i eth0
+```
+
+The `-C` flag makes Zeek ignore packet checksums, which are frequently invalid
+in local traffic capture because the kernel offloads the computation to the NIC.
+
 ---
 
-# Loading custom scripts
+# Processing live traffic
+
+Now, in another shell, create some network traffic:
+
+```console
+# ping -c 5 example.com
+```
+
+Stop Zeek via ctrl-c.
+
+<div class="exercise">
+
+Exercise: what logs did the above create? Take a look at conn.log &mdash; what
+do you see?
+
+</div>
 
 ---
 
 # Providing script values to Zeek
+
+At startup, Zeek loads a lot of script code. That code includes many **tunable
+constants**. Adjusting such constants is called a `redef` in Zeek. You can redef
+values at the command line.
+
+```console
+# zeek -r ../traces/http-basic-auth.pcap HTTP::default_capture_password=T
+```
+
+<div class="exercise">
+
+Exercise: run the above with and without the redef. What do you notice in
+http.log?
+
+</div>
+
+---
+
+# Loading custom scripts
+
+Another way to customize Zeek is by loading additional functionality into
+it. Zeek ships with a lot of optional functionality, called **policy scripts**.
+
+```console
+# zeek -r ../traces/http-basic-auth.pcap protocols/http/software.zeek
+```
+
+<div class="exercise">
+
+Exercise: run the above with and without the added script. What do you notice in
+the logs?
+
+</div>
 
 ---
 
