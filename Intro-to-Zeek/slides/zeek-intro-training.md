@@ -209,7 +209,7 @@ To keep a Docker image of your container, run this outside of it:
 $ docker commit zeek-training zeek-training
 ```
 
-For multiple shells in the container, either use tmux or launch additional
+For multiple shells in the container, either use `tmux` or launch additional
 shells in the container:
 
 ```shell
@@ -248,6 +248,10 @@ total 20
 <div class="exercise">
 
 Exercise: take a look at conn.log. What do you see? What about http.log?
+
+<!-- conn.log contains connection-level summaries with protocol and history
+info; http.log has transactional data. We'll look at these in more detail later,
+so the absolute basics are enough here.  -->
 
 </div>
 
@@ -370,7 +374,8 @@ each transaction's flow tuple and URI.
 
 # JSON logs and jq
 
-You can switch Zeek to logging in JSON. The result is JSONL: per-line JSON objects that you can process via `jq`.
+You can switch Zeek to logging in JSON. The result is JSONL files: per-line JSON
+objects. Zeek does _not_ (by default) dump a single all-in-one JSON log.
 
 ```console
 # zeek -r ../traces/quickstart.pcap tuning/json-logs
@@ -385,11 +390,14 @@ You can switch Zeek to logging in JSON. The result is JSONL: per-line JSON objec
   ...
 ```
 
+
 <div class="exercise">
 
 Exercise: use `jq` to print each transaction's flow tuple.
 
-<!-- cat http.log | jq 'with_entries(select(.key | startswith("id.")))'  -->
+<!-- Many possibilities, but for example:
+     cat http.log | jq 'with_entries(select(.key | startswith("id.")))'
+-->
 
 </div>
 
@@ -397,16 +405,24 @@ Exercise: use `jq` to print each transaction's flow tuple.
 
 # Meet conn.log
 
-The "anchor" for many Zeek logs. Introduce notion of an entry for (nearly) every
-flow, and UID as an identifier.
+Zeek's most central log: a **per-flow summary** of endpoints, protocols,
+history, and volumes, with a unique identifier. Many other logs pivot to/from
+it.
 
 ---
+
+<style scoped>
+table {
+  font-size: 40%;
+}
+</style>
+
 
 <div class="columns">
 <div>
 
 ```console
-$ zeek -r ssl.pcap tuning/json-logs
+$ zeek -r ../traces/quickstart.pcap tuning/json-logs
 $ cat conn.log | jq
 ```
 
@@ -415,26 +431,26 @@ $ cat conn.log | jq
 
 ```json
 {
-  "ts": 1737691432.129397,
-  "uid": "CHSQTt28ehluo38Y8h",
-  "id.orig_h": "192.168.0.10",
-  "id.orig_p": 55364,
-  "id.resp_h": "142.250.189.164",
-  "id.resp_p": 443,
+  "ts": 1747147647.668533,
+  "uid": "Cy8o9R3BmBbAEo09d9",
+  "id.orig_h": "192.168.1.8",
+  "id.orig_p": 52917,
+  "id.resp_h": "192.0.78.212",
+  "id.resp_p": 80,
   "proto": "tcp",
-  "service": "ssl",
-  "duration": 0.07700109481811523,
-  "orig_bytes": 555,
-  "resp_bytes": 25370,
+  "service": "http",
+  "duration": 0.09847784042358398,
+  "orig_bytes": 71,
+  "resp_bytes": 377,
   "conn_state": "SF",
   "local_orig": true,
   "local_resp": false,
   "missed_bytes": 0,
   "history": "ShADadFf",
-  "orig_pkts": 27,
-  "orig_ip_bytes": 1967,
-  "resp_pkts": 28,
-  "resp_ip_bytes": 26834,
+  "orig_pkts": 6,
+  "orig_ip_bytes": 335,
+  "resp_pkts": 4,
+  "resp_ip_bytes": 549,
   "ip_proto": 6
 }
 ...
@@ -445,58 +461,153 @@ $ cat conn.log | jq
 
 ---
 
-# Pivoting: dns.log to conn.log
+<style scoped>
+table { font-size: 40%; }
+p { font-size: 80% }
+</style>
 
-Explore a DNS lookup, and how its DNS transaction leads to the corresponding
-conn.log entry.
 
----
-
-<!-- _class: exercise -->
-# Exercise: TBD
-
-TODO: we should check our available pcaps and come up with a good example. Or go
-back to the Redis one, since we now have better understanding.
-
----
-
-<!-- _class: chapter -->
-# Zeek packages
-
----
-
-# Customizing Zeek via packages
-
-Packages can add functionality to Zeek at all levels, including new scripts and
-plugins. Almost everything in Zeek is pluggable: users can add packet sources,
-protocol parsers, log writers, and more.
-
----
-
-# Meet zkg, Zeek's package manager
-
-A quick tour of zkg and its available packages.
-
----
-
-# Working with a package
-
-Install the redis-rce package and run through the steps to show its custom
-notices on the included pcap.
-
----
-
-<!-- _class: exercise -->
-# Exercise: the logschema package
-
-This package provides Zeek scripts that generate log schemas for your Zeek
-installation. Install the package, then run the following:
+<div class="columns">
+<div>
 
 ```console
-$ zeek logschema/export/jsonschema
+$ zeek -r ../traces/quickstart.pcap tuning/json-logs
+$ cat conn.log | jq
 ```
 
-Take a look at your local directory now. What do you find?
+| History Letter | Meaning |
+| :---:  | :---    |
+| s      | a SYN w/o the ACK bit set |
+| h      | a SYN+ACK ("handshake") |
+| a      | a pure ACK |
+| d      | packet with payload ("data") |
+| f      | packet with FIN bit set |
+| r      | packet with RST bit set |
+| c      | packet with a bad checksum (applies to UDP too) |
+| g      | a content gap |
+| t      | packet with retransmitted payload |
+| w      | packet with a zero window advertisement |
+| i      | inconsistent packet (e.g. FIN+RST bits set) |
+| q      | multi-flag packet (SYN+FIN or SYN+RST bits set) |
+| ^      | connection direction was flipped |
+| x      | connection analysis partial (e.g. limits exceeded) |
+
+</div>
+<div>
+
+```json
+{
+  "ts": 1747147647.668533,
+  "uid": "Cy8o9R3BmBbAEo09d9",
+  "id.orig_h": "192.168.1.8",
+  "id.orig_p": 52917,
+  "id.resp_h": "192.0.78.212",
+  "id.resp_p": 80,
+  "proto": "tcp",
+  "service": "http",
+  "duration": 0.09847784042358398,
+  "orig_bytes": 71,
+  "resp_bytes": 377,
+  "conn_state": "SF",
+  "local_orig": true,
+  "local_resp": false,
+  "missed_bytes": 0,
+  "history": "ShADadFf", // <- Ooooh!
+  "orig_pkts": 6,
+  "orig_ip_bytes": 335,
+  "resp_pkts": 4,
+  "resp_ip_bytes": 549,
+  "ip_proto": 6
+}
+...
+```
+
+</div>
+</div>
+
+See the [conn.log docs](https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html#type-Conn::Info) for details.
+
+---
+
+<!-- _class: smaller -->
+
+# Pivoting across logs
+
+The UID is your key for pivoting from log to log.
+
+<div class="columns">
+<div>
+
+```console
+# cat http.log | jq '{uid, host}'                        
+{
+  "uid": "Cy8o9R3BmBbAEo09d9",
+  "host": "zeek.org",
+  "method": "GET"
+}
+{
+  "uid": "CurO9X2iFyU6moTOxg",
+  "host": "zeek.org",
+  "method": "WEIRD"
+}
+```
+
+</div>
+<div>
+
+```console
+# cat conn.log | jq 'select(.uid == "Cy8o9R3BmBbAEo09d9")'
+{
+  "ts": 1747147647.668533,
+  "uid": "Cy8o9R3BmBbAEo09d9",
+  "id.orig_h": "192.168.1.8",
+  "id.orig_p": 52917,
+  "id.resp_h": "192.0.78.212",
+  "id.resp_p": 80,
+  ...
+```
+
+</div>
+</div>
+
+The UID is a hashed counter. It's _not_ based on the flow tuple.
+
+<div class="exercise">
+
+Exercise: process quickstart.pcap into TSV logs. Pick the first conn.log
+entry. In which logs do you see this connection come up?
+
+<!-- uid=$(cat conn.log | zeek-cut uid | head -1)
+     grep $uid *.log
+     
+     -> Three: conn.log, http.log, files.log.
+-->
+
+</div>
+
+---
+
+<!-- _class: smaller -->
+
+# Some noteworthy logs
+
+**conn.log:** per-flow summaries.
+
+**dns.log:** DNS transactions.
+
+**http.log:** HTTP transactions.
+
+**files.log:** details about files transferred in protocols.
+
+**notice.log:** noteworthy things, sometimes alerts!
+
+**dce-rpc.log, smb.log, ntlm.log, ldap.log:** Windows protocols.
+
+**reporter.log:** Zeek's own system logs: errors, warnings, etc.
+
+**ssl.log:** TLS handshake details (with history!).
+
+**x509.log:** certificates, e.g. for TLS sessions.
 
 ---
 
@@ -544,22 +655,128 @@ installations to **scale as needed**.
 
 # Managing a cluster via zeekctl
 
-Defining a cluster, deploying its configuration, starting/stopping, and checking
-its status.
+`zeekctl` is Zeek's traditional cluster manager. You **deploy** cluster
+definitions with it, **start** and **stop** nodes, and **check the status** of
+your cluster.
+
+It implements ad-hoc, serverless operations on one or more machines, via `ssh`
+and `rsync`.
 
 ---
 
-<!-- _class: exercise -->
-# Exercise: run your own cluster
+<!-- _class: smaller -->
 
-Define a few nodes, deploy it, create some network I/O and see logs establish.
+# Let's spin up a cluster
+
+<div class="columns">
+<div>
+
+`zeekctl`'s config files reside in `/usr/local/zeek/etc/`.
+
+The `node.cfg` file defines your cluster's topology, and `zeekctl.cfg` controls
+various operational settings.
+
+Edit `node.cfg` as shown here (or copy `../misc/zeekctl/node.cfg` 😎).
+
+<div class="exercise">
+
+Exercise: run `zeekctl deploy` and look at the running processes. What do you see?
+
+</div>
+
+</div>
+<div>
+
+<style scoped>pre { font-size: 60%; }</style>
+
+```ini
+# Example ZeekControl node configuration.
+
+[manager]
+type=manager
+host=localhost
+
+[proxy-1]
+type=proxy
+host=localhost
+
+[logger-1]
+type=logger
+host=localhost
+
+[worker-1]
+type=worker
+host=localhost
+interface=eth0
+
+[worker-2]
+type=worker
+host=localhost
+interface=lo
+```
+
+</div>
+</div>
+
+---
+
+<!-- _class: smaller -->
+
+# Checking a running cluster
+
+`zeekctl` can give you its own process summary:
+
+```console
+# zeekctl status
+Name         Type    Host             Status    Pid    Started
+logger-1     logger  localhost        running   1488   21 Oct 23:47:00
+manager      manager localhost        running   1544   21 Oct 23:47:01
+proxy-1      proxy   localhost        running   1607   21 Oct 23:47:03
+worker-1     worker  localhost        running   1676   21 Oct 23:47:04
+worker-2     worker  localhost        running   1677   21 Oct 23:47:04
+```
+
+`zeekctl top` is similar, but provides a resource utilization snapshot.
+
+<div class="exercise">
+
+Exercise: run `zeekctl restart` and look at the above again. What changed?
+
+</div>
+
+---
+
+<!-- _class: smaller -->
+
+# A look at production logs
+
+In production, Zeek builds up logs in real-time in
+`/usr/local/zeek/logs/current/`.
+
+Zeek rotates them for archival into `/usr/local/zeek/logs/<date>/` in gzipped
+format.
+
+<div class="exercise">
+
+Exercise: create network traffic via `curl`, `ping`, etc. Examine the
+logs. Which new ones do you spot?
+
+Stop the cluster to trigger log finalization.
+
+<!-- Examples include stats.log, stderr/stdout.log, loaded_scripts, etc. -->
+
+</div>
+
+In production, you may choose to export your logs directly into SIEMs, bypassing
+your local filesystem. This has pros and cons &mdash; SIEMs provide more
+powerful analysis, while files provide long-term robustness.
 
 ---
 
 # Managing a cluster via systemd
 
-Zeek 9 added mature support for systemd generators and a `zeek.conf` config file,
-so you get things like:
+There's a modern alternative: Zeek 9 added mature support for systemd generators
+and a `zeek.conf` config file, so you get things like:
 
 ```console
 # systemctl start zeek.target
@@ -570,6 +787,46 @@ so you get things like:
 ```
 
 For details, refer to [our docs](https://docs.zeek.org/en/master/advanced/deployment/systemd.html).
+
+---
+
+<!-- _class: chapter -->
+# Zeek packages
+
+---
+
+# Customizing Zeek via packages
+
+Packages can add functionality to Zeek at all levels, including new scripts and
+plugins. Almost everything in Zeek is pluggable: users can add packet sources,
+protocol parsers, log writers, and more.
+
+---
+
+# Meet zkg, Zeek's package manager
+
+A quick tour of zkg and its available packages.
+
+---
+
+# Working with a package
+
+Install the redis-rce package and run through the steps to show its custom
+notices on the included pcap.
+
+---
+
+<!-- _class: exercise -->
+# Exercise: the logschema package
+
+This package provides Zeek scripts that generate log schemas for your Zeek
+installation. Install the package, then run the following:
+
+```console
+$ zeek logschema/export/jsonschema
+```
+
+Take a look at your local directory now. What do you find?
 
 ---
 
