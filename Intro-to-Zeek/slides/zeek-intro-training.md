@@ -797,30 +797,26 @@ For details, refer to [our docs](https://docs.zeek.org/en/master/advanced/deploy
 
 # Customizing Zeek via packages
 
-Packages can add functionality to Zeek at all levels, including new scripts and
-plugins. Almost everything in Zeek is pluggable: users can add packet sources,
-protocol parsers, log writers, and more.
+Zeek provides its own **package ecosystem** and package manager, `zkg`.
+
+Packages can add functionality to Zeek at all levels. **Scripts** add or modify
+logs. **Plugins** are written in native code and built at installation
+time. They add packet sources, protocol parsers, log writers, and more.
+
+Almost everything in Zeek is pluggable or extensible.
 
 ---
 
-# Meet zkg, Zeek's package manager
+# Working with a package: **logschema**
 
-A quick tour of zkg and its available packages.
+This package provides Zeek scripts that generate log schemas for your specific
+Zeek installation. 
 
----
+<div class="exercise">
 
-# Working with a package
+Exercise: install the logschema package by saying `zkg install logschema`.
 
-Install the redis-rce package and run through the steps to show its custom
-notices on the included pcap.
-
----
-
-<!-- _class: exercise -->
-# Exercise: the logschema package
-
-This package provides Zeek scripts that generate log schemas for your Zeek
-installation. Install the package, then run the following:
+Then, run the following in the scratch space:
 
 ```console
 $ zeek logschema/export/jsonschema
