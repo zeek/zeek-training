@@ -339,7 +339,7 @@ the logs?
 ---
 
 <!-- _class: chapter -->
-# Working with Zeek logs
+# Working with<br>Zeek logs
 
 ---
 
@@ -797,11 +797,14 @@ For details, refer to [our docs](https://docs.zeek.org/en/master/advanced/deploy
 
 # Customizing Zeek via packages
 
-Zeek provides its own **package ecosystem** and package manager, `zkg`.
+Zeek provides its own **package ecosystem** and package manager, `zkg`. There's
+a [package browser](https://github.com/zeek/packages), and
+[docs](https://docs.zeek.org/projects/package-manager/en/stable/index.html).
 
-Packages can add functionality to Zeek at all levels. **Scripts** add or modify
-logs. **Plugins** are written in native code and built at installation
-time. They add packet sources, protocol parsers, log writers, and more.
+Packages add functionality to Zeek at all levels:
+- **Scripts** add enrichments & detections. They modify or add logs.
+- **Plugins** contain native code and build at install-time. They
+  add packet sources, protocol parsers, log writers, and more.
 
 Almost everything in Zeek is pluggable or extensible.
 
@@ -826,6 +829,20 @@ Take a look at your local directory now. What do you find?
 
 ---
 
+# Some great packages
+
+**Detections:** [emudhra-weak-keys](https://github.com/corelight/emudhra-weak-keys), [php2shell-detect](https://github.com/corelight/php2shell-detect), [redis-rce](https://github.com/zeek/redis-rce)
+
+**Enrichments:** [add-interfaces](https://github.com/J-Gras/add-interfaces), [remote_asn_geoip_conn](amarokinc/remote_asn_geoip_conn)
+
+**Analyzers:** [CISA's ICS parsers](https://github.com/cisagov/ICSNPP), [spicy-nats](https://github.com/evantypanski/spicy-nats)
+
+**Log writers:** [zeek-kafka](https://github.com/SeisoLLC/zeek-kafka), [zeek-log-writer-nats](https://github.com/corelight/zeek-log-writer-nats)
+
+**Miscellaneous:** [zeek-fuzzy-hashing](https://github.com/J-Gras/zeek-fuzzy-hashing), [zeek-perf-support](https://github.com/zeek/zeek-perf-support.git), [zeek-xdp](https://github.com/zeek/zeek-xdp)
+
+---
+
 <!-- _class: chapter -->
 # Wrapping up
 
@@ -833,4 +850,33 @@ Take a look at your local directory now. What do you find?
 
 # Next steps
 
-A few pointers at our docs, Slack, Youtube, etc.
+**Start looking at traffic.** Whether pcaps or live, you'll learn something
+immediately. Try your home network!
+
+**Explore Zeek scripting.** Nothing beats writing [your own
+scripts](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html).
+to unlock Zeek. You can [use
+JavaScript](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html),
+too!
+
+**Write a parser.** We offer a [whole language](https://docs.zeek.org/projects/spicy/en/latest/) for
+it. It's easier than you think!
+
+---
+
+<!-- _class: chapter -->
+# Thanks!
+
+<style scoped>p { font-size: 80%; }</style>
+
+Official documentation<br>
+https://docs.zeek.org
+
+Github project<br>
+https://github.com/zeek
+
+Main repository<br>
+https://github.com/zeek/zeek
+
+Project wiki<br>
+https://github.com/zeek/zeek/wiki
