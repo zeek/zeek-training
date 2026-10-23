@@ -1,49 +1,6 @@
 #!/bin/bash
 
-print_colored_ascii() {
-    local ascii_input="$1"
-    local WHITE='\033[1;37m'
-    local BLUE='\033[0;34m'
-    local RESET='\033[0m'
-
-    while IFS= read -r line; do
-        output=""
-        for ((i=0; i<${#line}; i++)); do
-            char="${line:$i:1}"
-            case "$char" in
-                "@") output+="${WHITE}${char}${RESET}" ;;
-                "%"|"#"|"+") output+="${BLUE}${char}${RESET}" ;;
-                *) output+="$char" ;;
-            esac
-        done
-        printf "%b\n" "$output"
-    done <<< "$ascii_input"
-}
-
-LOGO='
-         @
-        @@
-      @@ @
-    @@   @
-  @@     @@@@@@@@@@@@@@@@@@@@@@
- @@                          @@
-  @@     @@##########       @
-    @@   @@##########
-      @@ @       ###
-        @@      ###     @
-         @     ###      @@
-           ###        @ @@
-           ##########@@   @@
-     @     ##########@@     @@
-   @@                         @@
-  @@@@@@@@@@@@@@@@@@@@@     @@
-                      @   @@
-                      @ @@
-                      @@
-                      @
-'
-
-ALL_TARGETS=("tutorial" "intro-to-zeek", "print")
+ALL_TARGETS=("tutorial" "intro-to-zeek")
 
 setup_tutorial() {
   echo "Cloning Zeek source code"
@@ -66,7 +23,7 @@ setup_intro_to_zeek() {
 }
 
 usage() {
-  echo "Usage: $0 [tutorial|intro-to-zeek|all]"
+  echo "Usage: $0 [tutorial|intro-to-zeek]"
 }
 
 # If no arguments, show usage
@@ -77,19 +34,8 @@ fi
 
 SELECTED=()
 for arg in "$@"; do
-  if [[ "$arg" == "all" ]]; then
-    SELECTED=("${ALL_TARGETS[@]}")
-    break
-  else
-    SELECTED+=("$arg")
-  fi
+  SELECTED+=("$arg")
 done
-
-# This prints the logo and exits if 'print' is an argument.
-if [[ "${#SELECTED[@]}" -eq 1 && "${SELECTED[0]}" == "print" ]]; then
-    print_colored_ascii "$LOGO"
-    exit 0
-fi
 
 # Validate all entries before doing any setup
 for item in "${SELECTED[@]}"; do
@@ -109,32 +55,28 @@ done
 
 # Everything below happens regardless of the input
 echo
-echo
 echo "Installing useful programs"
 
 # Avoid the Wireshark prompt
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq && apt-get install -qq -y --no-install-recommends \
+    bash-completion \
     curl \
     ethtool \
-    gpg \
     iproute2 \
     iputils-ping \
     less \
-    libpcap-dev \
     nano \
     net-tools \
     procps \
     psmisc \
-    python3 \
-    python3-pip \
     sudo \
     tcpdump \
     tcpreplay \
+    tmux \
     tshark \
     vim \
-    wget \
-    wireshark
+    wget
 
 echo
 echo
@@ -157,17 +99,14 @@ for item in "${SELECTED[@]}"; do
   esac
 done
 
-echo
-echo
+# Debian: uncomment the completion-enabling block that should be in /etc/bash.bashrc:
+grep -q '^# enable bash completion' /etc/bash.bashrc
+sed -i '/^# enable bash completion/,/^#fi/ { /^# enable bash completion/! s/^#// }' /etc/bash.bashrc
+
+# A more useful prompt
 echo 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >> /etc/bash.bashrc
 echo 'export PREFIX=/usr/local/zeek' >> /etc/bash.bashrc
 
-# ANSI escape codes
-WHITE='\033[37m'
-BLUE='\033[34m'
-RESET='\033[0m'
-
-echo
 echo
 echo "Welcome to the Zeek training/tutorial!"
 echo
