@@ -160,7 +160,7 @@ later!
 Grab the latest Zeek Docker image and run it:
 
 ```shell
-$ docker run -it --name zeek-training zeek/zeek
+$ docker run -it --name zeek-training 'zeek/zeek'
 ```
 
 In the container, clone our training repository and cd into it.
