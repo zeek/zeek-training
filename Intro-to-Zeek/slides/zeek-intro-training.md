@@ -6,7 +6,7 @@ theme: zeek
 
 ![bg](https://marp.app/assets/hero-background.svg)
 
-![width:250px](images/zeek-logo.png)
+![width:250px](images/zeek-logo.svg)
 # Introduction to Zeek
 ### A Zeek training
 *Nullcon Berlin, 2026*
