@@ -850,12 +850,12 @@ Take a look at your local directory now. What do you find?
 
 # Next steps
 
-**Start looking at traffic.** Whether pcaps or live, you'll learn something
-immediately. Try your home network!
+**Start looking at traffic.** Whether [pcaps](https://github.com/zeek/zeek/wiki/Packet-Traces)
+or live, you'll learn something immediately. Try your home network!
 
 **Explore Zeek scripting.** Nothing beats writing [your own
 scripts](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html).
-to unlock Zeek. You can [use
+to unlock Zeek. Check out [try.zeek.org](https://try.zeek.org). Btw, you can [use
 JavaScript](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html),
 too!
 
