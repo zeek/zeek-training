@@ -125,6 +125,7 @@ Put your findings in chronological order. The attack likely follows this pattern
 ## Answers
 
 See `answers/2022-02-23-traffic-analysis-exercise-answers.pdf` for the reference solution.
+See `answers/ZEEK-ANSWER-GUIDE.md` for how to derive every answer from the Zeek logs alone, checked against the PDF.
 
 ---
 
