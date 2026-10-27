@@ -23,9 +23,41 @@ Based on the caller's initial information, you confirm there was an infection. Y
 zeek -C -r Traces/2025-01-22-traffic-analysis-exercise.pcap local policy/protocols/conn/mac-logging
 ```
 
-`policy/protocols/conn/mac-logging` is commented out in the default `local.zeek`; without it the `orig_l2_addr`/`resp_l2_addr` (MAC) columns in `conn.log` are empty.
-
 This generates all standard Zeek logs. Start your investigation.
+
+#### Enabling MAC address logging
+
+By default `conn.log` does not record MAC addresses. The script that adds them,
+`policy/protocols/conn/mac-logging`, ships with Zeek but is commented out in the
+default `local.zeek`. You can turn it on in one of two ways.
+
+**Option 1 — per run (no config change).** Add the script name to the command line,
+as the command above does: `zeek -C -r <pcap> local policy/protocols/conn/mac-logging`.
+
+**Option 2 — permanently.** Uncomment the line in `site/local.zeek`:
+
+```bash
+# Find the file (e.g. /usr/local/zeek/share/zeek/site/local.zeek)
+LOCAL=$(zeek-config --site_dir)/local.zeek
+grep -n mac-logging "$LOCAL"
+# Change:   # @load policy/protocols/conn/mac-logging
+# to:       @load policy/protocols/conn/mac-logging
+```
+
+After that, `zeek -C -r <pcap> local` includes MAC addresses. On a live sensor
+managed by `zeekctl`, run `zeekctl deploy` to apply the change.
+
+**Verify** that the new columns are present:
+
+```bash
+grep '^#fields' conn.log | tr '\t' '\n' | grep l2_addr
+# orig_l2_addr
+# resp_l2_addr
+```
+
+Each column holds the source MAC of the **first packet Zeek saw from that endpoint**
+(`orig_l2_addr` for the originator, `resp_l2_addr` for the responder). For traffic to the internet, `resp_l2_addr` is the gateway's MAC,
+not the remote host's. Only local hosts' MAC addresses are meaningful.
 
 ---
 
@@ -36,19 +68,20 @@ Answer these for your incident report:
 ### Host Identification
 
 1. **What is the OS of the client?**
-   - Hint: Check `http.log` user agents, and look for OS-specific traffic patterns
+   - Hint: Check `software.log` and `http.log` user agents, and look for OS-specific traffic patterns
+   - Note: "Windows NT 10.0" is reported by both Windows 10 and 11; the logs cannot tell them apart
 
 2. **What is the IP address of the infected client?**
    - Hint: Start with `conn.log` — who is generating the most suspicious traffic?
 
 3. **What is the MAC address of the infected client?**
-   - Hint: `zeek-cut orig_l2_addr < conn.log | sort | uniq -c | sort -rn`
+   - Hint: `zeek-cut client_addr mac < dhcp.log`, or `zeek-cut id.orig_h orig_l2_addr < conn.log | sort | uniq -c | sort -rn` (needs `mac-logging`, see above)
 
 4. **What is the hostname of the infected client?**
-   - Hint: Check `dhcp.log`, `kerberos.log`, or `ntlm.log`
+   - Hint: Check `dhcp.log` (`host_name`), then confirm in `kerberos.log` (machine accounts end in `$`)
 
 5. **What is the user account name from the infected client?**
-   - Hint: Check `kerberos.log` or `ntlm.log` for authentication events
+   - Hint: Check `kerberos.log` for `client` names that do not end in `$` (this capture has no `ntlm.log`)
 
 ### Attack Chain
 
@@ -60,7 +93,7 @@ Answer these for your incident report:
    - Hint: Look for connections after the initial download — unusual ports, long durations, periodic beaconing
 
 8. **What browser was the user using?**
-   - Hint: `zeek-cut user_agent < http.log | sort | uniq -c | sort -rn`
+   - Hint: `zeek-cut user_agent < http.log | sort | uniq -c | sort -rn` — but check which process made each request. The user browsed over HTTPS, so their browser's user agent never reaches `http.log`. Use `server_name` in `ssl.log` and `quic.log` to infer the browser.
 
 ---
 
@@ -109,6 +142,7 @@ grep $INFECTED_IP conn.log | zeek-cut ts id.resp_h id.resp_p service duration | 
 ## Answers
 
 See `answers/2025-01-22-traffic-analysis-exercise-answers.pdf` for the reference solution.
+See `answers/ZEEK-ANSWER-GUIDE.md` for how to derive each answer from the Zeek logs alone, including the OS and browser questions that the PDF does not cover.
 
 Compare your findings — did you identify the same indicators? Did you find anything additional?
 
