@@ -48,7 +48,6 @@ Recovering academic, Cambridge PhD
 - Using Zeek at the command line
 - Extending Zeek via its package manager
 - Running Zeek clusters
-- A deep-dive into Zeek logs
 
 ---
 
