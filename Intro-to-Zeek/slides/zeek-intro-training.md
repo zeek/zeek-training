@@ -252,10 +252,10 @@ total 20
 
 <div class="exercise">
 
-Exercise: take a look at conn.log. What do you see? What about http.log?
+Exercise: take a look at `conn.log`. What do you see? What about `http.log`?
 
-<!-- conn.log contains connection-level summaries with protocol and history
-info; http.log has transactional data. We'll look at these in more detail later,
+<!-- `conn.log` contains connection-level summaries with protocol and history
+info; `http.log` has transactional data. We'll look at these in more detail later,
 so the absolute basics are enough here.  -->
 
 </div>
@@ -293,10 +293,10 @@ Stop Zeek via ctrl-c.
 
 <div class="exercise">
 
-Exercise: what logs did the above create? Take a look at conn.log --- what
+Exercise: what logs did the above create? Take a look at `conn.log` --- what
 do you see?
 
-<!-- Mainly dns.log and conn.log, which mentions ICMP for the ping transaction. -->
+<!-- Mainly `dns.log` and `conn.log`, which mentions ICMP for the ping transaction. -->
 
 </div>
 
@@ -315,7 +315,7 @@ values at the command line.
 <div class="exercise">
 
 Exercise: run the above with and without the redef. What do you notice in
-http.log?
+`http.log`?
 
 <!-- With the redef, the password column is populated. -->
 
@@ -337,7 +337,7 @@ it. Zeek ships with a lot of optional functionality, called **policy scripts**.
 Exercise: run the above with and without the added script. What do you notice in
 the logs?
 
-<!-- Zeek generates an additional log, software.log, that mentions the browser. -->
+<!-- Zeek generates an additional log, `software.log`, that mentions the browser. -->
 
 </div>
 
@@ -366,7 +366,7 @@ with `zeek-cut`, a tool to filter output from those logs.
 
 <div class="exercise">
 
-Exercise: look at http.log to understand its columns. Use `zeek-cut` to print
+Exercise: look at `http.log` to understand its columns. Use `zeek-cut` to print
 each transaction's flow tuple and URI.
 
 <!-- cat http.log | zeek-cut -D %s ts id.orig_h id.orig_p id.resp_h id.resp_p uri -->
@@ -407,7 +407,7 @@ Exercise: use `jq` to print each transaction's flow tuple.
 
 ---
 
-# Meet conn.log
+# Meet `conn.log`
 
 Zeek's most central log: a **per-flow summary** of endpoints, protocols,
 history, and volumes, with a unique identifier. Many other logs pivot to/from
@@ -527,7 +527,7 @@ cat conn.log | jq
 </div>
 </div>
 
-See the [conn.log docs](https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html#type-Conn::Info) for details.
+See the [`conn.log` docs](https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html#type-Conn::Info) for details.
 
 ---
 
@@ -576,7 +576,7 @@ The UID is a hashed counter. It's *not* based on the flow tuple.
 
 <div class="exercise">
 
-Exercise: process quickstart.pcap into TSV logs. Pick the first conn.log
+Exercise: process `quickstart.pcap` into TSV logs. Pick the first `conn.log`
 entry. In which logs do you see this connection come up?
 
 <!-- uid=$(cat conn.log | zeek-cut uid | head -1)
@@ -593,23 +593,23 @@ entry. In which logs do you see this connection come up?
 
 # Some noteworthy logs
 
-**conn.log:** per-flow summaries.
+`conn.log:` per-flow summaries.
 
-**dns.log:** DNS transactions.
+`dns.log:` DNS transactions.
 
-**http.log:** HTTP transactions.
+`http.log:` HTTP transactions.
 
-**files.log:** details about files transferred in protocols.
+`files.log:` details about files transferred in protocols.
 
-**notice.log:** noteworthy things, sometimes alerts!
+`notice.log:` noteworthy things, sometimes alerts!
 
-**dce-rpc.log, smb.log, ntlm.log, ldap.log:** Windows protocols.
+`dce-rpc.log, smb.log, ntlm.log, ldap.log:` Windows protocols.
 
-**reporter.log:** Zeek's own system logs: errors, warnings, etc.
+`reporter.log:` Zeek's own system logs: errors, warnings, etc.
 
-**ssl.log:** TLS handshake details (with history!).
+`ssl.log:` TLS handshake details (with history!).
 
-**x509.log:** certificates, e.g. for TLS sessions.
+`x509.log:` certificates, e.g. for TLS sessions.
 
 ---
 
