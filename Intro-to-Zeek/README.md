@@ -1,6 +1,6 @@
 # Development
 
-Slide content is in `zeek-intro-training.md`.
+The slide content is in `slides/zeek-intro-training.md`.
 
 To generate the presentation content first install dependencies with
 
@@ -14,10 +14,10 @@ and then generate the HTML with
 npm run build
 ```
 
-To build a standalone HTML file instead use
+To build a PDF version, instead use
 
 ```console
-npm run all-in-one
+npm run pdf
 ```
 
 For live updates during development you can use
