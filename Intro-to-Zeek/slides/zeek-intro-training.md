@@ -833,7 +833,7 @@ Take a look at your local directory now. What do you find?
 
 **Detections:** [emudhra-weak-keys](https://github.com/corelight/emudhra-weak-keys), [php2shell-detect](https://github.com/corelight/php2shell-detect), [redis-rce](https://github.com/zeek/redis-rce)
 
-**Enrichments:** [add-interfaces](https://github.com/J-Gras/add-interfaces), [remote_asn_geoip_conn](amarokinc/remote_asn_geoip_conn)
+**Enrichments:** [add-interfaces](https://github.com/J-Gras/add-interfaces), [remote_asn_geoip_conn](https://github.com/amarokinc/remote_asn_geoip_conn)
 
 **Analyzers:** [CISA's ICS parsers](https://github.com/cisagov/ICSNPP), [spicy-nats](https://github.com/evantypanski/spicy-nats)
 
