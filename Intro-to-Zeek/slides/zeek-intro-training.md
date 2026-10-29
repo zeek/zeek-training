@@ -679,6 +679,8 @@ various operational settings.
 
 Edit `node.cfg` as shown here (or copy `../misc/zeekctl/node.cfg` 😎).
 
+<!-- TODO: Users might ask "how do I configure zeek here" which we introduced via CLI flags before. Since this cluster always reads `local.zeek` we should probably also properly introduce it there, and briefly mention it here. -->
+
 <div class="exercise">
 
 Exercise: run `zeekctl deploy` and look at the running processes. What do you see?
