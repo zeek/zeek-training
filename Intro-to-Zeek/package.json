@@ -2,7 +2,7 @@
 	"scripts": {
 		"build": "marp --allow-local-files -I ./slides",
 		"watch": "marp --allow-local-files --watch --server --preview -I ./slides",
-		"all-in-one": "npm run build && monolith slides/zeek-intro-training.html -o slides/zeek-intro-training-aio.html"
+		"pdf": "marp --allow-local-files --pdf -I ./slides"
 	},
 	"marp": {
 		"engine": "./marp-zeek/engine.js",
