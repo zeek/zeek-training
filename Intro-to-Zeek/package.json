@@ -11,7 +11,8 @@
 		"theme": "zeek",
 		"options": {
 			"markdown": {
-				"breaks": false
+				"breaks": false,
+				"typographer": true
 			}
 		}
 	},

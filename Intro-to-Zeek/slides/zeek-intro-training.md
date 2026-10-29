@@ -101,7 +101,7 @@ across the protocol stack.
 
 Zeek logs **don't judge**.
 
-Zeek logs are **extremely adaptable** to your site's needs &mdash; the
+Zeek logs are **extremely adaptable** to your site's needs --- the
 sweet-spot between full packet capture, Netflow, and alert logs.
 
 ---
@@ -293,7 +293,7 @@ Stop Zeek via ctrl-c.
 
 <div class="exercise">
 
-Exercise: what logs did the above create? Take a look at conn.log &mdash; what
+Exercise: what logs did the above create? Take a look at conn.log --- what
 do you see?
 
 <!-- Mainly dns.log and conn.log, which mentions ICMP for the ping transaction. -->
@@ -637,7 +637,7 @@ installations to **scale as needed**.
 
 - **Workers:** run the DPI stack, distribute state, and trigger log writes.
 
-- **Proxies:** distributed state-keepers &mdash; a bit like DB shards.
+- **Proxies:** distributed state-keepers --- a bit like DB shards.
 
 - **Loggers:** one or more per cluster, handle log message output.
 
@@ -772,7 +772,7 @@ Stop the cluster to trigger log finalization.
 </div>
 
 In production, you may choose to export your logs directly into SIEMs, bypassing
-your local filesystem. This has pros and cons &mdash; SIEMs provide more
+your local filesystem. This has pros and cons --- SIEMs provide more
 powerful analysis, while files provide long-term robustness.
 
 ---
