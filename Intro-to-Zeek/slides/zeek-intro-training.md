@@ -829,6 +829,8 @@ $ zeek logschema/export/jsonschema
 
 Take a look at your local directory now. What do you find?
 
+</div>
+
 ---
 
 # Some great packages
