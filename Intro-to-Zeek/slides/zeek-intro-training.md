@@ -16,14 +16,16 @@ theme: zeek
 # About us
 
 <div class="columns">
-<div>
+<div class="columns-left">
 
 ## Benjamin Bannier
 
-- ...
+Zeek and Spicy maintainer at Corelight
+
+Programming languages, distributed systems, and developer tooling
 
 </div>
-<div>
+<div class="columns-right">
 
 ## Christian Kreibich
 
