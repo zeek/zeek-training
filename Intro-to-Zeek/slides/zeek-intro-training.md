@@ -57,7 +57,7 @@ Recovering academic
 # Why Zeek?
 
 Incident response, threat hunting, performance monitoring, traffic analysis,
-audits, and policy compliance checks all require one thing:
+audits, and policy compliance all require one thing:
 
 <center>
 
@@ -66,7 +66,7 @@ audits, and policy compliance checks all require one thing:
 </center>
 
 Zeek gives you "system logs for your network": rich, transactional data that
-collect evidence for later analysis. A network flight recorder!
+collect evidence. A network flight recorder!
 
 ---
 
@@ -101,19 +101,21 @@ across the protocol stack.
 
 Zeek logs **don't judge**.
 
-Zeek logs are **extremely adaptable** to your site's needs --- the
-sweet-spot between full packet capture, Netflow, and alert logs.
+Zeek logs are **extremely adaptable** to your site's needs --- your
+individual sweet-spot between full packet capture, Netflow, and alert logs.
 
 ---
 
 # Zeek is **three things**
 
-- **A DPI engine:** in-depth parsing of every packet. The parsing creates *events*.
+- **A DPI engine:** in-depth, stateful parsing of every packet. This parsing
+  creates *events*.
 
 - **A distributed event-based system:** topic-based publish/subscribe
   *communication* of these events across Zeek.
 
-- **A scripting language:** a domain-specific language that *handles* these events.
+- **A scripting language:** a domain-specific language that *handles* these
+  events to write logs, enrich them, or communicate them to third parties.
 
 ---
 
@@ -196,7 +198,7 @@ root@zeek-tutorial:/opt/zeek-training # cd Intro-to-Zeek/scratch
 **NOTE:** From now on we'll just show `#` for the container prompt, assuming
 you're working in `scratch`. You can always wipe and recreate that directory.
 
-Do a quick check in the container that Zeek works:
+Check in the container that Zeek works:
 
 ```console
 # zeek --version
@@ -432,8 +434,8 @@ table {
 <div>
 
 ```console
-zeek -r ../traces/quickstart.pcap tuning/json-logs
-cat conn.log | jq
+# zeek -r ../traces/quickstart.pcap tuning/json-logs
+# cat conn.log | jq
 ```
 
 </div>
@@ -480,8 +482,8 @@ p { font-size: 80% }
 <div>
 
 ```console
-zeek -r ../traces/quickstart.pcap tuning/json-logs
-cat conn.log | jq
+# zeek -r ../traces/quickstart.pcap tuning/json-logs
+# cat conn.log | jq
 ```
 
 | History Letter | Meaning |
@@ -643,9 +645,9 @@ installations to **scale as needed**.
 
 # Cluster node types
 
-- **Manager:** one per cluster, central state-keeper and coordination point.
+- **Manager:** central state-keeper and coordination point.
 
-- **Workers:** run the DPI stack, distribute state, and trigger log writes.
+- **Workers:** run DPI stack, propagate state, and create log writes.
 
 - **Proxies:** distributed state-keepers --- a bit like DB shards.
 
@@ -686,7 +688,7 @@ and `rsync`.
 `zeekctl`'s config files reside in `/usr/local/zeek/etc/`.
 
 The `node.cfg` file defines your cluster's topology, and `zeekctl.cfg` controls
-various operational settings.
+operational settings.
 
 Edit `node.cfg` as shown here (or copy `../misc/zeekctl/node.cfg` 😎).
 
@@ -738,7 +740,7 @@ interface=lo
 
 # Checking a running cluster
 
-`zeekctl` can give you its own process summary:
+`zeekctl` can give you a process summary:
 
 ```console
 # zeekctl status
@@ -782,7 +784,7 @@ Stop the cluster via `zeekctl stop` to trigger log finalization.
 </div>
 
 In production, you may choose to export your logs directly into SIEMs, bypassing
-your local filesystem. This has pros and cons --- SIEMs provide more
+your filesystem. This has pros and cons --- SIEMs provide more
 powerful analysis, while files provide long-term robustness.
 
 ---
@@ -831,7 +833,8 @@ Almost everything in Zeek is pluggable or extensible.
 
 This package uses Zeek's
 [notice framework](https://docs.zeek.org/en/current/frameworks/notice.html)
-to add detections for compromised TSL certificates by the eMudhra intermediate CA.
+and some TLS events to add detections for compromised TSL certificates by
+the eMudhra intermediate CA.
 
 <div class="exercise">
 
@@ -868,6 +871,8 @@ Repeat with the installed package, and compare your logs:
 **Log writers:** [zeek-kafka](https://github.com/SeisoLLC/zeek-kafka), [zeek-log-writer-nats](https://github.com/corelight/zeek-log-writer-nats)
 
 **Miscellaneous:** [logschema](https://github.com/zeek/logschema), [zeek-fuzzy-hashing](https://github.com/J-Gras/zeek-fuzzy-hashing), [zeek-xdp](https://github.com/zeek/zeek-xdp)
+
+For more, check out <https://packages.zeek.org>.
 
 ---
 
