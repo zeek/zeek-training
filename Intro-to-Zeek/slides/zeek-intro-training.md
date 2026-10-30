@@ -603,9 +603,11 @@ entry. In which logs do you see this connection come up?
 
 <!-- _class: smaller -->
 
-# Some noteworthy logs
+# Some noteworthy logs (see [docs](https://docs.zeek.org/en/current/reference/zeekscript/log-files.html)!)
 
-`conn.log:` per-flow summaries.
+<style scoped>p { line-height: 1.2; }</style>
+
+`conn.log:` per-flow summaries (with [history](https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html#field-Conn::Info$history)).
 
 `dns.log:` DNS transactions.
 
@@ -619,7 +621,9 @@ entry. In which logs do you see this connection come up?
 
 `reporter.log:` Zeek's own system logs: errors, warnings, etc.
 
-`ssl.log:` TLS handshake details (with history!).
+`ssl.log:` TLS handshake details (also with [history](https://docs.zeek.org/en/current/scripts/base/protocols/ssl/main.zeek.html#field-SSL::Info$ssl_history)).
+
+`weird.log:` strange protocol behaviors.
 
 `x509.log:` certificates, e.g. for TLS sessions.
 
