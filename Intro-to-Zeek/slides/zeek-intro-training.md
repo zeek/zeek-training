@@ -1,5 +1,6 @@
 ---
 theme: zeek
+paginate: true
 ---
 
 <!-- _class: lead -->

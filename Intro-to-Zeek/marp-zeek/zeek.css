@@ -127,6 +127,11 @@ img[alt~="center"] {
 	margin: 0 auto;
 }
 
+/* Color of the slide numbers. */
+section::after {
+	color: #007ea5;
+}
+
 /* A custom slide style for new chapters in the presentation.
  * To use, say something like:
  *
@@ -162,6 +167,11 @@ section.chapter a:visited {
 	font-weight: bold;
 }
 
+/* Skip slide number on chapter pages. */
+section.chapter::after {
+	display: none;
+}
+
 /* Tune the title ("lead") page
  *
  * <!-- _class: lead -->
@@ -169,6 +179,11 @@ section.chapter a:visited {
  */
 section.lead {
 	font-size: 2.5em;
+}
+
+/* Skip slide number on the title page. */
+section.lead::after {
+	display: none;
 }
 
 /* A slide style with most text being smaller:
