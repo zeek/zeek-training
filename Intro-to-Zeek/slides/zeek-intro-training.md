@@ -38,7 +38,7 @@ Zeek project tech lead
 
 An engineer at Corelight
 
-Recovering academic, Cambridge PhD
+Recovering academic
 
 </div>
 </div>
@@ -302,31 +302,11 @@ do you see?
 
 ---
 
-# Providing script values to Zeek
-
-At startup, Zeek loads a lot of script code. That code includes many **tunable
-constants**. Adjusting such constants is called a `redef` in Zeek. You can redef
-values at the command line.
-
-```console
-# zeek -r ../traces/http-basic-auth.pcap HTTP::default_capture_password=T
-```
-
-<div class="exercise">
-
-Exercise: run the above with and without the redef. What do you notice in
-`http.log`?
-
-<!-- With the redef, the password column is populated. -->
-
-</div>
-
----
-
 # Loading custom scripts
 
-Another way to customize Zeek is by loading additional functionality into
-it. Zeek ships with a lot of optional functionality, called **policy scripts**.
+You can customize Zeek by loading additional functionality into it. Zeek ships
+with a lot of optional functionality, called **policy scripts**. You can also
+write your own, of course.
 
 ```console
 # zeek -r ../traces/http-basic-auth.pcap protocols/http/software.zeek
@@ -338,6 +318,33 @@ Exercise: run the above with and without the added script. What do you notice in
 the logs?
 
 <!-- Zeek generates an additional log, `software.log`, that mentions the browser. -->
+
+</div>
+
+---
+
+# Overriding script values
+
+At startup Zeek loads a lot of script code, including many **tunable
+constants**. Adjusting such constants is called a `redef`. You can redef
+values at the command line:
+
+```console
+# zeek -r ../traces/http-basic-auth.pcap HTTP::default_capture_password=T
+```
+
+<div class="exercise">
+
+Exercise: run the above with and without the redef. What do you notice in
+`http.log`?
+
+<!-- With the redef, the password column is populated. One way to highlight
+the changed column is `git diff --word-diff --no-index ...`.
+
+Also, all the connection UIDs have changed, since the seeds aren't pinned.
+You can do so by adding `-G /usr/local/zeek/share/btest/data/random.seed`
+or running `zeek -H random.seed`.
+-->
 
 </div>
 
@@ -379,7 +386,7 @@ each transaction's flow tuple and URI.
 
 # JSON logs and jq
 
-You can switch Zeek to logging in JSON. The result is JSONL files: per-line JSON
+You can switch Zeek to logging in JSON. The result is **JSONL**: per-line JSON
 objects. Zeek does *not* (by default) dump a single all-in-one JSON log.
 
 ```console
@@ -540,8 +547,11 @@ The UID is your key for pivoting from log to log.
 <div class="columns">
 <div>
 
+<!-- The trailing whitespace in the following is intentional,
+to get equal font size in both console blocks. -->
+
 ```console
-# cat http.log | jq '{uid, host}'                        
+# cat http.log | jq '{uid, host, method}'                 
 {
   "uid": "Cy8o9R3BmBbAEo09d9",
   "host": "zeek.org",
@@ -765,7 +775,7 @@ format.
 Exercise: create network traffic via `curl`, `ping`, etc. Examine the
 logs. Which new ones do you spot?
 
-Stop the cluster to trigger log finalization.
+Stop the cluster via `zeekctl stop` to trigger log finalization.
 
 <!-- Examples include stats.log, stderr/stdout.log, loaded_scripts, etc. -->
 
@@ -815,22 +825,33 @@ Almost everything in Zeek is pluggable or extensible.
 
 ---
 
-# Working with a package: **logschema**
+<!-- _class: smaller -->
 
-This package provides Zeek scripts that generate log schemas for your specific
-Zeek installation.
+# The **emudhra-weak-keys** package
+
+This package uses Zeek's
+[notice framework](https://docs.zeek.org/en/current/frameworks/notice.html)
+to add detections for compromised TSL certificates by the eMudhra intermediate CA.
 
 <div class="exercise">
 
-Exercise: install the logschema package by saying `zkg install logschema`.
-
-Then, run the following in the scratch space:
+Exercise: first, install the package.
 
 ```console
-zeek logschema/export/jsonschema
+# zkg install emudhra-weak-keys
 ```
 
-Take a look at your local directory now. What do you find?
+Run the following pcap in the scratch space:
+
+```console
+# zeek -r ../traces/emudhra.pcap tuning/json-logs
+```
+
+Repeat with the installed package, and compare your logs:
+
+```console
+# zeek -r emudhra.pcap tuning/json-logs emudhra-weak-keys
+```
 
 </div>
 
@@ -846,7 +867,7 @@ Take a look at your local directory now. What do you find?
 
 **Log writers:** [zeek-kafka](https://github.com/SeisoLLC/zeek-kafka), [zeek-log-writer-nats](https://github.com/corelight/zeek-log-writer-nats)
 
-**Miscellaneous:** [zeek-fuzzy-hashing](https://github.com/J-Gras/zeek-fuzzy-hashing), [zeek-perf-support](https://github.com/zeek/zeek-perf-support.git), [zeek-xdp](https://github.com/zeek/zeek-xdp)
+**Miscellaneous:** [logschema](https://github.com/zeek/logschema), [zeek-fuzzy-hashing](https://github.com/J-Gras/zeek-fuzzy-hashing), [zeek-xdp](https://github.com/zeek/zeek-xdp)
 
 ---
 
@@ -861,8 +882,8 @@ Take a look at your local directory now. What do you find?
 or live, you'll learn something immediately. Try your home network!
 
 **Explore Zeek scripting.** Nothing beats writing [your own
-scripts](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html).
-to unlock Zeek. Check out [try.zeek.org](https://try.zeek.org). Btw, you can [use
+scripts](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html)
+to unlock Zeek. Check out [try.zeek.org](https://try.zeek.org). You can [use
 JavaScript](https://docs.zeek.org/en/current/tutorial/scripting/javascript.html),
 too!
 
