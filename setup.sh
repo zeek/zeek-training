@@ -75,6 +75,12 @@ apt-get update -qq && apt-get install -qq -y --no-install-recommends \
     vim \
     wget
 
+# Debian: uncomment the completion-enabling block that should be in /etc/bash.bashrc:
+if grep -q '^# enable bash completion' /etc/bash.bashrc; then
+    sed -i '/^# enable bash completion/,/^#fi/ { /^# enable bash completion/! s/^#// }' /etc/bash.bashrc
+    sed -i '/^# enable bash completion/ { s/enable/enabled/ }' /etc/bash.bashrc
+fi
+
 # A more useful prompt
 echo 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >> /etc/bash.bashrc
 echo 'export PREFIX=/usr/local/zeek' >> /etc/bash.bashrc
