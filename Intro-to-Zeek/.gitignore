@@ -1,0 +1,4 @@
+*.html
+*.pdf
+scratch/*
+node_modules/
