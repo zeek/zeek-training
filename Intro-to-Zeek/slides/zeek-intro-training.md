@@ -311,7 +311,7 @@ with a lot of optional functionality, called **policy scripts**. You can also
 write your own, of course.
 
 ```console
-# zeek -r ../traces/http-basic-auth.pcap protocols/http/software.zeek
+# zeek -r ../traces/http.pcap protocols/http/software.zeek
 ```
 
 <div class="exercise">
@@ -332,7 +332,7 @@ constants**. Adjusting such constants is called a `redef`. You can redef
 values at the command line:
 
 ```console
-# zeek -r ../traces/http-basic-auth.pcap HTTP::default_capture_password=T
+# zeek -r ../traces/http.pcap HTTP::default_capture_password=T
 ```
 
 <div class="exercise">
