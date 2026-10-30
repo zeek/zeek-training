@@ -212,9 +212,15 @@ section.smaller pre {
 	color: #6f573c;
 	font-size: 1em;
 }
+
 .exercise h5 {
 	color: #6f573c;
 	font-size: 0.9em;
+}
+
+/* Match the color of inline code to its surroundings. */
+.exercise p code {
+	color: #cc6900;
 }
 
 /*!
