@@ -1,3 +1,0 @@
-#fields	indicator	indicator_type	meta.source	meta.desc	meta.url	meta.do_notice
-scanservice1.qg2.apps.qualys.com	Intel::DOMAIN	Qualys	scanner	https://qualys.com	T
-10.110.9.253	Intel::ADDR	malwareIOCs	scanner-IP	https://phishtank.com	T

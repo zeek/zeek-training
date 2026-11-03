@@ -1,15 +1,27 @@
-Introduction to real-world Zeek Deployment
-==========================================
+# Development
 
-The slides accompanying this training are available [here](https://docs.google.com/presentation/d/1cfscGrat-abDkdNJU_s4PHqAkOqs_iG6/edit?slide=id.g12925a13aa0_1_70#slide=id.g12925a13aa0_1_70).
+The slide content is in `slides/zeek-intro-training.md`.
 
-This training assumes you have familiarity with Docker and can work with a
-Docker container running the latest Zeek LTS release, available from
+To generate the presentation content first install dependencies with
 
-https://hub.docker.com/u/zeek
+```console
+npm ci
+```
 
-via "docker run -it zeek/zeek:lts". Clone this repository in the container to
-get started. The setup.sh script prepares additional needed tooling for the
-various exercises.
+and then generate the HTML with
 
+```console
+npm run build
+```
 
+To build a PDF version, instead use
+
+```console
+npm run pdf
+```
+
+For live updates during development you can use
+
+```console
+npm run watch
+```
