@@ -109,14 +109,14 @@ individual sweet-spot between full packet capture, Netflow, and alert logs.
 
 # Zeek is **three things**
 
-- **A DPI engine:** in-depth, stateful parsing of every packet. This parsing
-  creates *events*.
+- **A deep packet inspection (DPI) engine:** in-depth, stateful parsing of every packet. This parsing
+  *creates events*.
 
 - **A distributed event-based system:** topic-based publish/subscribe
-  *communication* of these events across Zeek.
+  *communicates these events* across Zeek.
 
-- **A scripting language:** a domain-specific language that *handles* these
-  events to write logs, enrich them, or communicate them to third parties.
+- **A scripting language:** a domain-specific language that *handles these
+  events* to write logs, enrich them, or communicate them to third parties.
 
 ---
 
@@ -267,7 +267,7 @@ so the absolute basics are enough here.  -->
 
 # Processing live traffic
 
-Zeek does not wipe logs at startup, so remove them:
+Zeek does not wipe logs at startup, so always remove them:
 
 ```console
 # rm -f *.log
@@ -387,10 +387,19 @@ each transaction's flow tuple and URI.
 
 <!-- _class: smaller -->
 
+<style scoped>
+pre {
+  font-size: 80%;
+}
+</style>
+
 # JSON logs and jq
 
-You can switch Zeek to logging in JSON. The result is **JSONL**: per-line JSON
-objects. Zeek does *not* (by default) dump a single all-in-one JSON log.
+You can switch Zeek to JSON logs. The result is **JSONL**: per-line JSON
+objects. Zeek does *not* write a single all-in-one JSON log by default.
+
+`jq` is a powerful [JSON filter](https://jqlang.org/manual/) that's great for
+processing Zeek logs.
 
 ```console
 # zeek -r ../traces/quickstart.pcap tuning/json-logs
@@ -654,9 +663,9 @@ installations to **scale as needed**.
 
 - **Workers:** run DPI stack, propagate state, and create log writes.
 
-- **Proxies:** distributed state-keepers --- a bit like DB shards.
+- **Proxies:** distributed state-keepers. A bit like DB shards.
 
-- **Loggers:** one or more per cluster, handle log message output.
+- **Loggers:** handle log message output. Usually one per cluster.
 
 ---
 
