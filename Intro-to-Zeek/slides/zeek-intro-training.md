@@ -1,4 +1,5 @@
 ---
+
 theme: zeek
 paginate: true
 ---
@@ -13,7 +14,7 @@ paginate: true
 
 ## A Zeek training
 
-*Nullcon Berlin, 2026* <!-- rumdl-disable-line MD036 -->
+_Nullcon Berlin, 2026_ <!-- rumdl-disable-line MD036 -->
 
 ---
 
@@ -71,27 +72,27 @@ collect evidence. A network flight recorder!
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-1.png)
+![bg w:90%](./images/log-vol-vs-fidelity-1.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-2.png)
+![bg w:90%](./images/log-vol-vs-fidelity-2.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-3.png)
+![bg w:90%](./images/log-vol-vs-fidelity-3.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-4.png)
+![bg w:90%](./images/log-vol-vs-fidelity-4.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-5.png)
+![bg w:90%](./images/log-vol-vs-fidelity-5.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-6.png)
+![bg w:90%](./images/log-vol-vs-fidelity-6.png)
 
 ---
 
@@ -109,18 +110,18 @@ individual sweet-spot between full packet capture, Netflow, and alert logs.
 
 # Zeek is **three things**
 
-- **A deep packet inspection (DPI) engine:** in-depth, stateful parsing of every packet. This parsing
-  *creates events*.
+- **A deep packet inspection (DPI) engine:** in-depth, stateful parsing of every
+  packet. This parsing _creates events_.
 
 - **A distributed event-based system:** topic-based publish/subscribe
-  *communicates these events* across Zeek.
+  _communicates these events_ across Zeek.
 
-- **A scripting language:** a domain-specific language that *handles these
-  events* to write logs, enrich them, or communicate them to third parties.
+- **A scripting language:** a domain-specific language that _handles these
+  events_ to write logs, enrich them, or communicate them to third parties.
 
 ---
 
-![bg h:90%](images/zeek-arch-detailed.png)
+![bg h:90%](./images/zeek-arch-detailed.png)
 
 ---
 
@@ -396,7 +397,7 @@ pre {
 # JSON logs and jq
 
 You can switch Zeek to JSON logs. The result is **JSONL**: per-line JSON
-objects. Zeek does *not* write a single all-in-one JSON log by default.
+objects. Zeek does _not_ write a single all-in-one JSON log by default.
 
 `jq` is a powerful [JSON filter](https://jqlang.org/manual/) that's great for
 processing Zeek logs.
@@ -496,22 +497,22 @@ p { font-size: 80% }
 # cat conn.log | jq
 ```
 
-| History Letter | Meaning |
-| :---:  | :---    |
-| s      | a SYN w/o the ACK bit set |
-| h      | a SYN+ACK ("handshake") |
-| a      | a pure ACK |
-| d      | packet with payload ("data") |
-| f      | packet with FIN bit set |
-| r      | packet with RST bit set |
-| c      | packet with a bad checksum (applies to UDP too) |
-| g      | a content gap |
-| t      | packet with retransmitted payload |
-| w      | packet with a zero window advertisement |
-| i      | inconsistent packet (e.g. FIN+RST bits set) |
-| q      | multi-flag packet (SYN+FIN or SYN+RST bits set) |
-| ^      | connection direction was flipped |
-| x      | connection analysis partial (e.g. limits exceeded) |
+| History Letter | Meaning                                            |
+| :------------: | :------------------------------------------------- |
+|       s        | a SYN w/o the ACK bit set                          |
+|       h        | a SYN+ACK ("handshake")                            |
+|       a        | a pure ACK                                         |
+|       d        | packet with payload ("data")                       |
+|       f        | packet with FIN bit set                            |
+|       r        | packet with RST bit set                            |
+|       c        | packet with a bad checksum (applies to UDP too)    |
+|       g        | a content gap                                      |
+|       t        | packet with retransmitted payload                  |
+|       w        | packet with a zero window advertisement            |
+|       i        | inconsistent packet (e.g. FIN+RST bits set)        |
+|       q        | multi-flag packet (SYN+FIN or SYN+RST bits set)    |
+|       ^        | connection direction was flipped                   |
+|       x        | connection analysis partial (e.g. limits exceeded) |
 
 </div>
 <div>
@@ -594,7 +595,7 @@ to get equal font size in both console blocks. -->
 </div>
 </div>
 
-The UID is a hashed counter. It's *not* based on the flow tuple.
+The UID is a hashed counter. It's _not_ based on the flow tuple.
 
 <div class="exercise">
 
@@ -669,15 +670,15 @@ installations to **scale as needed**.
 
 ---
 
-![bg 20%](images/zeek-cluster-1.png)
+![bg 20%](./images/zeek-cluster-1.png)
 
 ---
 
-![bg w:80%](images/zeek-cluster-2.png)
+![bg w:80%](./images/zeek-cluster-2.png)
 
 ---
 
-![bg w:80%](images/zeek-cluster-3.png)
+![bg w:80%](./images/zeek-cluster-3.png)
 
 ---
 
@@ -867,7 +868,7 @@ Run the following pcap in the scratch space:
 Repeat with the installed package, and compare your logs:
 
 ```console
-# zeek -r emudhra.pcap tuning/json-logs emudhra-weak-keys
+# zeek -r ../traces/emudhra.pcap tuning/json-logs emudhra-weak-keys
 ```
 
 </div>
