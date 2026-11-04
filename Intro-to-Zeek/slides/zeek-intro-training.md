@@ -867,7 +867,7 @@ Run the following pcap in the scratch space:
 Repeat with the installed package, and compare your logs:
 
 ```console
-# zeek -r emudhra.pcap tuning/json-logs emudhra-weak-keys
+# zeek -r ../traces/emudhra.pcap tuning/json-logs emudhra-weak-keys
 ```
 
 </div>
