@@ -71,27 +71,27 @@ collect evidence. A network flight recorder!
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-1.png)
+![bg w:90%](./images/log-vol-vs-fidelity-1.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-2.png)
+![bg w:90%](./images/log-vol-vs-fidelity-2.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-3.png)
+![bg w:90%](./images/log-vol-vs-fidelity-3.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-4.png)
+![bg w:90%](./images/log-vol-vs-fidelity-4.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-5.png)
+![bg w:90%](./images/log-vol-vs-fidelity-5.png)
 
 ---
 
-![bg w:90%](images/log-vol-vs-fidelity-6.png)
+![bg w:90%](./images/log-vol-vs-fidelity-6.png)
 
 ---
 
@@ -120,7 +120,7 @@ individual sweet-spot between full packet capture, Netflow, and alert logs.
 
 ---
 
-![bg h:90%](images/zeek-arch-detailed.png)
+![bg h:90%](./images/zeek-arch-detailed.png)
 
 ---
 
@@ -669,15 +669,15 @@ installations to **scale as needed**.
 
 ---
 
-![bg 20%](images/zeek-cluster-1.png)
+![bg 20%](./images/zeek-cluster-1.png)
 
 ---
 
-![bg w:80%](images/zeek-cluster-2.png)
+![bg w:80%](./images/zeek-cluster-2.png)
 
 ---
 
-![bg w:80%](images/zeek-cluster-3.png)
+![bg w:80%](./images/zeek-cluster-3.png)
 
 ---
 
