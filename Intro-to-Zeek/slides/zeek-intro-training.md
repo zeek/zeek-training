@@ -109,8 +109,8 @@ individual sweet-spot between full packet capture, Netflow, and alert logs.
 
 # Zeek is **three things**
 
-- **A deep packet inspection (DPI) engine:** in-depth, stateful parsing of every packet. This parsing
-  *creates events*.
+- **A deep packet inspection (DPI) engine:** in-depth, stateful parsing of every
+  packet. This parsing *creates events*.
 
 - **A distributed event-based system:** topic-based publish/subscribe
   *communicates these events* across Zeek.
