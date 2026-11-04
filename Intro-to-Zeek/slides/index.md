@@ -18,6 +18,16 @@ _Nullcon Berlin, 2026_ <!-- rumdl-disable-line MD036 -->
 
 ---
 
+<!-- _class: chapter -->
+
+These slides are available at
+
+<https://zeek.github.io/zeek-training>
+
+<https://zeek.github.io/zeek-training/index.pdf>
+
+---
+
 # About us
 
 <div class="columns">

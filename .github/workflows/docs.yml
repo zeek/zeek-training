@@ -33,6 +33,7 @@ jobs:
       - run: |
           cd Intro-to-Zeek/
           npm run build
+          npm run pdf
 
       - name: Upload docs
         id: deployment
