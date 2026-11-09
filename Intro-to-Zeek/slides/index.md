@@ -930,11 +930,11 @@ it. It's easier than you think!
 Official documentation<br>
 <https://docs.zeek.org>
 
-Github project<br>
-<https://github.com/zeek>
-
 Main repository<br>
 <https://github.com/zeek/zeek>
+
+Community channels<br>
+<https://zeek.org/community/>
 
 Project wiki<br>
 <https://github.com/zeek/zeek/wiki>
