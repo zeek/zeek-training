@@ -20,6 +20,21 @@ setup_tutorial() {
     ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/tutorial/" "$(pwd)/scripts/tutorial"
 }
 
+setup_intro_to_zeek() {
+    local seedfile
+    seedfile="$(zeek-config --script_dir)/tests/random.seed"
+
+    if [ -f "$seedfile" ]; then
+        {
+            echo
+            echo '# Pin the seeds for repeatable logs'
+            echo "export ZEEK_SEED_FILE=$seedfile"
+        } >>$BASHRC
+    else
+        echo "Warning: Zeek seed file missing, seeds remain unpinned."
+    fi
+}
+
 usage() {
     echo "Usage: $0 [tutorial|intro-to-zeek]"
 }
@@ -92,7 +107,7 @@ for item in "${SELECTED[@]}"; do
             setup_tutorial
             ;;
         intro-to-zeek)
-            # Nothing for now
+            setup_intro_to_zeek
             ;;
         *)
             echo "Unknown setup target: $item"

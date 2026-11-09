@@ -354,10 +354,6 @@ Exercise: run the above with and without the redef. What do you notice in
 
 <!-- With the redef, the password column is populated. One way to highlight
 the changed column is `git diff --word-diff --no-index ...`.
-
-Also, all the connection UIDs have changed, since the seeds aren't pinned.
-You can do so by adding `-G /usr/local/zeek/share/btest/data/random.seed`
-or running `zeek -H random.seed`.
 -->
 
 </div>
@@ -612,7 +608,12 @@ The UID is a hashed counter. It's _not_ based on the flow tuple.
 Exercise: process `quickstart.pcap` into TSV logs. Pick the first `conn.log`
 entry. In which logs do you see this connection come up?
 
-<!-- uid=$(cat conn.log | zeek-cut uid | head -1)
+<!--
+     Time-permitting, explain seeds, -G/-H, and ZEEK_SEED_FILE
+     to obtain repeatable IDs.
+
+     For the exercise:
+     uid=$(cat conn.log | zeek-cut uid | head -1)
      grep $uid *.log
 
      -> Three: conn.log, http.log, files.log.
