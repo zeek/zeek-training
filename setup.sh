@@ -3,51 +3,51 @@
 ALL_TARGETS=("tutorial" "intro-to-zeek")
 
 setup_tutorial() {
-  echo "Cloning Zeek source code"
-  # TODO: This should change to the first release with the changes.
-  git clone https://github.com/zeek/zeek.git
-  echo
-  echo
-  echo "Cloning example RCE detection source code"
-  git clone https://github.com/zeek/redis-rce
+    echo "Cloning Zeek source code"
+    # TODO: This should change to the first release with the changes.
+    git clone https://github.com/zeek/zeek.git
+    echo
+    echo
+    echo "Cloning example RCE detection source code"
+    git clone https://github.com/zeek/redis-rce
 
-  mkdir -p traces scripts misc
+    mkdir -p traces scripts misc
 
-  ln -sfn $(pwd)/zeek/testing/btest/Traces/ $(pwd)/traces/zeek-testing
-  ln -sfn $(pwd)/zeek/doc/traces/ $(pwd)/traces/zeek-doc
-  ln -sfn $(pwd)/zeek/doc/tutorial/scripting/scripts/ $(pwd)/scripts/basics
-  ln -sfn $(pwd)/zeek/doc/tutorial/scripting/tutorial/ $(pwd)/scripts/tutorial
+    ln -sfn "$(pwd)/zeek/testing/btest/Traces/" "$(pwd)/traces/zeek-testing"
+    ln -sfn "$(pwd)/zeek/doc/traces/" "$(pwd)/traces/zeek-doc"
+    ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/scripts/" "$(pwd)/scripts/basics"
+    ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/tutorial/" "$(pwd)/scripts/tutorial"
 }
 
 usage() {
-  echo "Usage: $0 [tutorial|intro-to-zeek]"
+    echo "Usage: $0 [tutorial|intro-to-zeek]"
 }
 
 # If no arguments, show usage
 if [ $# -eq 0 ]; then
-  usage
-  exit 0
+    usage
+    exit 0
 fi
 
 SELECTED=()
 for arg in "$@"; do
-  SELECTED+=("$arg")
+    SELECTED+=("$arg")
 done
 
 # Validate all entries before doing any setup
 for item in "${SELECTED[@]}"; do
-  FOUND=0
-  for valid in "${ALL_TARGETS[@]}"; do
-    if [[ "$item" == "$valid" ]]; then
-      FOUND=1
-      break
+    FOUND=0
+    for valid in "${ALL_TARGETS[@]}"; do
+        if [[ "$item" == "$valid" ]]; then
+            FOUND=1
+            break
+        fi
+    done
+    if [[ $FOUND -eq 0 ]]; then
+        echo "Unknown setup target: $item"
+        usage
+        exit 1
     fi
-  done
-  if [[ $FOUND -eq 0 ]]; then
-    echo "Unknown setup target: $item"
-    usage
-    exit 1
-  fi
 done
 
 # Everything below happens regardless of the input
@@ -82,22 +82,22 @@ if grep -q '^# enable bash completion' /etc/bash.bashrc; then
 fi
 
 # A more useful prompt
-echo 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >> /etc/bash.bashrc
-echo 'export PREFIX=/usr/local/zeek' >> /etc/bash.bashrc
+printf 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >>/etc/bash.bashrc
+echo 'export PREFIX=/usr/local/zeek' >>/etc/bash.bashrc
 
 for item in "${SELECTED[@]}"; do
-  case "$item" in
-    tutorial)
-      setup_tutorial
-      ;;
-    intro-to-zeek)
-      # Nothing for now
-      ;;
-    *)
-      echo "Unknown setup target: $item"
-      usage
-      ;;
-  esac
+    case "$item" in
+        tutorial)
+            setup_tutorial
+            ;;
+        intro-to-zeek)
+            # Nothing for now
+            ;;
+        *)
+            echo "Unknown setup target: $item"
+            usage
+            ;;
+    esac
 done
 
 echo

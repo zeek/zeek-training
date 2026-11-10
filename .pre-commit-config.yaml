@@ -1,6 +1,17 @@
 repos:
   - repo: https://github.com/biomejs/pre-commit
-    rev: eb45ebf3cb7c3a872b3ff0814883e8ab81fc451f # frozen: v2.6.4
+    rev: 2a24170fd6adbd6fb1463868533368fe9c01a04d # frozen: v2.6.6
     hooks:
       - id: biome-lint
       - id: biome-format
+
+  - repo: https://github.com/maxwinterstein/shfmt-py
+    rev: 259c873d8ebd3f0c90052cf29b5cb829391bc1b3 # frozen: v4.2.0
+    hooks:
+      - id: shfmt
+        args: ["-w", "-i", "4", "-ci"]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: a6564f5d57444e123433a5c9af733e3975c77229 # frozen: v0.11.0.1-1
+    hooks:
+      - id: shellcheck
