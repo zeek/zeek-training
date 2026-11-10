@@ -13,10 +13,10 @@ setup_tutorial() {
 
     mkdir -p traces scripts misc
 
-    ln -sfn $(pwd)/zeek/testing/btest/Traces/ $(pwd)/traces/zeek-testing
-    ln -sfn $(pwd)/zeek/doc/traces/ $(pwd)/traces/zeek-doc
-    ln -sfn $(pwd)/zeek/doc/tutorial/scripting/scripts/ $(pwd)/scripts/basics
-    ln -sfn $(pwd)/zeek/doc/tutorial/scripting/tutorial/ $(pwd)/scripts/tutorial
+    ln -sfn "$(pwd)/zeek/testing/btest/Traces/" "$(pwd)/traces/zeek-testing"
+    ln -sfn "$(pwd)/zeek/doc/traces/" "$(pwd)/traces/zeek-doc"
+    ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/scripts/" "$(pwd)/scripts/basics"
+    ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/tutorial/" "$(pwd)/scripts/tutorial"
 }
 
 usage() {
@@ -82,7 +82,7 @@ if grep -q '^# enable bash completion' /etc/bash.bashrc; then
 fi
 
 # A more useful prompt
-echo 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >>/etc/bash.bashrc
+printf 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >>/etc/bash.bashrc
 echo 'export PREFIX=/usr/local/zeek' >>/etc/bash.bashrc
 
 for item in "${SELECTED[@]}"; do
