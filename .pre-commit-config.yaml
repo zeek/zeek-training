@@ -4,3 +4,9 @@ repos:
     hooks:
       - id: biome-lint
       - id: biome-format
+
+  - repo: https://github.com/maxwinterstein/shfmt-py
+    rev: 259c873d8ebd3f0c90052cf29b5cb829391bc1b3 # frozen: v4.2.0
+    hooks:
+      - id: shfmt
+        args: ["-w", "-i", "4", "-ci"]
