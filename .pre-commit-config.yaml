@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/biomejs/pre-commit
-    rev: eb45ebf3cb7c3a872b3ff0814883e8ab81fc451f # frozen: v2.6.4
+    rev: 2a24170fd6adbd6fb1463868533368fe9c01a04d # frozen: v2.6.6
     hooks:
       - id: biome-lint
       - id: biome-format
