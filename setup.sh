@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ALL_TARGETS=("tutorial" "intro-to-zeek")
+BASHRC=/etc/bash.bashrc
 
 setup_tutorial() {
     echo "Cloning Zeek source code"
@@ -17,6 +18,21 @@ setup_tutorial() {
     ln -sfn "$(pwd)/zeek/doc/traces/" "$(pwd)/traces/zeek-doc"
     ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/scripts/" "$(pwd)/scripts/basics"
     ln -sfn "$(pwd)/zeek/doc/tutorial/scripting/tutorial/" "$(pwd)/scripts/tutorial"
+}
+
+setup_intro_to_zeek() {
+    local seedfile
+    seedfile="$(zeek-config --script_dir)/tests/random.seed"
+
+    if [ -f "$seedfile" ]; then
+        {
+            echo
+            echo '# Pin the seeds for repeatable logs'
+            echo "export ZEEK_SEED_FILE=$seedfile"
+        } >>$BASHRC
+    else
+        echo "Warning: Zeek seed file missing, seeds remain unpinned."
+    fi
 }
 
 usage() {
@@ -76,14 +92,14 @@ apt-get update -qq && apt-get install -qq -y --no-install-recommends \
     wget
 
 # Debian: uncomment the completion-enabling block that should be in /etc/bash.bashrc:
-if grep -q '^# enable bash completion' /etc/bash.bashrc; then
-    sed -i '/^# enable bash completion/,/^#fi/ { /^# enable bash completion/! s/^#// }' /etc/bash.bashrc
-    sed -i '/^# enable bash completion/ { s/enable/enabled/ }' /etc/bash.bashrc
+if grep -q '^# enable bash completion' $BASHRC; then
+    sed -i '/^# enable bash completion/,/^#fi/ { /^# enable bash completion/! s/^#// }' $BASHRC
+    sed -i '/^# enable bash completion/ { s/enable/enabled/ }' $BASHRC
 fi
 
 # A more useful prompt
-printf 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >>/etc/bash.bashrc
-echo 'export PREFIX=/usr/local/zeek' >>/etc/bash.bashrc
+printf 'export PS1="\[\033[1;32m\]\u@zeek-tutorial\[\033[0;34m\]:\w\[\033[0m\] \\$ "' >>$BASHRC
+echo 'export PREFIX=/usr/local/zeek' >>$BASHRC
 
 for item in "${SELECTED[@]}"; do
     case "$item" in
@@ -91,7 +107,7 @@ for item in "${SELECTED[@]}"; do
             setup_tutorial
             ;;
         intro-to-zeek)
-            # Nothing for now
+            setup_intro_to_zeek
             ;;
         *)
             echo "Unknown setup target: $item"
